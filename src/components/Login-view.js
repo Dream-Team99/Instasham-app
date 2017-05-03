@@ -22,16 +22,16 @@ export class Login extends Component{
                 this.setState({profile: result.json,
                     token: this.state.token});
             });
-            this.props.history.push('/Profile')
+            this.props.history.push('/Home')
         }
 
     }
 
     render(){
         return(
-            <View style={styles.loginScreen}>
+            <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={require('./logo.png')} />
+                    <Image source={require('./images/logo.png')} />
                 </View>
                 <Button onPress={this.login.bind(this)} title="Login with Facebook" />
             </View>
@@ -39,10 +39,9 @@ export class Login extends Component{
     }
 }
 const styles = StyleSheet.create({
-    loginScreen:{
-        marginTop: 95,
+    container:{
+      flex:1,
         justifyContent: 'space-around',
-        height: 200
     },
     header:{
         alignItems: 'center'

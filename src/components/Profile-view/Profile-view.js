@@ -1,56 +1,29 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {Link} from  'react-router-native';
 import {connect} from 'react-redux';
-
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import Header from "../Header-nav.js"
+import Bottom from "../Bottom-nav"
+import User from "./subcomponents/User-box"
+import Photos from "./subcomponents/User-photos"
 
 class Profile extends Component{
     render(){
-        // console.log(this.props.state.profile.picture.data)
         return(
-            <View style={styles.pageView}>
-                <View style={styles.fullProfile}>
-                    <View style={styles.profileImageAndName}>
-                        <Image style={styles.image} source={{uri: this.props.state.profile.picture.data.url}} />
-                        <Text style={styles.name}>{this.props.state.profile.name}</Text>
-                    </View>
-                    <View style={styles.stuff}>
-                        <Link><Text>posts</Text></Link>
-                        <Link><Text>followers</Text></Link>
-                        <Link><Text>following</Text></Link>
-                    </View>
-                </View>
+            <View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+            }}>
+                <Header/>
+                    <User />
+                <ScrollView >
+                    <Photos/>
+                </ScrollView>
+                <Bottom/>
             </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    pageView:{
-      marginTop: 50
-    },
-    fullProfile:{
-        flexDirection: 'row',
-    },
-    profileImageAndName:{
-        flexDirection: 'column',
-        justifyContent: 'space-around'
-    },
-    name: {
-        fontSize: 18,
-        textAlign: 'center',
-    },
-    image:{
-        width: 75,
-        height: 75,
-        borderRadius: 40
-    },
-    stuff:{
-        flexDirection: 'row',
-        justifyContent: "space-around",
-        alignItems: 'center'
-    }
-});
 
 function mapStateToProps(state) {
     return{
@@ -59,3 +32,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Profile)
+
+
