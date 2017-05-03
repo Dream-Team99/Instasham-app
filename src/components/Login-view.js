@@ -1,14 +1,24 @@
 import React, {Component} from 'react';
-import {View, TextInput, Text,Image, StyleSheet, Button, Alert} from 'react-native';
-import Expo, {Constants, Facebook} from 'expo'
+import {View,Image, StyleSheet, Button, Alert, Text} from 'react-native';
+import {connect} from 'react-redux';
+import Expo, { Facebook} from 'expo'
+import {getProfile} from '../reducers/profileReducer';
 
-export default class Login extends Component{
-    state = {profile: ''}
-
+export class Login extends Component{
+    state = {profile: ''};
+    login(){
+        this.props.getProfile()
+        //this.props.history.push('/Profile')
+    }
+    componentWillReceiveProps(newProps){
+        if(newProps.state.profile){
+           this.props.history.push('/Profile')
+        }
+    }
     componentDidMount(){
-        console.log('checking token', this.state.token)
-        if(this.props.token){
-            fetch(`https://graph.facebook.com/me?access_token=${this.props.token}`).then(result =>{
+        // console.log('checking token', this.state.token)
+        if(this.state.token){
+            fetch(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${this.state.token}`).then(result =>{
                 this.setState({profile: result.json,
                     token: this.state.token});
             });
@@ -17,69 +27,31 @@ export default class Login extends Component{
 
     }
 
-    _handleFacebookLogin = async () => {
-        if(!this.state.token) {
-            try {
-                const {type, token} = await Facebook.logInWithReadPermissionsAsync(
-                    '1025828367561659', // Replace with your own app id in standalone app
-                    {permissions: ['public_profile']}
-                );
-
-                switch (type) {
-                    case 'success': {
-                        // Get the user's name using Facebook's Graph API
-                        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-                        const profile = await response.json();
-                        this.setState({
-                            profile: profile,
-                            token: token
-                        });
-                        this.props.history.push('/Profile')
-                        // console.log(profile);
-                        break;
-                    }
-                    case 'cancel': {
-                        Alert.alert(
-                            'Cancelled!',
-                            'Login was cancelled!',
-                        );
-                        break;
-                    }
-                    default: {
-                        Alert.alert(
-                            'Oops!',
-                            'Login failed!',
-                        );
-                    }
-                }
-            } catch (e) {
-                Alert.alert(
-                    'Oops!',
-                    'Login failed!',
-                );
-            }
-        }else {
-            this.props.history.push('/Profile')
-        }
-    };
     render(){
         return(
-            <View style={styles.buttons}>
+            <View style={styles.loginScreen}>
                 <View style={styles.header}>
                     <Image source={require('./logo.png')} />
                 </View>
-                <Button style={styles.buttons} onPress={this._handleFacebookLogin} title="Login with Facebook" />
+                <Button onPress={this.login.bind(this)} title="Login with Facebook" />
             </View>
         )
     }
 }
 const styles = StyleSheet.create({
-    header:{
-        marginTop: 65,
-        alignItems: 'center'
+    loginScreen:{
+        marginTop: 95,
+        justifyContent: 'space-around',
+        height: 200
     },
-    buttons:{
-        justifyContent: 'space-around'
+    header:{
+        alignItems: 'center'
     }
 });
 
+function mapStateToProps(state) {
+    return{
+        state: state
+    }
+}
+export default connect(mapStateToProps, {getProfile})(Login)
