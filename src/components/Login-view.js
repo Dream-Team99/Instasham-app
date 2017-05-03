@@ -12,7 +12,7 @@ export default class Login extends Component{
                 this.setState({profile: result.json,
                     token: this.state.token});
             });
-            this.props.history.push('/Profile')
+            this.props.history.push('/Home')
         }
 
     }
@@ -34,7 +34,7 @@ export default class Login extends Component{
                             profile: profile,
                             token: token
                         });
-                        this.props.history.push('/Profile')
+                        this.props.history.push('/Home');
                         // console.log(profile);
                         break;
                     }
@@ -59,14 +59,14 @@ export default class Login extends Component{
                 );
             }
         }else {
-            this.props.history.push('/Profile')
+            this.props.history.push('/Home')
         }
     };
     render(){
         return(
-            <View style={styles.buttons}>
+            <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={require('./logo.png')} />
+                    <Image source={require('./images/logo.png')} />
                 </View>
                 <Button style={styles.buttons} onPress={this._handleFacebookLogin} title="Login with Facebook" />
             </View>
@@ -74,6 +74,10 @@ export default class Login extends Component{
     }
 }
 const styles = StyleSheet.create({
+    container:{
+      flex:1,
+        justifyContent: 'space-around',
+    },
     header:{
         marginTop: 65,
         alignItems: 'center'
