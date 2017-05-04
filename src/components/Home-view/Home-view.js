@@ -1,9 +1,11 @@
-
 import React from "react";
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import Header from "../Header-nav";
 import Bottom from "../Bottom-nav"
 import MainFeed from "./subcomponents/MainFeed";
+import Nav from '../Nav'
+import {connect} from 'react-redux'
+
 
 let dum = [{
     name: 'bo',
@@ -19,23 +21,25 @@ let dum = [{
     }
 ]
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
     render() {
         return (
-            <View>
-                <Header/>
+            <Nav>
                 <ScrollView style={styles.mainfeed}>
                    <MainFeed list={dum}/>
                 </ScrollView>
-                    <Bottom />
-            </View>
+            </Nav>
         );
     }
-}
-const styles = StyleSheet.create({
-    mainfeed:{
-        height:470
-    }
-});
 
+
+const styles = StyleSheet.create({
+	
+})
+
+export default connect( state=>({ 
+	redux: state
+}), {
+	// Imported Actions
+})(Home)
