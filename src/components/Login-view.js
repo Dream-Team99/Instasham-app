@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {View,Image, StyleSheet, Button, Alert, Text} from 'react-native';
+import {View,Image, StyleSheet, Button} from 'react-native';
 import {connect} from 'react-redux';
 import Expo, { Facebook} from 'expo'
-import {getProfile} from '../reducers/profileReducer';
+import {getProfile, checkToken} from '../reducers/profileReducer';
 
 export class Login extends Component{
     state = {profile: ''};
@@ -15,23 +15,21 @@ export class Login extends Component{
            this.props.history.push('/Profile')
         }
     }
+    componentWillMount(){
+    }
     componentDidMount(){
-        // console.log('checking token', this.state.token)
-        if(this.state.token){
-            fetch(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${this.state.token}`).then(result =>{
-                this.setState({profile: result.json,
-                    token: this.state.token});
-            });
-            this.props.history.push('/Home')
+        checkToken()
+        console.log('checking profile', this.props.state.profile);
+        if(this.props.state.profile){
+            this.props.history.push('/Profile')
         }
-
     }
 
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={require('./images/logo.png')} />
+                    <Image source={require('./images/logo_medium.png')} />
                 </View>
                 <Button onPress={this.login.bind(this)} title="Login with Facebook" />
             </View>
@@ -40,8 +38,9 @@ export class Login extends Component{
 }
 const styles = StyleSheet.create({
     container:{
-      flex:1,
-        justifyContent: 'space-around',
+        marginTop:80,
+        height: 200,
+        justifyContent: 'space-around'
     },
     header:{
         alignItems: 'center'
@@ -53,4 +52,4 @@ function mapStateToProps(state) {
         state: state
     }
 }
-export default connect(mapStateToProps, {getProfile})(Login)
+export default connect(mapStateToProps, {getProfile, checkToken})(Login)
