@@ -9,19 +9,13 @@ import Video from "expo/src/Video";
 
 class Profile extends Component{
 
-
-
-
-
-
-
     render(){
         // console.log('profile is', this.props.state.profile)
         return(
             <View style={styles.profile}>
                 <Header/>
                 <ScrollView style={styles.photos}>
-                {/*<User user={this.props.state.profile}/>*/}
+                <User user={this.props.state.profile}/>
                     {/*<Photos photos={this.props.state.userPhotos}/>*/}
                 </ScrollView>
 
