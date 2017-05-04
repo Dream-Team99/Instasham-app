@@ -1,47 +1,34 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
-import Header from "../Header-nav.js"
-import Bottom from "../Bottom-nav"
-import User from "./subcomponents/User-box"
-import Photos from "./subcomponents/User-photos"
-import Video from "expo/src/Video";
+import React, {Component} from 'react'
+import {Text, StyleSheet, AsyncStorage} from 'react-native'
+import {connect} from 'react-redux'
+import Nav from '../Nav'
 
 class Profile extends Component{
 
+	logout(){
+		AsyncStorage.removeItem('id').then(()=>{
+			this.props.history.push('/')
+		})
+	}
 
-
-
-
-
-
-    render(){
-        // console.log('profile is', this.props.state.profile)
-        return(
-            <View style={styles.profile}>
-                <Header/>
-                <ScrollView style={styles.photos}>
-                {/*<User user={this.props.state.profile}/>*/}
-                    {/*<Photos photos={this.props.state.userPhotos}/>*/}
-                </ScrollView>
-
-                <Bottom/>
-            </View>
-        )
-    }
+	render(){
+		return(
+			<Nav>
+				<Text>Profile Route</Text>
+				<Text onPress={this.logout.bind(this)}>Logout</Text>
+			</Nav>
+		)
+	}
 }
+
 const styles = StyleSheet.create({
-    photos:{
-            height:470
-    }
-});
+	
+})
 
-function mapStateToProps(state) {
-    return{
-        state: state
-    }
-}
-
-export default connect(mapStateToProps)(Profile)
+export default connect( state=>({ 
+	redux: state
+}), {
+	// Imported Actions
+})(Profile)
 
 
