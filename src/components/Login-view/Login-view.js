@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
-import {View, Image, StyleSheet, Button} from 'react-native'
+import {
+	View, 
+	Image, 
+	StyleSheet, 
+	Button
+} from 'react-native'
 import {connect} from 'react-redux'
-import {getProfile, checkToken} from '../../reducers/profileReducer'
+import {login, checkToken} from '../../reducers/profileReducer'
 
 class Login extends Component{
-
-	login(){
-    this.props.getProfile()
-  }
 
   componentWillMount(){
     this.props.checkToken()
@@ -16,27 +17,39 @@ class Login extends Component{
   componentWillReceiveProps(newProps){
     if(newProps.profile){
        this.props.history.push('/Home')
-    }
+    } 
 	}
 
 	render(){
 		return(
-			<View>
+			<View style={styles.container}>
 				<View style={styles.header}>
         	<Image source={require('../../images/logo_medium.png')} />
         </View>
-        <Button onPress={this.login.bind(this)} title="Login with Facebook" />
+        {!this.props.loading && 
+        	<Button 
+	        	onPress={this.props.login} 
+	        	title="Login with Facebook" />
+        }
 			</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	
+	container: {
+		flex: 1,
+		justifyContent: 'center'
+	},
+	header: {
+		marginBottom: 45,
+		alignItems: 'center'
+	}
 })
 
 export default connect( state=>({ 
-	profile: state.profile
+	profile: state.profile,
+	loading: state.loading
 }), {
-	getProfile, checkToken
+	login, checkToken
 })(Login)
