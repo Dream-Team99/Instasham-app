@@ -1,31 +1,24 @@
+import React, {Component} from 'react'
+import {Text, StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
+import Nav from '../Nav'
 
-import React from "react";
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import Header from "../Header-nav";
-import Bottom from "../Bottom-nav"
-import MainFeed from "./subcomponents/MainFeed";
-export default class Home extends React.Component {
-
-
-
-
-
-
-    render() {
-        return (
-            <View>
-                <Header/>
-                <ScrollView style={styles.mainfeed}>
-                   <MainFeed />
-                </ScrollView>
-                    <Bottom />
-            </View>
-        );
-    }
+class Home extends Component{
+	render(){
+		return(
+			<Nav>
+				<Text>Home Route</Text>
+			</Nav>
+		)
+	}
 }
-const styles = StyleSheet.create({
-    mainfeed:{
-        height:470
-    }
-});
 
+const styles = StyleSheet.create({
+	
+})
+
+export default connect( state=>({ 
+	redux: state
+}), {
+	// Imported Actions
+})(Home)

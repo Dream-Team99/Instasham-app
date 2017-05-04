@@ -3,11 +3,11 @@ import {Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import Nav from '../Nav'
 
-class Chat extends Component{
+class Search extends Component{
 	render(){
 		return(
 			<Nav>
-				<Text>Chat Route</Text>
+				<Text>Search Route</Text>
 			</Nav>
 		)
 	}
@@ -21,4 +21,4 @@ export default connect( state=>({
 	redux: state
 }), {
 	// Imported Actions
-})(Chat)
+})(Search)
