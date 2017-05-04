@@ -17,6 +17,7 @@ export default class App extends Component {
             <NativeRouter>
                 <View>
                     <Route path='/' exact component={Login}/>
+
                     <Route path='/Home' component={Home}/>
                     <Route path='/Profile' component={Profile}/>
                     <Route path='/Camera' component={Camera}/>
