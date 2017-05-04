@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {View,Image, StyleSheet, Button} from 'react-native';
-import {connect} from 'react-redux';
+import React, {Component} from 'react'
+import {View,Image, StyleSheet, Button} from 'react-native'
+import {connect} from 'react-redux'
 import Expo, { Facebook} from 'expo'
-import {getProfile, checkToken} from '../reducers/profileReducer';
+import {getProfile, checkToken} from '../reducers/profileReducer'
 
 export class Login extends Component{
     login(){
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     header:{
         alignItems: 'center'
     }
-});
+})
 
 function mapStateToProps(state) {
     return{
