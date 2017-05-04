@@ -7,7 +7,7 @@ import Provider from "react-redux/src/components/Provider";
 import createStore from './src/store';
 import Home from "./src/components/Home-view/Home-view";
 import Camera from "./src/components/Camera-view"
-import Search from "./src/components/Search-view"
+import Search from "./src/components/Search-view/Search-view"
 import Chat from "./src/components/Chat-view/Chat-view"
 
 export default class App extends Component {
