@@ -16,8 +16,8 @@ export default class App extends Component {
             <Provider store={createStore}>
             <NativeRouter>
                 <View>
-                    <Route path='/login'  component={Login}/>
-                    <Route path='/' exact component={Home}/>
+                    <Route path='/' exact component={Login}/>
+                    <Route path='/Home' component={Home}/>
                     <Route path='/Profile' component={Profile}/>
                     <Route path='/Camera' component={Camera}/>
                     <Route path='/Search' component={Search}/>
