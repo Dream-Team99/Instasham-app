@@ -7,9 +7,12 @@ import createStore from './src/store'
 import Home from './src/components/Home-view/Home-view'
 import Login from './src/components/Login-view/Login-view'
 import Profile from './src/components/Profile-view/Profile-view'
-import Camera from './src/components/Camera-view/Camera-view'
-import Search from './src/components/Search-view/Search-view'
-import Chat from './src/components/Chat-view/Chat-view' 							
+import Provider from "react-redux/src/components/Provider";
+import createStore from './src/store';
+import Home from "./src/components/Home-view/Home-view";
+import Search from "./src/components/Search-view/Search-view"
+import Chat from "./src/components/Chat-view/Chat-view"
+import Camera from './src/components/Camera-view/Camera-view'							
 
 export default class App extends Component {
 	render() {
