@@ -8,12 +8,13 @@ import Photos from "./subcomponents/User-photos"
 
 class Profile extends Component{
     render(){
+        // console.log('profile is', this.props.state.profile)
         return(
             <View style={styles.profile}>
                 <Header/>
                     <User user={this.props.state.profile}/>
                 {/*<ScrollView >*/}
-                    {/*<Photos/>*/}
+                    {/*<Photos photos={this.props.state.userPhotos}/>*/}
                 {/*</ScrollView>*/}
                 <Bottom/>
             </View>
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     //     justifyContent: 'space-between'
     // }
 });
+
 function mapStateToProps(state) {
     return{
         state: state

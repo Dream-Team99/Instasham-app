@@ -11,8 +11,8 @@ export default class User extends Component{
             <View style={styles.pageView}>
                 <View style={styles.fullProfile}>
                     <View style={styles.profileImageAndName}>
-                        <Image style={styles.image} source={{uri: this.props.state.profile.picture.data.url}} />
-                        <Text style={styles.name}>{this.props.state.profile.name}</Text>
+                        <Image style={styles.image} source={{uri: this.props.user.picture.data.url}} />
+                        <Text style={styles.name}>{this.props.user.name}</Text>
                     </View>
                     <View style={styles.stuff}>
                         <Link><Text>posts</Text></Link>
@@ -27,17 +27,16 @@ export default class User extends Component{
 
 const styles = StyleSheet.create({
     pageView:{
-        marginTop: 50
     },
     fullProfile:{
         flexDirection: 'row',
     },
     profileImageAndName:{
         flexDirection: 'column',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between'
     },
     name: {
-        fontSize: 18,
+        fontSize: 14,
         textAlign: 'center',
     },
     image:{
@@ -48,6 +47,6 @@ const styles = StyleSheet.create({
     stuff:{
         flexDirection: 'row',
         justifyContent: "space-around",
-        alignItems: 'center'
+        // alignItems: 'center'
     }
 });
