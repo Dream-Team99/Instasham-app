@@ -16,6 +16,7 @@ class Profile extends Component{
 
 
     render(){
+        // console.log('profile is', this.props.state.profile)
         return(
             <View style={styles.profile}>
                 <Header/>
@@ -23,6 +24,7 @@ class Profile extends Component{
                 {/*<User user={this.props.state.profile}/>*/}
                     {/*<Photos photos={this.props.state.userPhotos}/>*/}
                 </ScrollView>
+
                 <Bottom/>
             </View>
         )
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
             height:470
     }
 });
+
 function mapStateToProps(state) {
     return{
         state: state
