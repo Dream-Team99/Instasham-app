@@ -1,20 +1,18 @@
-
-import React, {Component} from 'react';
-import {View, Image, StyleSheet, Text} from 'react-native';
-import Header from "./Header-nav";
-import Bottom from "./Bottom-nav"
-
-
+import React, {Component} from 'react'
+import {View, Text, StyleSheet} from 'react-native'
 
 export default class Search extends Component{
-    render(){
-        return(
-            <View>
-                <Header/>
-                <Text>Input here</Text>
-                <Text>Search for users Here</Text>
-                <Bottom/>
-            </View>
-        )
-    }
+	render(){
+		return(
+			<View style={styles.container}>
+				<Text>Search Route</Text>
+			</View>
+		)
+	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	}
+})

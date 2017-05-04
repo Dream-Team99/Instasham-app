@@ -16,15 +16,15 @@ export default class Header extends Component{
 		return(
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
-					<Link to='/Search' ><Ionicons name='md-search' size={32} color='black'/></Link>
+					<Link to='/Search' ><Ionicons name='md-search' size={32} color='#262626'/></Link>
 					<Link to='/Home' ><Image source={require('./images/logo_360.png')} /></Link>
-					<Link to='/Chat'><Ionicons name='md-chatbubbles' size={32} color='black'/></Link>
+					<Link to='/Chat'><Ionicons name='md-chatbubbles' size={32} color='#262626'/></Link>
 				</View>
 				{this.props.children}
 				<View style={styles.navBar}>
-          <Link to='/Home'><Ionicons name='md-home' size={32} color='black' /></Link>
-          <Link to='/Camera'><Ionicons name='md-camera' size={32} color='black' /></Link>
-          <Link to='/Profile'><Ionicons name='md-person' size={32} color='black' /></Link>
+          <Link to='/Home'><Ionicons name='md-home' size={32} color='#262626' /></Link>
+          <Link to='/Camera'><Ionicons name='md-camera' size={32} color='#262626' /></Link>
+          <Link to='/Profile'><Ionicons name='md-person' size={32} color='#262626' /></Link>
 	      </View>
 			</View>
 		)
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
 		color:'grey'
 	},
 	notSelected : {
-		color:'black'
+		color:'#262626'
 	}
 })
 

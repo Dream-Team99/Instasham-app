@@ -1,20 +1,18 @@
-/**
- * Created by beebe on 5/3/2017.
- */
-import React, {Component} from 'react';
-import {View, Image, StyleSheet, Text} from 'react-native';
-
-
-
+import React, {Component} from 'react'
+import {View, Text, StyleSheet} from 'react-native'
 
 export default class Camera extends Component{
-    render(){
-        return(
-            <View>
-
-                <Text>Camera Here</Text>
-
-            </View>
-        )
-    }
+	render(){
+		return(
+			<View style={styles.container}>
+				<Text>Camera Route</Text>
+			</View>
+		)
+	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	}
+})
