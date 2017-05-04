@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {View, Image, StyleSheet} from 'react-native'
 import {Link} from  'react-router-native'
 import { Ionicons } from '@expo/vector-icons'
 
 
-export default class Header extends Component{
+export default class Nav extends Component{
 	constructor(){
 		super()
 		this.state = {
@@ -16,11 +16,13 @@ export default class Header extends Component{
 		return(
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
-					<Link to='/Search' ><Ionicons name='md-search' size={32} color='#262626'/></Link>
-					<Link to='/Home' ><Image source={require('./images/logo_360.png')} /></Link>
+					<Link to='/Search'><Ionicons name='md-search' size={32} color='#262626'/></Link>
+					<Link to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
 					<Link to='/Chat'><Ionicons name='md-chatbubbles' size={32} color='#262626'/></Link>
 				</View>
-				{this.props.children}
+				<View style={styles.container}>
+					{this.props.children}
+				</View>
 				<View style={styles.navBar}>
           <Link to='/Home'><Ionicons name='md-home' size={32} color='#262626' /></Link>
           <Link to='/Camera'><Ionicons name='md-camera' size={32} color='#262626' /></Link>
@@ -56,4 +58,6 @@ const styles = StyleSheet.create({
 		color:'#262626'
 	}
 })
+
+
 

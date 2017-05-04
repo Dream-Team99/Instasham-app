@@ -1,29 +1,34 @@
 import React, {Component} from 'react'
+import {Text, StyleSheet, AsyncStorage} from 'react-native'
 import {connect} from 'react-redux'
-import {View, Text, StyleSheet} from 'react-native'
+import Nav from '../Nav'
 
 class Profile extends Component{
+
+	logout(){
+		AsyncStorage.removeItem('id').then(()=>{
+			this.props.history.push('/')
+		})
+	}
+
 	render(){
 		return(
-			<View style={styles.container}>
+			<Nav>
 				<Text>Profile Route</Text>
-			</View>
+				<Text onPress={this.logout.bind(this)}>Logout</Text>
+			</Nav>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	}
+	
 })
 
-function mapStateToProps(state) {
-	return{
-		state: state
-	}
-}
-
-export default connect(mapStateToProps)(Profile)
+export default connect( state=>({ 
+	redux: state
+}), {
+	// Imported Actions
+})(Profile)
 
 

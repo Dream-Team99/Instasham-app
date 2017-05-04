@@ -1,21 +1,24 @@
-import React from 'react'
-import { View } from 'react-native'
-import MainFeed from './subcomponents/MainFeed'
+import React, {Component} from 'react'
+import {Text, StyleSheet} from 'react-native'
+import {connect} from 'react-redux'
+import Nav from '../Nav'
 
-
-export default class Home extends React.Component {
-	render() {
-		return (
-			<View style={styles.mainfeed}>
-				<MainFeed />
-			</View>
+class Home extends Component{
+	render(){
+		return(
+			<Nav>
+				<Text>Home Route</Text>
+			</Nav>
 		)
 	}
 }
 
-const styles = {
-	mainfeed:{
-		flex: 1,
-	}
-}
+const styles = StyleSheet.create({
+	
+})
 
+export default connect( state=>({ 
+	redux: state
+}), {
+	// Imported Actions
+})(Home)
