@@ -25,7 +25,7 @@ export default class Home extends React.Component {
 }
 const styles = StyleSheet.create({
     mainfeed:{
-        height:450
+        height:470
     }
 });
 

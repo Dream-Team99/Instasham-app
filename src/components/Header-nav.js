@@ -4,15 +4,26 @@ import {Link} from  'react-router-native';
 import { Ionicons } from '@expo/vector-icons';
 
 
-
 export default class Header extends Component{
+    constructor(){
+        super()
+        this.state = {
+            btnSelected: 1
+        }
+
+    }
     render(){
         return(
             <View style={styles.nav}>
 
-                <Link to="/Search"><Ionicons name="md-search" size={32} color="black" /></Link>
-                    <Link to="/Home"><Image source={require('./images/logo_360.png')} /></Link>
-                <Link to="/Chat"><Ionicons name="md-chatbubbles" size={32} color="black" /></Link>
+                <Link to="/Search" ><Ionicons name="md-search" size={32} color="black"/></Link>
+
+
+
+                    <Link to="/Home" ><Image source={require('./images/logo_360.png')} /></Link>
+
+
+                <Link to="/Chat"><Ionicons name="md-chatbubbles" size={32} color="black"/></Link>
 
             </View>
         )
@@ -34,6 +45,12 @@ const styles = StyleSheet.create({
         paddingTop:5,
         paddingBottom:5
     },
+    btnSelected: {
+        color:"grey"
+    },
+    notSelected : {
+        color:"black"
+    }
 
 });
 

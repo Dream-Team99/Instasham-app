@@ -26,10 +26,9 @@ const styles = StyleSheet.create({
     nav:{
         height:50,
         alignItems:"center",
-        elevation:2,
         borderColor:"grey",
         borderStyle: "solid",
-        marginTop:22,
+        borderWidth:1,
         flexDirection: "row",
         justifyContent:"space-around",
         paddingLeft:10,
