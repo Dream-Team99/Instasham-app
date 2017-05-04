@@ -5,21 +5,22 @@ import {Link} from  'react-router-native';
 
 
 
-class Profile extends Component{
+export default class User extends Component{
     render(){
         return(
             <View style={styles.pageView}>
-            //     <View style={styles.fullProfile}>
-            //         <View style={styles.profileImageAndName}>
-            //         <Image style={styles.image} source={{uri: this.props.state.profile.picture.data.url}} />
-            //         <Text style={styles.name}>{this.props.state.profile.name}</Text>
-            //     </View>
-            //     <View style={styles.stuff}>
-            //         <Link><Text>posts</Text></Link>
-            //         <Link><Text>followers</Text></Link>
-            //         <Link><Text>following</Text></Link>
-            //     </View>
-            // </View>
+                <View style={styles.fullProfile}>
+                    <View style={styles.profileImageAndName}>
+                        <Image style={styles.image} source={{uri: this.props.state.profile.picture.data.url}} />
+                        <Text style={styles.name}>{this.props.state.profile.name}</Text>
+                    </View>
+                    <View style={styles.stuff}>
+                        <Link><Text>posts</Text></Link>
+                        <Link><Text>followers</Text></Link>
+                        <Link><Text>following</Text></Link>
+                     </View>
+                 </View>
+            </View>
     )
     }
 }

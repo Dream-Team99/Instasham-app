@@ -9,22 +9,24 @@ import Photos from "./subcomponents/User-photos"
 class Profile extends Component{
     render(){
         return(
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-            }}>
+            <View style={styles.profile}>
                 <Header/>
-                    <User />
-                <ScrollView >
-                    <Photos/>
-                </ScrollView>
+                    <User user={this.props.state.profile}/>
+                {/*<ScrollView >*/}
+                    {/*<Photos/>*/}
+                {/*</ScrollView>*/}
                 <Bottom/>
             </View>
         )
     }
 }
-
+const styles = StyleSheet.create({
+    // profile:{
+    //     flex: 1,
+    //     flexDirection: 'column',
+    //     justifyContent: 'space-between'
+    // }
+});
 function mapStateToProps(state) {
     return{
         state: state
