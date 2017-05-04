@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect( state=>({ 
-	profile: state.profile,
-	loading: state.loading
+export default connect(state => ({ 
+	profile: state.profileReducer.profile,
+	loading: state.profileReducer.loading
 }), {
 	login, checkToken
 })(Login)
