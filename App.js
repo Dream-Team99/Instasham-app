@@ -11,29 +11,26 @@ import Search from "./src/components/Search-view"
 import Chat from "./src/components/Chat-view/Chat-view"
 
 export default class App extends Component {
-    render() {
-        return (
-            <Provider store={createStore}>
-            <NativeRouter>
-                <View>
-                    <Route path='/login'  component={Login}/>
-                    <Route path='/' exact component={Home}/>
-                    <Route path='/Profile' component={Profile}/>
-                    <Route path='/Camera' component={Camera}/>
-                    <Route path='/Search' component={Search}/>
-                    <Route path='/Chat' component={Chat}/>
-                </View>
-            </NativeRouter>
-            </Provider>
-        )
-    }
+	render() {
+		return (
+			<Provider store={createStore}>
+				<NativeRouter>
+					<View style={styles.container}>
+						<Route path='/login'  component={Login}/>
+						<Route path='/' exact component={Home}/>
+						<Route path='/Profile' component={Profile}/>
+						<Route path='/Camera' component={Camera}/>
+						<Route path='/Search' component={Search}/>
+						<Route path='/Chat' component={Chat}/>
+					</View>
+				</NativeRouter>
+			</Provider>
+		)
+	}
 }
 
 const styles ={
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+	container: {
+		flex: 1
+	},
 };

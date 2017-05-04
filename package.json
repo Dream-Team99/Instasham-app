@@ -5,7 +5,9 @@
   "devDependencies": {
     "jest-expo": "^0.4.0",
     "react-native-scripts": "0.0.29",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "react-test-renderer": "16.0.0-alpha.6",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
