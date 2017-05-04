@@ -1,0 +1,11 @@
+1. Git pull from Master
+2. Git checkout -b branch-name
+3. Work
+4. Git add and commit
+5. Git checkout Master
+6. Git pull
+7. Git checkout branch-name
+8. Git merge master
+*  Fix merge conflicts
+9. Git push origin branch-name -u
+10. Open a pull request

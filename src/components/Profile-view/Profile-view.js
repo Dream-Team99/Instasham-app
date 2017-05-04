@@ -6,7 +6,7 @@ import Nav from '../Nav'
 class Profile extends Component{
 
 	logout(){
-		AsyncStorage.removeItem('id').then(()=>{
+		AsyncStorage.removeItem('token').then(()=>{
 			this.props.history.push('/')
 		})
 	}
