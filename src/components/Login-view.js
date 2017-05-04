@@ -5,7 +5,6 @@ import Expo, { Facebook} from 'expo'
 import {getProfile, checkToken} from '../reducers/profileReducer';
 
 export class Login extends Component{
-    state = {profile: ''};
     login(){
         this.props.getProfile()
         //this.props.history.push('/Profile')
@@ -16,13 +15,10 @@ export class Login extends Component{
         }
     }
     componentWillMount(){
+        this.props.checkToken()
+
     }
     componentDidMount(){
-        checkToken()
-        console.log('checking profile', this.props.state.profile);
-        if(this.props.state.profile){
-            this.props.history.push('/Profile')
-        }
     }
 
     render(){

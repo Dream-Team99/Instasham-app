@@ -12,6 +12,7 @@ export default (state = initialState, action) => {
         case GETPROFILE:
             return Object.assign({}, state, {profile: action.profile});
         case CHECKTOKEN:
+            // console.log(action.profile)
             return Object.assign({}, state, {profile: action.profile});
         default:
             return state;
@@ -33,7 +34,7 @@ export function getProfile() {
                         const response = await fetch(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`);
                         const profile = await response.json();
                         console.log('storing token ' + token);
-                        await AsyncStorage.setItem('@MyKey: token');
+                        await AsyncStorage.setItem('token', token);
                         dispatch( {
                             type: GETPROFILE,
                             profile: profile
@@ -55,19 +56,28 @@ export function getProfile() {
 export function checkToken() {
     return dispatch =>{
         (_check = async () => {
-            console.log('checking token');
-            const value = await AsyncStorage.getItem('@MyKey: token');
-            if (value){
-                console.log('token is',value);
-                const response = await fetch(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${value}`);
-                const profile = await response.json();
-                dispatch({
-                    type: CHECKTOKEN,
-                    profile: profile
-                })
-            }else{
-                console.log('no token')
-            }
+                AsyncStorage.getItem('token').then(response=>{
+                console.log(response);
+                if (response){
+                    console.log('token is',response);
+                    axios.get('https://graph.facebook.com/me?fields=id,name,picture&access_token=' + response).then(function (res) {
+                        // console.log(res)
+                        if(res.status === 200) {
+                            dispatch({
+                                type: CHECKTOKEN,
+                                profile: res.data
+                            })
+                        }else{
+                            dispatch({
+                                type: '',
+                                profile: ''
+                            })
+                        }
+                    })
+                }else{
+                    console.log('no token')
+                }
+            })
         })()
     }
 }
