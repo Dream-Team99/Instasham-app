@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {ImagePicker} from 'expo'
 import Nav from '../Nav'
 import {
     ActivityIndicator,
