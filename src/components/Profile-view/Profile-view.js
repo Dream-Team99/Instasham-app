@@ -24,6 +24,7 @@ class Profile extends Component {
                 </View>
             </Nav>
 
+
         )
     }
 }

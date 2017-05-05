@@ -1,86 +1,71 @@
-import axios from 'axios';
-import {Facebook} from 'expo';
-import {Alert, AsyncStorage} from 'react-native';
+import axios from 'axios'
+import {Facebook} from 'expo'
+import {Alert, AsyncStorage} from 'react-native'
 
-const GETPROFILE = 'GETPROFILE';
-const CHECKTOKEN = 'CHECKTOKEN';
+const SETPROFILE = 'login/SETPROFILE'
+const LOADING = 'login/LOADING'
 
-const initialState = {profile: ''};
-
-export default (state = initialState, action) => {
-    switch (action.type){
-        case GETPROFILE:
-            console.log(action.profile)
-            return Object.assign({}, state, {profile: action.profile});
-        case CHECKTOKEN:
-            return Object.assign({}, state, {profile: action.profile});
-        default:
-            return state;
-    }
+const initialState = {
+	profile: '',
+	loading: false
 }
 
-export function getProfile() {
-    return dispatch =>{
-        (_handleFacebookLogin = async () => {
-            try {
-                const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-                    '1201211719949057', // Replace with your own app id in standalone app
-                    { permissions: ['public_profile'] }
-                );
+export default (state = initialState, action) => {
+	switch (action.type){
+		case SETPROFILE:
+			return Object.assign({}, state, {profile: action.profile, loading: false})
+		case LOADING:
+			return Object.assign({}, state, {loading: true})
+		default:
+			return state
+	}
+}
 
-                switch (type) {
-                    case 'success': {
-                        // Get the user's name using Facebook's Graph API
-                        const response = await fetch(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`);
-                        const profile = await response.json();
-                        // console.log(profile)
-                        await AsyncStorage.setItem('id', profile.id);
-                        axios.post('http://52.10.128.151:3005/api/users', {profile: profile}).then(result=>{
-                            // console.log(result)
-                            dispatch( {
-                                type: GETPROFILE,
-                                profile: result.data
-                            })
-                        })
-                    }
-                    case 'cancel': {
-                        break;
-                    }
-                    default: {
-                    }
-                }
-            } catch (e) {
-            }
-        })()
-    }
+export function login() {
+	return dispatch => {
+		dispatch({type: LOADING})
+		// Login to FB and get token
+		Facebook.logInWithReadPermissionsAsync(
+			'1201211719949057', // app id
+			{ permissions: ['public_profile'] }
+		).then(response => {
+			if(response.type==='success'){
+				// Save token and use it to get facebook profile
+				AsyncStorage.setItem('token', response.token)
+				axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${response.token}`)
+				.then(response => {
+					// Find or create user in our DB
+					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
+						dispatch({
+							type: SETPROFILE,
+							profile: response.data
+						})
+					})
+				})
+			} else {
+				Alert.alert('Login unsuccessful!')
+			}
+		})
+	}
 }
 
 export function checkToken() {
-    return dispatch =>{
-        (_check = async () => {
-                AsyncStorage.getItem('id').then(response=> {
-                    // console.log(response);
-                    if (response) {
-                        // console.log('token is',response);
-                        axios.get('http://52.10.128.151:3005/api/getUser/' + response).then(function (result) {
-                            // console.log(result)
-                            if (result.status === 200) {
-                                dispatch({
-                                    type: CHECKTOKEN,
-                                    profile: result.data
-                                })
-                            } else {
-                                dispatch({
-                                    type: '',
-                                    profile: ''
-                                })
-                            }
-                        })
-                    } else{
-                    console.log('no token')
-                    }
-                })
-
-        })()
-    }
+	return dispatch => {
+		dispatch({type: LOADING})
+		AsyncStorage.getItem('token').then(token => {
+			if(token){
+				// Use token to get facebook profile
+				axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`)
+				.then(response => {
+					// Find or create user in our DB
+					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
+						dispatch({
+							type: SETPROFILE,
+							profile: response.data
+						})
+					})
+				})
+			}		
+		})
+	}
 }
