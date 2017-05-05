@@ -1,21 +1,28 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, Image} from 'react-native'
-import ProfileDetail from './ProfileDetail'
+import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native'
+import axios from "axios";
 
 export default class Profiles extends Component{
+
+	addFollower(id, follower){
+		axios.post(`http://52.10.128.151:3005/api/users/follower`, {userId: id, followerId: follower})
+	}
 	renderProfiles(){
-		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id)
+		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id);
+		console.log(filteredUsers.length)
 		return filteredUsers.map((p,i) => {
-			return <ProfileDetail key={i}>
-						<View style={styles.fullProfile}>
+			return (
+					<View style={styles.fullProfile} key={i}>
 							<View style={styles.profileImageAndName}>
 								<Image style={styles.image} source={{uri: p.imageurl}} />
 								<Text style={styles.name}>{p.username}</Text>
+								<TouchableHighlight onPress={this.addFollower.bind(null, this.props.currentUser.id, p.id)}><Text>Follow</Text></TouchableHighlight>
 							</View>
-						</View>
-					</ProfileDetail>
+					</View>
+			)
 			})
 	}
+
 	render(){
         return (
 			<View style={styles.pageView}>
