@@ -12,7 +12,7 @@ class Profile extends Component {
     }
 
     render() {
-        // console.log('profile is', this.props.state.profile)
+        // console.log('profile is', this.props.state)
         return (
             <Nav>
                 <View style={styles.profile}>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	state: state
+	state: state.profileReducer
 }), {
 	// Imported Actions
 })(Profile)

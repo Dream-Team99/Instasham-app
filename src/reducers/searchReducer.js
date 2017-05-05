@@ -1,6 +1,3 @@
-/**
- * Created by beebe on 5/4/2017.
- */
 import axios from 'axios';
 
 const SEARCHPROFILE = 'SEARCHPROFILE';
