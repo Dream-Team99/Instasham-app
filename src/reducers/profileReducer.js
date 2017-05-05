@@ -4,6 +4,7 @@ import {Alert, AsyncStorage} from 'react-native'
 
 const SETPROFILE = 'login/SETPROFILE'
 const LOADING = 'login/LOADING'
+const DONE_LOADING = 'login/DONE_LOADING'
 
 const initialState = {
 	profile: '',
@@ -16,6 +17,8 @@ export default (state = initialState, action) => {
 			return Object.assign({}, state, {profile: action.profile, loading: false})
 		case LOADING:
 			return Object.assign({}, state, {loading: true})
+		case DONE_LOADING:
+			return Object.assign({}, state, {loading: false})
 		default:
 			return state
 	}
@@ -23,7 +26,6 @@ export default (state = initialState, action) => {
 
 export function login() {
 	return dispatch => {
-		dispatch({type: LOADING})
 		// Login to FB and get token
 		Facebook.logInWithReadPermissionsAsync(
 			'1201211719949057', // app id
@@ -58,14 +60,17 @@ export function checkToken() {
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`)
 				.then(response => {
 					// Find or create user in our DB
-					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
+					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data})
+					.then(response => {
 						dispatch({
 							type: SETPROFILE,
 							profile: response.data
 						})
 					})
 				})
-			}		
+			}	else {
+				dispatch({type: DONE_LOADING})
+			}
 		})
 	}
 }
