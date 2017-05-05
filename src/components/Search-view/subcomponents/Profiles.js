@@ -1,23 +1,25 @@
-
 import React, {Component} from 'react'
 import {View, Text, StyleSheet, Image} from 'react-native'
+import ProfileDetail from './ProfileDetail'
 
 export default class Profiles extends Component{
-
+	renderProfiles(){
+		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id)
+		return filteredUsers.map((p,i) => {
+			return <ProfileDetail key={i}>
+						<View style={styles.fullProfile}>
+							<View style={styles.profileImageAndName}>
+								<Image style={styles.image} source={{uri: p.imageurl}} />
+								<Text style={styles.name}>{p.username}</Text>
+							</View>
+						</View>
+					</ProfileDetail>
+			})
+	}
 	render(){
-		const Profiles = this.props.users.map((p, i)=> {
-			return (
-				<View style={styles.fullProfile} key={p.id}>
-					<View style={styles.profileImageAndName}>
-						<Image style={styles.image} source={{uri: p.imageurl}} />
-						<Text style={styles.name}>{p.username}</Text>
-					</View>
-				</View>
-		)})
-
-		return (
+        return (
 			<View style={styles.pageView}>
-				{Profiles}
+				{this.renderProfiles()}
 			</View>
 		)
 	}

@@ -8,7 +8,9 @@ import Nav from '../Nav'
 
 class Search extends Component{
 	render(){
-		return(
+        // console.log(this.props.redux.profileReducer.profile)
+        return(
+
 			<Nav>
 				<TextInput
 					style={styles.input}
@@ -16,7 +18,7 @@ class Search extends Component{
 					value={this.props.redux.SearchText}
 				/>
 				<ScrollView>
-					<Profiles users={this.props.redux.Profiles}/>
+					<Profiles currentUser={this.props.redux.profileReducer.profile} users={this.props.redux.searchReducer.Profiles}/>
 				</ScrollView>
 			</Nav>
 		)
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	redux: state.searchReducer
+	redux: state
 }), {
   searchForUsers
 	// Imported Actions

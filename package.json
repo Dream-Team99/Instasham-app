@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3",
     "jest-expo": "^0.4.0",
     "react-native-scripts": "0.0.29",
-    "react-test-renderer": "16.0.0-alpha.6",
-    "eslint": "^3.19.0",
-    "eslint-plugin-react": "^6.10.3"
+    "react-test-renderer": "16.0.0-alpha.6"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "expo": "^16.0.0",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.4",
+    "react-native-aws3": "^0.0.8",
     "react-redux": "^5.0.4",
     "react-router-native": "^4.1.1",
     "redux": "^3.6.0",

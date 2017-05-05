@@ -1,17 +1,18 @@
-/**
- * Created by beebe on 5/3/2017.
- */
 
-import React from "react";
+import React, {Component} from "react";
 import {View, Text, StyleSheet, Image} from 'react-native';
-export default class MainFeed extends React.Component {
+import PostDetail from './PostDetail'
+
+export default class MainFeed extends Component {
+
+    renderList() {
+     return this.props.list.map(post => <PostDetail key={post.name} post={post}/>)
+    }
+
     render() {
         return (
             <View>
-                <Text>Users Name here</Text>
-                <Image width="" height="" href=""/>
-                <Text>Likes go here</Text>
-                <Text>first comment here</Text>
+                {this.renderList()}
             </View>
         );
     }

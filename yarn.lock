@@ -1237,7 +1237,7 @@ base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
 
-base64-js@^1.1.2:
+base64-js@^1.0.2, base64-js@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.2.0.tgz#a39992d723584811982be5e290bb6a53d86700f1"
 
@@ -1388,6 +1388,14 @@ buffer-equal-constant-time@1.0.1:
 buffer-shims@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/buffer-shims/-/buffer-shims-1.0.0.tgz#9978ce317388c649ad8793028c3477ef044a8b51"
+
+buffer@^4.5.1:
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
+    isarray "^1.0.0"
 
 buffers@~0.1.1:
   version "0.1.1"
@@ -1787,6 +1795,10 @@ cryptiles@2.x.x:
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
   dependencies:
     boom "2.x.x"
+
+crypto-js@^3.1.6:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.8.tgz#715f070bf6014f2ae992a98b3929258b713f08d5"
 
 crypto-token@^1.0.1:
   version "1.0.1"
@@ -3022,6 +3034,10 @@ iconv-lite@0.4.13:
 iconv-lite@0.4.15, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
+
+ieee754@^1.1.4:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
 ignore@^3.2.0:
   version "3.3.0"
@@ -4737,6 +4753,17 @@ react-devtools-core@^2.0.8:
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
+
+react-native-aws3@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-aws3/-/react-native-aws3-0.0.8.tgz#9a18789ae0cedfb40d29b1f69799a8af4f9927e8"
+  dependencies:
+    buffer "^4.5.1"
+    crypto-js "^3.1.6"
+
+react-native-camera@lwansbrough/react-native-camera:
+  version "0.8.0"
+  resolved "https://codeload.github.com/lwansbrough/react-native-camera/tar.gz/8937d44e1ef62d32bef0f5abefa0004f578d9621"
 
 "react-native-fbads@https://github.com/callstack-io/react-native-fbads/tarball/v4.1.0":
   version "4.1.0"
