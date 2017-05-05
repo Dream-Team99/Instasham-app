@@ -1,7 +1,5 @@
 import React from "react";
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import Header from "../Header-nav";
-import Bottom from "../Bottom-nav"
 import MainFeed from "./subcomponents/MainFeed";
 import Nav from '../Nav'
 import {connect} from 'react-redux'
@@ -24,15 +22,16 @@ let dum = [{
 class Home extends React.Component {
 
     render() {
+        console.log(this.props.redux)
         return (
             <Nav>
                 <ScrollView style={styles.mainfeed}>
-                   <MainFeed list={dum}/>
+                    <MainFeed list={dum}/>
                 </ScrollView>
             </Nav>
         );
     }
-
+}
 
 const styles = StyleSheet.create({
 	

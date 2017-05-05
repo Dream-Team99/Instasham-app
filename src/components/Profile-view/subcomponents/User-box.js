@@ -12,7 +12,7 @@ export default class User extends Component{
                 <View style={styles.fullProfile}>
                     <View style={styles.profileImageAndName}>
                         <Image style={styles.image} source={{uri: this.props.user.imageurl}} />
-                        <Text style={styles.name}>{this.props.username}</Text>
+                        <Text style={styles.name}>{this.props.user.username}</Text>
                     </View>
                     <View style={styles.stuff}>
                         <Link><Text>posts</Text></Link>
