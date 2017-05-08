@@ -8,13 +8,13 @@ const PostDetail = (props) =>{
         <PostCard>
             <PostCardSection>
                 <View style={styles.thumbnail_container}>
-                    <Image style={styles.thumbnail_style} source={{uri: props.post.url}}/>
-                    <Text>{props.post.name}</Text>
+                    <Image style={styles.thumbnail_style} source={{uri: props.post.user_image}}/>
+                    <Text>{props.post.username}</Text>
                 </View>
             </PostCardSection>
             <PostCardSection>
                 <View style={styles.headerContentStyle}>
-                    <Image style={styles.image_style} source={{uri: props.post.img}}/>
+                    <Image style={styles.image_style} source={{uri: props.post.url}}/>
                 </View>
             </PostCardSection>
             <PostCardSection>
@@ -24,9 +24,9 @@ const PostDetail = (props) =>{
                 </View>
             </PostCardSection>
             <PostCardSection>
-                <Text>post</Text>
-                <Text>1st comment</Text>
-                <Text>2nd comment</Text>
+                <Text>{props.post.post_text}</Text>
+                <Text></Text>
+                {/*<Text>2nd comment</Text>*/}
             </PostCardSection>
         </PostCard>
     )

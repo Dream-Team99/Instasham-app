@@ -5,6 +5,7 @@ import followingReducer from './reducers/followingReducer';
 import thunk from 'redux-thunk';
 
 export default createStore(combineReducers({searchReducer,profileReducer,followingReducer}), {}, applyMiddleware(
-     thunk
+	thunk
+
 ))
 
