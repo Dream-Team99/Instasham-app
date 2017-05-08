@@ -128,7 +128,8 @@ class Camera extends React.Component {
             aspect: [4,3]
         });
         this.setState({image: pickerResult});
-        console.log(this.state)
+        this.setState({upload: false});
+        this.setState({post_text: ``});
     };
 
     _pickImage = async () => {
@@ -137,6 +138,8 @@ class Camera extends React.Component {
             aspect: [4,3]
         });
         this.setState({image: pickerResult});
+        this.setState({upload: false});
+        this.setState({post_text: ``});
     };
 
     _handleImagePicked = async (pickerResult) => {
