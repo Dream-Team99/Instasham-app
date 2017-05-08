@@ -30,7 +30,6 @@ class Camera extends React.Component {
 
         return (
         	<Nav>
-				<Text>Camera Route</Text>
 				<View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 		<Text style={{fontSize: 20, marginBottom: 20, textAlign: 'center', marginHorizontal: 15}}>
 			Example: Upload ImagePicker result
