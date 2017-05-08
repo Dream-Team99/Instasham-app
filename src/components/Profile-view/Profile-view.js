@@ -2,10 +2,14 @@ import React, {Component} from 'react'
 import {Text, StyleSheet, AsyncStorage, View, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import Nav from '../Nav'
+import {followerCount} from "../../reducers/followingReducer"
 import User from './subcomponents/User-box'
-import Photos from './subcomponents/User-photos';
+import  Photos from "./subcomponents/User-photos"
 
 class Profile extends Component {
+    // componentDidMount(){
+    //     followerCount(this.props.params.id)
+    // }
     logout() {
         AsyncStorage.removeItem('id').then(() => {
             this.props.history.push('/')
@@ -13,13 +17,14 @@ class Profile extends Component {
     }
 
     render() {
-        console.log('profile id', this.props.params)
+        // console.log('profile is', this.props.profile.profile)
         return (
             <Nav>
                 <View style={styles.profile}>
                     <ScrollView style={styles.photos}>
                         <User user={this.props.mainProfile.profile}/>
-                        <Photos photos={this.props.mainProfile.userPhotos}/>
+                        <Photos photos={this.props.mainProfile.currentUserPhotos}/>
+
                     </ScrollView>
                     {/*<Text onPress={this.logout.bind(this)}>Logout</Text>*/}
                 </View>
@@ -36,6 +41,7 @@ const styles = StyleSheet.create({
 
 export default connect( state=>({ 
 	mainProfile: state.profileReducer
+    // following_count: state.followingReducer.profileCount
 }), {
 	// Imported Actions
 })(Profile)
