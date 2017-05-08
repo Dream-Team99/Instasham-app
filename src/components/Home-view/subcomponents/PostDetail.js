@@ -18,14 +18,19 @@ const PostDetail = (props) =>{
                 </View>
             </PostCardSection>
             <PostCardSection>
-                <View>
+                <View style={styles.likes}>
                     <Text>like</Text>
-                    <Text>comment</Text>
+                    <Text> comment</Text>
                 </View>
             </PostCardSection>
             <PostCardSection>
-                <Text>{props.post.post_text}</Text>
-                <Text></Text>
+                <View style={styles.poster}>
+                    <Text style={styles.postStyle}>{props.post.username} </Text>
+                    <Text> {props.post.post_text}</Text>
+                </View>
+                <View style={styles.timeStampView}>
+                    <Text style={styles.timeStampStyle}>{props.post.timestamp}</Text>
+                </View>
                 {/*<Text>2nd comment</Text>*/}
             </PostCardSection>
         </PostCard>
@@ -38,19 +43,41 @@ const styles = StyleSheet.create({
         flex: 1,
         width: null
     },
+    timeStampView:{
+        marginBottom: 10,
+        marginLeft: 10
+    },
+    timeStampStyle:{
+        fontSize: 12
+    },
+    postStyle:{
+        fontWeight: 'bold'
+    },
     header_text:{
         fontSize: 18
     },
     thumbnail_style:{
-        height: 50,
-        width: 50,
-        borderRadius: 35
+        height: 35,
+        width: 35,
+        borderRadius: 35,
+        marginRight: 10
+    },
+    poster:{
+        marginLeft: 10,
+        flexDirection: 'row'
+    },
+    likes:{
+        flexDirection: 'row',
+        marginLeft: 10
     },
     thumbnail_container:{
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'flex-start',
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
+        marginTop: 15,
+        marginBottom: 10
     },
     image_style:{
         height: 300,
