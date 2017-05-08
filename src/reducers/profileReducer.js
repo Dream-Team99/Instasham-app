@@ -8,13 +8,14 @@ const DONE_LOADING = 'login/DONE_LOADING'
 
 const initialState = {
 	profile: '',
-	loading: false
+	loading: false,
+    currentUserPhotos: null
 }
 
 export default (state = initialState, action) => {
 	switch (action.type){
 		case SETPROFILE:
-			return Object.assign({}, state, {profile: action.profile, loading: false})
+			return Object.assign({}, state, {profile: action.profile, currentUserPhotos: action.currentUserPhotos, loading: false})
 		case LOADING:
 			return Object.assign({}, state, {loading: true})
 		case DONE_LOADING:
@@ -64,7 +65,8 @@ export function checkToken() {
 					.then(response => {
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data
+							profile: response.data.profile,
+							currentUserPhotos: response.data.photos
 						})
 					})
 				})
@@ -74,3 +76,4 @@ export function checkToken() {
 		})
 	}
 }
+
