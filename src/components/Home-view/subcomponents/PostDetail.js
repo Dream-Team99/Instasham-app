@@ -8,7 +8,7 @@ const PostDetail = (props) =>{
         <PostCard>
             <PostCardSection>
                 <View style={styles.thumbnail_container}>
-                    <Image style={styles.thumbnail_style} source={{uri: props.post.img}}/>
+                    <Image style={styles.thumbnail_style} source={{uri: props.post.url}}/>
                     <Text>{props.post.name}</Text>
                 </View>
             </PostCardSection>

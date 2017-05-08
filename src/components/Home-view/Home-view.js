@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import MainFeed from "./subcomponents/MainFeed";
+import {getList} from '../../reducers/followingReducer';
 import Nav from '../Nav'
 import {connect} from 'react-redux'
 
@@ -10,18 +11,15 @@ const followingList = []
 
 class Home extends React.Component {
 
-    // componentWillMount(){
-    //     axios.get('http://52.10.128.151:3005/api/getFollowing' + this.props.profile).then(result =>{
-    //         const followingList = result.data
-    //     })
-    // }
+    componentWillMount(){
+        this.props.getList(this.props.currentProfile.profile.id)
+    }
 
     render() {
-        // console.log(this.props.redux)
         return (
             <Nav>
-                <ScrollView style={styles.mainfeed}>
-                    <MainFeed list={followingList}/>
+                <ScrollView>
+                    <MainFeed list={this.props.follow.followingList}/>
                 </ScrollView>
             </Nav>
         );
@@ -33,9 +31,10 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	profile: state.profileReducer,
-    search: state.searchReducer
+	currentProfile: state.profileReducer,
+    search: state.searchReducer,
+    follow: state.followingReducer
 
 }), {
-	// Imported Actions
+	getList
 })(Home)

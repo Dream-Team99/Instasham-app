@@ -17,7 +17,7 @@ class Profile extends Component {
             <Nav>
                 <View style={styles.profile}>
                     <ScrollView style={styles.photos}>
-                        <User user={this.props.state.profile}/>
+                        <User user={this.props.profile.profile}/>
                         {/*<Photos photos={this.props.state.userPhotos}/>*/}
                     </ScrollView>
                     {/*<Text onPress={this.logout.bind(this)}>Logout</Text>*/}
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	state: state.profileReducer
+	profile: state.profileReducer
 }), {
 	// Imported Actions
 })(Profile)

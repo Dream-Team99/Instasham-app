@@ -6,7 +6,7 @@ import PostDetail from './PostDetail'
 export default class MainFeed extends Component {
 
     renderList() {
-     return this.props.list.map(post => <PostDetail key={post.name} post={post}/>)
+     return this.props.list.map(post => <PostDetail key={post.id} post={post}/>)
     }
 
     render() {

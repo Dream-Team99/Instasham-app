@@ -28,13 +28,13 @@ export function login() {
 	return dispatch => {
 		// Login to FB and get token
 		Facebook.logInWithReadPermissionsAsync(
-			'1201211719949057', // app id
+			'1025828367561659', // app id
 			{ permissions: ['public_profile'] }
 		).then(response => {
 			if(response.type==='success'){
 				// Save token and use it to get facebook profile
 				AsyncStorage.setItem('token', response.token)
-				axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${response.token}`)
+				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${response.token}`)
 				.then(response => {
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
@@ -57,7 +57,7 @@ export function checkToken() {
 		AsyncStorage.getItem('token').then(token => {
 			if(token){
 				// Use token to get facebook profile
-				axios.get(`https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`)
+				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${token}`)
 				.then(response => {
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data})

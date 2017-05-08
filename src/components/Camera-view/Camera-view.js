@@ -35,6 +35,7 @@ class Camera extends React.Component {
         let { image } = this.state;
 
         return (
+
             <Nav>
                 <View style={{flex: 1, alignItems: 'center'}}>
                     <Button
