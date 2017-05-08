@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "expo": "^16.0.0",
+    "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.4",
     "react-native-aws3": "^0.0.8",
