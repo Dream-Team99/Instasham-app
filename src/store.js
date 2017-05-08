@@ -8,3 +8,4 @@ import thunk from 'redux-thunk';
 export default createStore(combineReducers({searchReducer,profileReducer,followingReducer}), {}, applyMiddleware(
     promiseMiddleware(), thunk
 ))
+

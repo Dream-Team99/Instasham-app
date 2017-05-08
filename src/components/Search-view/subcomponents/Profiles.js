@@ -1,21 +1,36 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet, Image} from 'react-native'
-import ProfileDetail from './ProfileDetail'
+import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native'
+import axios from "axios";
 
 export default class Profiles extends Component{
+
+	addFollower(id, follower){
+		axios.post(`http://52.10.128.151:3005/api/users/follower`, {userId: id, followerId: follower}).then((res)=>{
+
+		})
+	}
+
 	renderProfiles(){
-		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id)
+		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id);
 		return filteredUsers.map((p,i) => {
-			return <ProfileDetail key={i}>
-						<View style={styles.fullProfile}>
+			return (
+					<View style={styles.fullProfile} key={i}>
 							<View style={styles.profileImageAndName}>
 								<Image style={styles.image} source={{uri: p.imageurl}} />
-								<Text style={styles.name}>{p.username}</Text>
+
 							</View>
+						<Text style={styles.name}>{p.username}</Text>
+							<View style={styles.follow}>
+								<TouchableHighlight onPress={this.addFollower.bind(null, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>
+							</View>
+						<View style={styles.unfollow}>
+							<TouchableHighlight onPress={this.addFollower.bind(null, this.props.currentUser.id, p.id)}><Text style={{color:"black",textAlign: 'center',}}>Following</Text></TouchableHighlight>
 						</View>
-					</ProfileDetail>
+					</View>
+			)
 			})
 	}
+
 	render(){
         return (
 			<View style={styles.pageView}>
@@ -30,18 +45,39 @@ const styles = StyleSheet.create({
 	},
 	fullProfile:{
 		flexDirection: 'row',
+        justifyContent: 'space-between',
+		alignItems:"center",
+		padding:5
 	},
 	profileImageAndName:{
 		flexDirection: 'column',
-		justifyContent: 'space-between'
+		justifyContent: 'space-around'
 	},
 	name: {
-		fontSize: 14,
+		fontSize: 16,
 		textAlign: 'center',
 	},
 	image:{
-		width: 75,
-		height: 75,
+		width: 50,
+		height: 50,
 		borderRadius: 40
+	},
+	follow:{
+		backgroundColor:"#3897f0",
+		paddingTop:10,
+		paddingBottom:10,
+		paddingLeft:17,
+		paddingRight:17,
+        borderRadius: 5
+    },
+    unfollow:{
+        backgroundColor:"#fefefe",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:15,
+        paddingRight:15,
+        borderRadius: 5,
+		borderColor:"black",
+		borderWidth:2
 	}
-})
+});

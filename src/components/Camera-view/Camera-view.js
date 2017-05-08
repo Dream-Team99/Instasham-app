@@ -1,6 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import Nav from '../Nav'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import Nav from '../Nav';
+import moment from "moment";
+import axios from "axios";
+let now = moment().format("MMM Do");
 import {
     ActivityIndicator,
     Button,
@@ -9,6 +12,7 @@ import {
     Share,
     StatusBar,
     StyleSheet,
+    TextInput,
     Text,
     TouchableOpacity,
     View,
@@ -21,152 +25,153 @@ import Expo, {
 
 class Camera extends React.Component {
     state = {
-        image: null,
+        image: {cancelled: true},
+        upload: false,
         uploading: false,
-    }
+        post_text: ``
+    };
 
     render() {
         let { image } = this.state;
 
         return (
-        	<Nav>
-				<View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-		<Text style={{fontSize: 20, marginBottom: 20, textAlign: 'center', marginHorizontal: 15}}>
-			Example: Upload ImagePicker result
-			</Text>
 
-			<Button
-			onPress={this._pickImage}
-			title="Pick an image from camera roll"
-				/>
-
-				<Button
-			onPress={this._takePhoto}
-			title="Take a photo"
-				/>
-
-				{ this._maybeRenderImage() }
-			{ this._maybeRenderUploadingOverlay() }
-
-		<StatusBar barStyle="default" />
-            </View>
+            <Nav>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Button
+                        onPress={this._pickImage}
+                        title="Pick an image"
+                    />
+                    <Button
+                        onPress={this._takePhoto}
+                        title="Take a photo"
+                    />
+                    { this._maybeRenderImage() }
+                    { this._maybeRenderUploadingOverlay() }
+                    <StatusBar barStyle="default" />
+                </View>
             </Nav>
 
-    );
+        );
     }
 
     _maybeRenderUploadingOverlay = () => {
-    if (this.state.uploading) {
-    return (
-<View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
-<ActivityIndicator
-color="#fff"
-animating
-size="large"
-    />
-    </View>
-);
-}
-}
-
-_maybeRenderImage = () => {
-    let { image } = this.state;
-    if (!image) {
-        return;
-    }
-
-    return (
-        <View style={{
-        marginTop: 30,
-            width: 250,
-            borderRadius: 3,
-            elevation: 2,
-            shadowColor: 'rgba(0,0,0,1)',
-            shadowOpacity: 0.2,
-            shadowOffset: {width: 4, height: 4},
-        shadowRadius: 5,
-    }}>
-<View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
-<Image
-    source={{uri: image}}
-    style={{width: 250, height: 250}}
-/>
-</View>
-
-    <Text
-    onPress={this._copyToClipboard}
-    onLongPress={this._share}
-    style={{paddingVertical: 10, paddingHorizontal: 10}}>
-    {image}
-</Text>
-    </View>
-);
-}
-
-_share = () => {
-    Share.share({
-        message: this.state.image,
-        title: 'Check out this photo',
-        url: this.state.image,
-    });
-}
-
-_copyToClipboard = () => {
-    Clipboard.setString(this.state.image);
-    alert('Copied image URL to clipboard');
-}
-
-_takePhoto = async () => {
-    let pickerResult = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [4,3]
-    });
-
-    this._handleImagePicked(pickerResult);
-}
-
-_pickImage = async () => {
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-        allowsEditing: true,
-        aspect: [4,3]
-    });
-
-    this._handleImagePicked(pickerResult);
-}
-
-_handleImagePicked = async (pickerResult) => {
-    let uploadResponse, uploadResult;
-
-    try {
-        this.setState({uploading: true});
-
-        if (!pickerResult.cancelled) {
-            uploadResponse = await uploadImageAsync(pickerResult.uri);
-            uploadResult = await uploadResponse.json();
-            this.setState({image: uploadResult.location});
+        if (this.state.uploading) {
+            return (
+                <View style={[StyleSheet.absoluteFill, {backgroundColor: 'rgba(0,0,0,0.4)', alignItems: 'center', justifyContent: 'center'}]}>
+                    <ActivityIndicator
+                        color="#fff"
+                        animating
+                        size="large"
+                    />
+                </View>
+            );
         }
-    } catch(e) {
-        console.log({uploadResponse});
-        console.log({uploadResult});
-        console.log({e});
-        alert('Upload failed, sorry :(');
-    } finally {
-        this.setState({uploading: false});
     }
-}
+
+    _maybeRenderImage = () => {
+        let { image, upload } = this.state;
+        if (image.cancelled) {
+            return;
+        }
+        else if (upload){
+            return(
+                <Text>Upload success!</Text>
+            )
+        }
+
+        else return (
+                <View style={{
+                    marginTop: 30,
+                    width: 250,
+                    borderRadius: 3,
+                    elevation: 2,
+                    shadowColor: 'rgba(0,0,0,1)',
+                    shadowOpacity: 0.2,
+                    shadowOffset: {width: 4, height: 4},
+                    shadowRadius: 5,
+                }}>
+                    <View>
+
+                        <TextInput
+                            onChangeText={(post_text)=> this.setState({post_text})}
+                            value={this.state.post_text}
+                        />
+                        <Button title="Upload" onPress={this._handleImagePicked.bind(null, this.state.image)}/>
+                    </View>
+                    <View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
+                        <Image
+                            source={{uri: image.uri}}
+                            style={{width: 250, height: 250}}
+                        />
+                    </View>
+                </View>
+            );
+    };
+
+    _share = () => {
+        Share.share({
+            message: this.state.image,
+            title: 'Check out this photo',
+            url: this.state.image,
+        });
+    }
+
+    _copyToClipboard = () => {
+        Clipboard.setString(this.state.image);
+        alert('Copied image URL to clipboard');
+    }
+
+    _takePhoto = async () => {
+        let pickerResult = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            aspect: [4,3]
+        });
+        this.setState({image: pickerResult});
+        console.log(this.state)
+    };
+
+    _pickImage = async () => {
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4,3]
+        });
+        this.setState({image: pickerResult});
+    };
+
+    _handleImagePicked = async (pickerResult) => {
+        let uploadResponse, uploadResult;
+
+        try {
+            this.setState({uploading: true});
+
+            if (!pickerResult.cancelled) {
+                uploadResponse = await uploadImageAsync(pickerResult.uri);
+                uploadResult = await uploadResponse.json();
+                axios.post(`http://52.10.128.151:3005/api/users/post`, {
+                    id: this.props.redux.profileReducer.profile.id,
+                    timestamp:now,
+                    imageUrl:uploadResult.location,
+                    post_text: this.state.post_text
+                }).then((res)=>{
+                    console.log(res.data)
+                });
+                this.setState({upload: true});
+            }
+        } catch(e) {
+            console.log({uploadResponse});
+            console.log({uploadResult});
+            console.log({e});
+            alert('Upload failed, sorry');
+        } finally {
+            this.setState({uploading: false});
+        }
+    }
 }
 
 async function uploadImageAsync(uri) {
     let apiUrl = 'http://52.10.128.151:3005/upload';
 
-    // Note:
-    // Uncomment this if you want to experiment with local server
-    //
-    // if (Constants.isDevice) {
-    //   apiUrl = `https://your-ngrok-subdomain.ngrok.io/upload`;
-    // } else {
-    //   apiUrl = `http://localhost:3000/upload`
-    // }
 
     let uriParts = uri.split('.');
     let fileType = uri[uri.length - 1];
@@ -190,11 +195,11 @@ async function uploadImageAsync(uri) {
     return fetch(apiUrl, options);
 }
 const styles = StyleSheet.create({
-	
-})
 
-export default connect( state=>({ 
-	redux: state
+});
+
+export default connect( state=>({
+    redux: state
 }), {
-	// Imported Actions
+    // Imported Actions
 })(Camera)
