@@ -6,7 +6,11 @@ const GET_PROFILE_COUNT = `GET_PROFILE_COUNT`;
 
 const initialState = {
     followingList: [],
-    profileCount: {}
+    profileCount: {
+        post_count:0,
+        follwer_count:0,
+        following_count:0
+    }
 };
 
 export default (state = initialState, action) => {

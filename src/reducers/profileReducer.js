@@ -9,8 +9,8 @@ const DONE_LOADING = 'login/DONE_LOADING'
 const initialState = {
 	profile: '',
 	loading: false,
-    currentUserPhotos: null
-}
+    currentUserPhotos: []
+};
 
 export default (state = initialState, action) => {
 	switch (action.type){
@@ -41,7 +41,7 @@ export function login() {
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data
+							profile: response.data.profile
 						})
 					})
 				})
@@ -56,6 +56,7 @@ export function checkToken() {
 	return dispatch => {
 		dispatch({type: LOADING})
 		AsyncStorage.getItem('token').then(token => {
+			console.log(token)
 			if(token){
 				// Use token to get facebook profile
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${token}`)
