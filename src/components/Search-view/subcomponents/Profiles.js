@@ -4,15 +4,38 @@ import axios from "axios";
 import Link from "react-router-native/Link";
 
 export default class Profiles extends Component{
+	constructor(){
+		super();
+		this.state = {
+			isFollowing: []
+		}
+	}
 
 	addFollower(id, follower){
 		axios.post(`http://52.10.128.151:3005/api/users/follower`, {userId: id, followerId: follower}).then((res)=>{
-
+            this.checkFollower.call(this, id)
+		});
+	}
+	checkFollower(id){
+		axios.get(`http://52.10.128.151:3005/api/users/follower/${id}`).then((res)=>{
+			this.setState({
+				isFollowing: res.data
+			})
 		})
+	}
+	// deleteFollower(id, follower){
+     //    axios.post(`http://52.10.128.151:3005/api/users/follower/delete`, {userId: id, followerId: follower}).then((res)=>{
+     //        this.setState({
+     //            isFollowing: res.data
+     //        })
+     //    })
+	// }
+	componentDidMount(){
+        this.checkFollower(this.props.currentUser.id);
 	}
 
 	renderProfiles(){
-		const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id);
+        const filteredUsers = this.props.users.filter(val => val.id !== this.props.currentUser.id);
 		return filteredUsers.map((p,i) => {
 			return (
 					<View style={styles.fullProfile} key={i}>
@@ -20,18 +43,27 @@ export default class Profiles extends Component{
 								<Link to={"/Profile/" + p.id}><Image style={styles.image} source={{uri: p.imageurl}} /></Link>
 								<Link to={"/Profile/" + p.id}><Text style={styles.name}>{p.username}</Text></Link>
 							</View>
-							<View style={styles.follow}>
-								<TouchableHighlight onPress={this.addFollower.bind(null, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>
-							</View>
-						<View style={styles.unfollow}>
-							<TouchableHighlight onPress={this.addFollower.bind(null, this.props.currentUser.id, p.id)}><Text style={{color:"black",textAlign: 'center',}}>Following</Text></TouchableHighlight>
+
+						<Text style={styles.name}>{p.username}</Text>
+						{this.state.isFollowing.indexOf(p.id) === -1 &&
+						<View style={styles.follow}>
+							<TouchableHighlight onPress={this.addFollower.bind(this, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>
 						</View>
+						}
+                        {this.state.isFollowing.indexOf(p.id) !== -1 &&
+
+						<View style={styles.unfollow}>
+							<TouchableHighlight ><Text style={{color:"black",textAlign: 'center',}}>Following</Text></TouchableHighlight>
+						</View>
+                        }
+
 					</View>
 			)
 			})
 	}
 
 	render(){
+
         return (
 			<View style={styles.pageView}>
 				{this.renderProfiles()}
