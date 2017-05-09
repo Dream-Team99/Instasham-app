@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 import {View, Image, StyleSheet} from 'react-native'
 import {Link} from  'react-router-native'
 import { Ionicons } from '@expo/vector-icons'
+import {connect} from 'react-redux'
 
 
-export default class Nav extends Component{
-	constructor(){
-		super()
-		this.state = {
-			btnSelected: 1
-		}
-	}
+class Nav extends Component{
+	// constructor(){
+	// 	super()
+	// 	this.state = {
+	// 		btnSelected: 1
+	// 	}
+	// }
 
 	render(){
+		// console.log(this.props.mainProfile)
 		return(
+
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
 					<Link to='/Search'><Ionicons name='md-search' size={32} color='#262626'/></Link>
@@ -26,7 +29,7 @@ export default class Nav extends Component{
 				<View style={styles.navBar}>
           <Link to='/Home'><Ionicons name='md-home' size={32} color='#262626' /></Link>
           <Link to='/Camera'><Ionicons name='md-camera' size={32} color='#262626' /></Link>
-          <Link to='/Profile'><Ionicons name='md-person' size={32} color='#262626' /></Link>
+          <Link to={'/Profile/' + this.props.mainProfile.id}><Ionicons name='md-person' size={32} color='#262626' /></Link>
 	      </View>
 			</View>
 		)
@@ -58,6 +61,15 @@ const styles = StyleSheet.create({
 		color:'#262626'
 	}
 })
+
+export default connect( state=>({
+    mainProfile: state.profileReducer.profile.profile,
+    search: state.searchReducer,
+    follow: state.followingReducer
+
+}), {
+
+})(Nav)
 
 
 
