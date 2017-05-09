@@ -17,12 +17,12 @@ class Profile extends Component {
             this.props.getProfile(newProps.match.params.id);
             this.props.followerCount(newProps.match.params.id);
         }
+
+    logout() {
+        AsyncStorage.removeItem('token').then(() => {
+            this.props.history.push('/')
+        })
     }
-    // logout() {
-    //     AsyncStorage.removeItem('token').then(() => {
-    //         this.props.history.push('/')
-    //     })
-    // }
 
     render() {
         return (
@@ -32,6 +32,7 @@ class Profile extends Component {
                     <ScrollView style={styles.photos}>
                         <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
                         <Photos photos={this.props.currentProfile.photos}/>
+
                     </ScrollView>
                     {/*<Text onPress={this.logout.bind(this)}>Logout</Text>*/}
                 </View>
