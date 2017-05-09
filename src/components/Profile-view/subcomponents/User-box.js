@@ -18,7 +18,7 @@ export default class User extends Component{
                             <Link style={styles.posts}><Text>posts</Text></Link>
                         </View>
                         <View style={styles.links}>
-                            <Link style={styles.posts_count}><Text>{this.props.following_count.follwer_count}</Text></Link>
+                            <Link style={styles.posts_count}><Text>{this.props.following_count.follower_count}</Text></Link>
                             <Link style={styles.posts}><Text>followers</Text></Link>
                         </View>
                         <View style={styles.links}>

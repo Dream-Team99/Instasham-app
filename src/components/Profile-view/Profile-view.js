@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, AsyncStorage, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
-import {getProfile, setProfile} from '../../reducers/profileReducer';
+import {getProfile} from '../../reducers/profileReducer';
 import {followerCount} from "../../reducers/followingReducer";
 import User from './subcomponents/User-box';
 import  Photos from "./subcomponents/User-photos";
@@ -25,6 +25,7 @@ class Profile extends Component {
     // }
 
     render() {
+        // console.log(this.props.following)
         return (
             <Nav>
                 {this.props.currentProfile.profile &&
@@ -49,6 +50,6 @@ export default connect( state=>({
     currentProfile: state.profileReducer.currentProfile,
     following: state.followingReducer.profileCount
 }), {
-	setProfile,getProfile,followerCount
+	getProfile,followerCount
 
 })(Profile)

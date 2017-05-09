@@ -2,18 +2,27 @@ import React, {Component} from "react";
 import {View, Text, StyleSheet, Image} from 'react-native';
 import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
+import {Link} from  'react-router-native';
+
 
 const PostDetail = (props) =>{
+    // console.log(props.post.photo_id)
+
     return(
+
         <PostCard>
             <PostCardSection>
                 <View style={styles.thumbnail_container}>
-                    <Image style={styles.thumbnail_style} source={{uri: props.post.user_image}}/>
-                    <Text>{props.post.username}</Text>
+                    <View>
+                        <Link to={"/Profile/"+ props.post.user_id}><Image style={styles.thumbnail_style} source={{uri: props.post.user_image}}/></Link>
+                    </View>
+                    <View>
+                        <Link to={"/Profile/"+ props.post.user_id}><Text>{props.post.username}</Text></Link>
+                    </View>
                 </View>
             </PostCardSection>
             <PostCardSection>
-                <View style={styles.headerContentStyle}>
+                <View>
                     <Image style={styles.image_style} source={{uri: props.post.url}}/>
                 </View>
             </PostCardSection>
@@ -25,7 +34,7 @@ const PostDetail = (props) =>{
             </PostCardSection>
             <PostCardSection>
                 <View style={styles.poster}>
-                    <Text style={styles.postStyle}>{props.post.username} </Text>
+                    <Link to={"/Profile/"+ props.post.user_id}><Text style={styles.postStyle}>{props.post.username} </Text></Link>
                     <Text> {props.post.post_text}</Text>
                 </View>
                 <View style={styles.timeStampView}>
