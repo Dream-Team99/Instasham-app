@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, AsyncStorage, View, ScrollView} from 'react-native';
+import {Text,TouchableHighlight, StyleSheet, AsyncStorage, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
 import {getProfile} from '../../reducers/profileReducer';
@@ -10,12 +10,11 @@ import  Photos from "./subcomponents/User-photos";
 class Profile extends Component {
     componentWillMount() {
         // console.log(this.props.history.location.pathname)
-
+        this.props.followerCount(this.props.match.params.id);
         this.props.getProfile(this.props.match.params.id)
     }
 
     componentWillReceiveProps(){
-        this.props.followerCount(this.props.match.params.id);
     }
     logout() {
         AsyncStorage.removeItem('token').then(() => {
@@ -31,7 +30,7 @@ class Profile extends Component {
                         <User following_count={this.props.following} user={this.props.history.location.pathname === '/Profile/' + this.props.mainProfile.profile.id ? this.props.mainProfile.profile : this.props.currentProfile.profile}/>
                         <Photos photos={this.props.history.location.pathname === '/Profile/' + this.props.mainProfile.profile.id ? this.props.mainProfile.photos : this.props.currentProfile.photos}/>
                     </ScrollView>
-                    <Text onPress={this.logout.bind(this)}>Logout</Text>
+                    <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>
                 </View>
             </Nav>
 
@@ -41,7 +40,14 @@ class Profile extends Component {
 }
 
 const styles = StyleSheet.create({
-	
+    logout:{
+        backgroundColor:"#3897f0",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:17,
+        paddingRight:17,
+        borderRadius: 5
+    },
 });
 
 export default connect( state=>({ 

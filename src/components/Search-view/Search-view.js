@@ -9,6 +9,7 @@ import Nav from '../Nav'
 class Search extends Component{
     componentDidMount(){
         this.props.searchForUsers(``)
+
     }
 	render(){
         // console.log(this.props.redux.profileReducer.profile)
@@ -22,7 +23,7 @@ class Search extends Component{
 					value={this.props.redux.SearchText}
 				/>
 				<ScrollView>
-					<Profiles currentUser={this.props.redux.profileReducer.profile} users={this.props.redux.searchReducer.Profiles}/>
+					<Profiles currentUser={this.props.redux.profileReducer.profile.profile} users={this.props.redux.searchReducer.Profiles}/>
 				</ScrollView>
 			</Nav>
 		)
