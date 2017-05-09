@@ -14,7 +14,9 @@ class Nav extends Component{
 	// }
 
 	render(){
+		// console.log(this.props.mainProfile)
 		return(
+
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
 					<Link to='/Search'><Ionicons name='md-search' size={32} color='#262626'/></Link>
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({
-    mainProfile: state.profileReducer,
+    mainProfile: state.profileReducer.profile.profile,
     search: state.searchReducer,
     follow: state.followingReducer
 

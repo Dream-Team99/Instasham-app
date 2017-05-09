@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	mainProfile: state.profileReducer,
+	mainProfile: state.profileReducer.profile,
     search: state.searchReducer,
     follow: state.followingReducer
 

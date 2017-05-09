@@ -2,24 +2,35 @@ import axios from 'axios'
 import {Facebook} from 'expo'
 import {Alert, AsyncStorage} from 'react-native'
 
-const SETPROFILE = 'login/SETPROFILE'
-const LOADING = 'login/LOADING'
-const DONE_LOADING = 'login/DONE_LOADING'
+const SETPROFILE = 'login/SETPROFILE';
+const SETCURRENTPROFILE = 'SETCURRENTPROFILE';
+const LOADING = 'login/LOADING';
+const DONE_LOADING = 'login/DONE_LOADING';
 
 const initialState = {
+	currentProfile: {
+		profile:{
+			id: '',
+			username: '',
+			imageurl: ''
+		},
+		photos: []
+	},
 	profile: '',
 	loading: false,
-    currentUserPhotos: null
-}
+};
 
 export default (state = initialState, action) => {
 	switch (action.type){
 		case SETPROFILE:
-			return Object.assign({}, state, {profile: action.profile, currentUserPhotos: action.currentUserPhotos, loading: false})
+			// console.log(action.profile)
+			return Object.assign({}, state, {profile: action.profile, loading: false});
 		case LOADING:
-			return Object.assign({}, state, {loading: true})
-		case DONE_LOADING:
-			return Object.assign({}, state, {loading: false})
+			return Object.assign({}, state, {loading: true});
+		case SETCURRENTPROFILE:
+            return Object.assign({}, state, {currentProfile: action.profile, loading: false});
+        case DONE_LOADING:
+			return Object.assign({}, state, {loading: false});
 		default:
 			return state
 	}
@@ -37,6 +48,7 @@ export function login() {
 				AsyncStorage.setItem('token', response.token)
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${response.token}`)
 				.then(response => {
+					console.log(response)
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
 						dispatch({
@@ -60,13 +72,14 @@ export function checkToken() {
 				// Use token to get facebook profile
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${token}`)
 				.then(response => {
+					// console.log(response)
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data})
 					.then(response => {
+						// console.log(response.data);
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data.profile,
-							currentUserPhotos: response.data.photos
+							profile: response.data,
 						})
 					})
 				})
@@ -76,4 +89,18 @@ export function checkToken() {
 		})
 	}
 }
+
+
+export function getProfile(id) {
+
+    return  dispatch => {
+        axios.post('http://52.10.128.151:3005/api/users', {profile: {id: id}}).then(response =>{
+            dispatch ({
+                type: SETCURRENTPROFILE,
+                profile: response.data
+            })
+		})
+    }
+}
+
 

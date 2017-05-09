@@ -1,6 +1,3 @@
-/**
- * Created by beebe on 5/3/2017.
- */
 import React, {Component} from 'react';
 import {View, Text, StyleSheet,Image} from 'react-native';
 import Link from "react-router-native/Link";
