@@ -4,6 +4,7 @@ import {Link} from  'react-router-native';
 
 export default class User extends Component{
     render(){
+        // console.log('user' ,this.props.user)
         return(
                 <View style={styles.pageView}>
                     <View style={styles.profileImageAndName}>

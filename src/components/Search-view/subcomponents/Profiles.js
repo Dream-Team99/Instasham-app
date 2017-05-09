@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native'
 import axios from "axios";
+import Link from "react-router-native/Link";
 
 export default class Profiles extends Component{
 
@@ -16,7 +17,7 @@ export default class Profiles extends Component{
 			return (
 					<View style={styles.fullProfile} key={i}>
 							<View style={styles.profileImageAndName}>
-								<Image style={styles.image} source={{uri: p.imageurl}} />
+								<Link to={"/Profile/" + p.id}><Image style={styles.image} source={{uri: p.imageurl}} /></Link>
 
 							</View>
 						<Text style={styles.name}>{p.username}</Text>

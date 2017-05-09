@@ -152,7 +152,7 @@ class Camera extends React.Component {
                 uploadResponse = await uploadImageAsync(pickerResult.uri);
                 uploadResult = await uploadResponse.json();
                 axios.post(`http://52.10.128.151:3005/api/users/post`, {
-                    id: this.props.redux.profileReducer.profile.id,
+                    id: this.props.redux.profileReducer.profile.profile.id,
                     timestamp:now,
                     imageUrl:uploadResult.location,
                     post_text: this.state.post_text
