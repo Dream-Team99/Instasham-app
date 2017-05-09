@@ -44,7 +44,6 @@ export default class Profiles extends Component{
 								<Link to={"/Profile/" + p.id}><Text style={styles.name}>{p.username}</Text></Link>
 							</View>
 
-						<Text style={styles.name}>{p.username}</Text>
 						{this.state.isFollowing.indexOf(p.id) === -1 &&
 						<View style={styles.follow}>
 							<TouchableHighlight onPress={this.addFollower.bind(this, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>

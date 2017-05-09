@@ -7,7 +7,8 @@ import Link from "react-router-native/Link";
 export default class Photos extends Component{
 
     render(){
-        const userPhotoList = this.props.photos.map((p,i)=>  <Image style={styles.photo} source={{uri: p.url}} key={i}/>);
+        // console.log(this.props.photos)
+        const userPhotoList = this.props.photos.map((p,i)=>  <Link key={i} to={"/Post/" + p.id}><Image style={styles.photo} source={{uri: p.url}} /></Link>);
         return(
             <View style={styles.photos}>
                 {userPhotoList}

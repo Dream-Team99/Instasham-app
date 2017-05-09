@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import {View, Text, StyleSheet, Image} from 'react-native';
 import PostDetail from './PostDetail'
@@ -6,7 +5,7 @@ import PostDetail from './PostDetail'
 export default class MainFeed extends Component {
 
     renderList() {
-     return this.props.list.map((post, i) => <PostDetail key={i} post={post}/>)
+        return this.props.list.map((post, i) => <PostDetail key={i} post={post}/>);
     }
 
     render() {

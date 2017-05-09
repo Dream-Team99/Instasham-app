@@ -14,17 +14,17 @@ class Profile extends Component {
         this.props.followerCount(this.props.match.params.id);
 
 }
-    componentWillReceiveProps(newProps){
-        if(this.props.match.params.id !== newProps.match.params.id) {
+    componentWillReceiveProps(newProps) {
+        if (this.props.match.params.id !== newProps.match.params.id) {
             this.props.getProfile(newProps.match.params.id);
             this.props.followerCount(newProps.match.params.id);
         }
-
-    logout() {
-        AsyncStorage.removeItem('token').then(() => {
-            this.props.history.push('/')
-        })
     }
+    // logout() {
+    //     AsyncStorage.removeItem('token').then(() => {
+    //         this.props.history.push('/')
+    //     })
+    // }
 
     render() {
         // console.log(this.props.following)
@@ -37,7 +37,7 @@ class Profile extends Component {
                         <Photos photos={this.props.currentProfile.photos}/>
 
                     </ScrollView>
-                    <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>
+                    {/*<TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>*/}
 
                 </View>
                 }
