@@ -1,12 +1,11 @@
 import React, {Component} from "react";
-import axios from 'axios';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import MainFeed from "./subcomponents/MainFeed";
 import {getList} from '../../reducers/followingReducer';
+import {getProfile} from '../../reducers/profileReducer'
 import Nav from '../Nav'
 import {connect} from 'react-redux'
 
-const followingList = [];
 
 class Home extends Component {
     componentWillMount(){
@@ -27,7 +26,7 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
 	
-})
+});
 
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile,
@@ -35,5 +34,5 @@ export default connect( state=>({
     follow: state.followingReducer
 
 }), {
-	getList
+	getList, getProfile
 })(Home)

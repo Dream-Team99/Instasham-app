@@ -19,10 +19,10 @@ class Search extends Component{
 				<TextInput
 					style={styles.input}
 					onChangeText={(e)=> this.props.searchForUsers(e)}
-					value={this.props.redux.SearchText}
+					value={this.props.search.SearchText}
 				/>
 				<ScrollView>
-					<Profiles currentUser={this.props.redux.profileReducer.profile} users={this.props.redux.searchReducer.Profiles}/>
+					<Profiles currentUser={this.props.mainProfile.profile.profile} users={this.props.search.Profiles}/>
 				</ScrollView>
 			</Nav>
 		)
@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect( state=>({ 
-	redux: state
+	mainProfile: state.profileReducer,
+	search: state.searchReducer
+
 }), {
   searchForUsers
 	// Imported Actions
