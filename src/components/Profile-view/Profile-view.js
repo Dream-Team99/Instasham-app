@@ -7,25 +7,24 @@ import User from './subcomponents/User-box'
 import  Photos from "./subcomponents/User-photos"
 
 class Profile extends Component {
-    // componentDidMount(){
-    //     followerCount(this.props.params.id)
-    // }
+    componentDidMount(){
+        this.props.followerCount(this.props.profile.profile.id)
+    }
     logout() {
-        AsyncStorage.removeItem('id').then(() => {
+        AsyncStorage.removeItem('token').then(() => {
             this.props.history.push('/')
         })
     }
 
     render() {
-        // console.log('profile is', this.props.profile.profile)
         return (
             <Nav>
                 <View style={styles.profile}>
                     <ScrollView style={styles.photos}>
-                        <User user={this.props.profile.profile}/>
+                        <User user={this.props.profile.profile} following_count={this.props.following_count}/>
                         <Photos photos={this.props.profile.currentUserPhotos}/>
                     </ScrollView>
-                    {/*<Text onPress={this.logout.bind(this)}>Logout</Text>*/}
+                    <Text onPress={this.logout.bind(this)}>Logout</Text>
                 </View>
             </Nav>
 
@@ -36,13 +35,13 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
 	
-})
+});
 
 export default connect( state=>({ 
-	profile: state.profileReducer
-    // following_count: state.followingReducer.profileCount
+	profile: state.profileReducer,
+    following_count: state.followingReducer.profileCount
 }), {
-	// Imported Actions
+    followerCount
 })(Profile)
 
 
