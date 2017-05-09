@@ -68,7 +68,6 @@ export function checkToken() {
 	return dispatch => {
 		dispatch({type: LOADING})
 		AsyncStorage.getItem('token').then(token => {
-			console.log(token)
 			if(token){
 				// Use token to get facebook profile
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${token}`)
