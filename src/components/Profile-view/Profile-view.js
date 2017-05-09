@@ -23,17 +23,14 @@ class Profile extends Component {
     // }
 
     render() {
-        // console.log('profile is', this.props.currentProfile)
-
         return (
             <Nav>
                 <View style={styles.profile}>
                     <ScrollView style={styles.photos}>
                         <User user={this.props.history.location.pathname === '/Profile/' + this.props.mainProfile.profile.id ? this.props.mainProfile.profile : this.props.currentProfile.profile}/>
                         <Photos photos={this.props.history.location.pathname === '/Profile/' + this.props.mainProfile.profile.id ? this.props.mainProfile.photos : this.props.currentProfile.photos}/>
-
                     </ScrollView>
-                    {/*<Text onPress={this.logout.bind(this)}>Logout</Text>*/}
+                    <Text onPress={this.logout.bind(this)}>Logout</Text>
                 </View>
             </Nav>
 
@@ -44,7 +41,7 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
 	
-})
+});
 
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile,
@@ -52,6 +49,7 @@ export default connect( state=>({
     following: state.followingReducer.profileCount
 }), {
 	getProfile,followerCount
+
 })(Profile)
 
 

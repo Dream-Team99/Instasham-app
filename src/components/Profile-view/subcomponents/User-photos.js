@@ -8,7 +8,6 @@ export default class Photos extends Component{
 
     render(){
         const userPhotoList = this.props.photos.map((p,i)=>  <Image style={styles.photo} source={{uri: p.url}} key={i}/>);
-
         return(
             <View style={styles.photos}>
                 {userPhotoList}

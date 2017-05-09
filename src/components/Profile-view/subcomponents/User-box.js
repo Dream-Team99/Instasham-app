@@ -11,10 +11,20 @@ export default class User extends Component{
                         <Image style={styles.image} source={{uri: this.props.user.imageurl}} />
                         <Text style={styles.name}>{this.props.user.username}</Text>
                     </View>
-                    <View style={styles.links}>
-                        <Link style={styles.posts}><Text>posts</Text></Link>
-                        <Link style={styles.posts}><Text>followers</Text></Link>
-                        <Link style={styles.posts}><Text>following</Text></Link>
+
+                    <View style={styles.linksView}>
+                        <View style={styles.links}>
+                            <Link style={styles.posts_count}><Text>{this.props.following_count.post_count}</Text></Link>
+                            <Link style={styles.posts}><Text>posts</Text></Link>
+                        </View>
+                        <View style={styles.links}>
+                            <Link style={styles.posts_count}><Text>{this.props.following_count.follwer_count}</Text></Link>
+                            <Link style={styles.posts}><Text>followers</Text></Link>
+                        </View>
+                        <View style={styles.links}>
+                            <Link style={styles.posts_count}><Text>{this.props.following_count.following_count}</Text></Link>
+                            <Link style={styles.posts}><Text>following</Text></Link>
+                        </View>
                      </View>
                  </View>
         )
@@ -46,9 +56,17 @@ const styles = StyleSheet.create({
         height: 90,
         borderRadius: 50
     },
-    links:{
+    linksView:{
         flexDirection: 'row',
+        alignItems:"center"
+
+    },
+    links:{
+        flexDirection: 'column',
         justifyContent: "space-around",
+        alignItems:"center"
+    },
+    posts_count:{
     },
     posts:{
         marginLeft:5,
