@@ -10,6 +10,7 @@ import Nav from '../Nav'
 class Search extends Component{
     componentDidMount(){
         this.props.searchForUsers(``)
+
     }
 	render(){
         // console.log(this.props.redux.profileReducer.profile)
@@ -23,7 +24,8 @@ class Search extends Component{
 					value={this.props.search.SearchText}
 				/>
 				<ScrollView>
-					<Profiles followers={this.props.follow.profileCount} currentUser={this.props.mainProfile.profile} users={this.props.search.Profiles}/>
+					<Profiles currentUser={this.props.mainProfile.profile} users={this.props.search.Profiles}/>
+
 				</ScrollView>
 			</Nav>
 		)
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
 		borderColor: 'gray',
 		borderWidth: 1
 	}
-})
+});
 
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile,
