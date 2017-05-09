@@ -41,8 +41,9 @@ export default class Profiles extends Component{
 					<View style={styles.fullProfile} key={i}>
 							<View style={styles.profileImageAndName}>
 								<Link to={"/Profile/" + p.id}><Image style={styles.image} source={{uri: p.imageurl}} /></Link>
-
+								<Link to={"/Profile/" + p.id}><Text style={styles.name}>{p.username}</Text></Link>
 							</View>
+
 						<Text style={styles.name}>{p.username}</Text>
 						{this.state.isFollowing.indexOf(p.id) === -1 &&
 						<View style={styles.follow}>
@@ -50,6 +51,7 @@ export default class Profiles extends Component{
 						</View>
 						}
                         {this.state.isFollowing.indexOf(p.id) !== -1 &&
+
 						<View style={styles.unfollow}>
 							<TouchableHighlight ><Text style={{color:"black",textAlign: 'center',}}>Following</Text></TouchableHighlight>
 						</View>
@@ -80,8 +82,9 @@ const styles = StyleSheet.create({
 		padding:5
 	},
 	profileImageAndName:{
-		flexDirection: 'column',
-		justifyContent: 'space-around'
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		alignItems: 'center'
 	},
 	name: {
 		fontSize: 16,

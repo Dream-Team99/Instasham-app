@@ -12,7 +12,7 @@ const initialState = {
 		profile:{
 			id: '',
 			username: '',
-			imageurl: ''
+			imageurl: null
 		},
 		photos: []
 	},
@@ -48,7 +48,6 @@ export function login() {
 				AsyncStorage.setItem('token', response.token)
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${response.token}`)
 				.then(response => {
-					console.log(response)
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
 						dispatch({
@@ -72,11 +71,9 @@ export function checkToken() {
 				// Use token to get facebook profile
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${token}`)
 				.then(response => {
-					// console.log(response)
 					// Find or create user in our DB
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data})
 					.then(response => {
-						// console.log(response.data);
 						dispatch({
 							type: SETPROFILE,
 							profile: response.data,
@@ -90,9 +87,7 @@ export function checkToken() {
 	}
 }
 
-
 export function getProfile(id) {
-
     return  dispatch => {
         axios.post('http://52.10.128.151:3005/api/users', {profile: {id: id}}).then(response =>{
             dispatch ({
