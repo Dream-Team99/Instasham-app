@@ -1,40 +1,76 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import { Ionicons } from '@expo/vector-icons'
 import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
+import axios from 'axios';
 
-const PostDetail = (props) =>{
-    return(
-        <PostCard>
-            <PostCardSection>
-                <View style={styles.thumbnail_container}>
-                    <Image style={styles.thumbnail_style} source={{uri: props.post.user_image}}/>
-                    <Text>{props.post.username}</Text>
-                </View>
-            </PostCardSection>
-            <PostCardSection>
-                <View style={styles.headerContentStyle}>
-                    <Image style={styles.image_style} source={{uri: props.post.url}}/>
-                </View>
-            </PostCardSection>
-            <PostCardSection>
-                <View style={styles.likes}>
-                    <Text>like</Text>
-                    <Text> comment</Text>
-                </View>
-            </PostCardSection>
-            <PostCardSection>
-                <View style={styles.poster}>
-                    <Text style={styles.postStyle}>{props.post.username} </Text>
-                    <Text> {props.post.post_text}</Text>
-                </View>
-                <View style={styles.timeStampView}>
-                    <Text style={styles.timeStampStyle}>{props.post.timestamp}</Text>
-                </View>
-                {/*<Text>2nd comment</Text>*/}
-            </PostCardSection>
-        </PostCard>
-    )
+class PostDetail extends Component{
+    constructor(){
+        super();
+        this.state ={
+            likes:0,
+            comments:[]
+        }
+    }
+    getlikes(){
+          axios.get(`http://52.10.128.151:3005/api/getLikes/${this.props.post.photo_id}`).then((res)=>{
+             this.setState({likes: res.data[0].likes})
+          });
+    }
+    getComments(){
+        axios.get(`http://52.10.128.151:3005/api/getComments/${this.props.post.photo_id}`).then((res)=>{
+            this.setState({comments: res.data})
+        });
+    }
+
+
+    addLikes(){
+        axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id , photoid: this.props.post.photo_id}).then((res)=>{
+            this.setState({likes: res.data[0].likes})
+        })
+    };
+
+    render() {
+        return (
+            <PostCard>
+                <PostCardSection>
+                    <View style={styles.thumbnail_container}>
+                        <Image style={styles.thumbnail_style} source={{uri: this.props.post.user_image}}/>
+                        <Text>{this.props.post.username}</Text>
+                    </View>
+                </PostCardSection>
+                <PostCardSection>
+                    <View>
+                        <Image style={styles.image_style} source={{uri: this.props.post.url}}/>
+                    </View>
+                </PostCardSection>
+                <PostCardSection>
+                    <TouchableHighlight onPress={this.addLikes.bind(this)}>
+                        <Ionicons name='md-heart' size={32} color='#262626'/>
+                    </TouchableHighlight>
+                </PostCardSection>
+                <PostCardSection>
+                    <View style={styles.likes}>
+                        <Text>{this.state.likes} likes</Text>
+                        {/*{props.comments.map((val, i) => {*/}
+                            {/*return <Text key={i}>{val}</Text>*/}
+                        {/*})}*/}
+                    </View>
+                </PostCardSection>
+                <PostCardSection>
+                    <View style={styles.poster}>
+                        <Text style={styles.postStyle}>{this.props.post.username} </Text>
+                        <Text> {this.props.post.post_text}</Text>
+                    </View>
+                    <View style={styles.timeStampView}>
+                        <Text style={styles.timeStampStyle}>{this.props.post.timestamp}</Text>
+                    </View>
+                    {/*<Text>2nd comment</Text>*/}
+                </PostCardSection>
+            </PostCard>
+        )
+    }
 };
 
 const styles = StyleSheet.create({
