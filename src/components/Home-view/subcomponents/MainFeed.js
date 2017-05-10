@@ -9,8 +9,6 @@ export default class MainFeed extends Component {
 
     renderList() {
      return this.props.list.map((post, i) => {
-
-
          return <PostDetail currentUser={this.props.currentUser} key={i} post={post}/>
      })
 

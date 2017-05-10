@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableHighlight, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
@@ -14,36 +14,33 @@ class PostDetail extends Component{
             comments:[]
         }
     }
-    getlikes(){
-          axios.get(`http://52.10.128.151:3005/api/getLikes/${this.props.post.photo_id}`).then((res)=>{
-             this.setState({likes: res.data[0].likes})
-          });
-    }
-    getComments(){
-        axios.get(`http://52.10.128.151:3005/api/getComments/${this.props.post.photo_id}`).then((res)=>{
-            this.setState({comments: res.data})
-        });
-    }
-
-
     addLikes(){
         axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id , photoid: this.props.post.photo_id}).then((res)=>{
             this.setState({likes: res.data[0].likes})
         })
     };
 
+    componentDidMount(){
 
+        axios.get('http://52.10.128.151:3005/api/getLikes/' + this.props.post.photo_id).then((res)=>{
+                this.setState({likes: res.data[0].likes})
+        });
+
+        axios.get('http://52.10.128.151:3005/api/getComments/' + this.props.post.photo_id).then((res)=>{
+            this.setState({comments: res.data})
+        });
+    }
 
 
     render() {
+        // console.log(this.props.match.params)
         return (
             <PostCard>
                 <PostCardSection>
                     <View style={styles.thumbnail_container}>
 
                         <View>
-                            <Link to={"/Profile/" + this.props.post.user_id}><Image style={styles.thumbnail_style}
-                                                                               source={{uri: this.props.post.user_image}}/></Link>
+                            <Link to={"/Profile/" + this.props.post.user_id}><Image style={styles.thumbnail_style} source={{uri: this.props.post.user_image}}/></Link>
                         </View>
                         <View>
                             <Link to={"/Profile/" + this.props.post.user_id}><Text>{this.props.post.username}</Text></Link>
@@ -56,9 +53,9 @@ class PostDetail extends Component{
                     </View>
                 </PostCardSection>
                 <PostCardSection>
-                    <TouchableHighlight onPress={this.addLikes.bind(this)}>
+                    <TouchableOpacity style={styles.heart} onPress={this.addLikes.bind(this)}>
                         <Ionicons name='md-heart' size={32} color='#262626'/>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.likes}>
@@ -94,6 +91,9 @@ const styles = StyleSheet.create({
     },
     timeStampView:{
         marginBottom: 10,
+        marginLeft: 10
+    },
+    heart:{
         marginLeft: 10
     },
     timeStampStyle:{

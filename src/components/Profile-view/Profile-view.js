@@ -44,11 +44,11 @@ class Profile extends Component {
                         <ScrollView style={styles.photos}>
                             <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
                             <Photos photos={this.props.currentProfile.photos}/>
-
+                            <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
+                                style={{color: "white", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
 
                         </ScrollView>
-                        <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
-                            style={{color: "white", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
+
 
                     </View>
                     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Image, StyleSheet} from 'react-native'
+import {View, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import {Link} from  'react-router-native'
 import { Ionicons } from '@expo/vector-icons'
 import {connect} from 'react-redux'
@@ -14,7 +14,7 @@ class Nav extends Component{
 	// }
 
 	render(){
-		// console.log(this.props.mainProfile)
+		// console.log( 'lolo',this.props)
 		return(
 
 			<View style={styles.container}>
