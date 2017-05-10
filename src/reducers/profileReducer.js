@@ -2,10 +2,10 @@ import axios from 'axios'
 import {Facebook} from 'expo'
 import {Alert, AsyncStorage} from 'react-native'
 
-const SETPROFILE = 'login/SETPROFILE';
-const SETCURRENTPROFILE = 'SETCURRENTPROFILE';
-const LOADING = 'login/LOADING';
-const DONE_LOADING = 'login/DONE_LOADING';
+const SETPROFILE = 'login/SETPROFILE'
+const SETCURRENTPROFILE = 'SETCURRENTPROFILE'
+const LOADING = 'login/LOADING'
+const DONE_LOADING = 'login/DONE_LOADING'
 
 const initialState = {
 	currentProfile: {
@@ -18,19 +18,19 @@ const initialState = {
 	},
 	profile: '',
 	loading: false,
-};
+}
 
 export default (state = initialState, action) => {
 	switch (action.type){
 		case SETPROFILE:
 			// console.log(action.profile)
-			return Object.assign({}, state, {profile: action.profile, loading: false});
+			return Object.assign({}, state, {profile: action.profile, loading: false})
 		case LOADING:
-			return Object.assign({}, state, {loading: true});
+			return Object.assign({}, state, {loading: true})
 		case SETCURRENTPROFILE:
-            return Object.assign({}, state, {currentProfile: action.profile, loading: false});
+            return Object.assign({}, state, {currentProfile: action.profile, loading: false})
         case DONE_LOADING:
-			return Object.assign({}, state, {loading: false});
+			return Object.assign({}, state, {loading: false})
 		default:
 			return state
 	}
@@ -52,14 +52,14 @@ export function login() {
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data.profile
+							profile: response.data
 						})
 					})
 				})
 			} else {
 				Alert.alert('Login unsuccessful!')
 			}
-		})
+		}).catch(e => console.log(e))
 	}
 }
 
