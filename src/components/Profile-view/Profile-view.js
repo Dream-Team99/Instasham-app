@@ -15,12 +15,18 @@ class Profile extends Component {
 
     }
 
+
     componentWillReceiveProps(newProps) {
         if (this.props.match.params.id !== newProps.match.params.id) {
             this.props.getProfile(newProps.match.params.id);
             this.props.followerCount(newProps.match.params.id);
         }
     }
+    // logout() {
+    //     AsyncStorage.removeItem('token').then(() => {
+    //         this.props.history.push('/')
+    //     })
+    // }
 
         logout()
         {
@@ -38,6 +44,7 @@ class Profile extends Component {
                         <ScrollView style={styles.photos}>
                             <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
                             <Photos photos={this.props.currentProfile.photos}/>
+
 
                         </ScrollView>
                         <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text

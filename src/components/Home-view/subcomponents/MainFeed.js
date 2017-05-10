@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import {View, Text, StyleSheet, Image} from 'react-native';
 import axios from "axios";
@@ -14,6 +13,7 @@ export default class MainFeed extends Component {
 
          return <PostDetail currentUser={this.props.currentUser} key={i} post={post}/>
      })
+
     }
 
     render() {

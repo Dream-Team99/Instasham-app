@@ -8,7 +8,7 @@ const initialState = {
     followingList: [],
     profileCount: {
         post_count:0,
-        follwer_count:0,
+        follower_count:0,
         following_count:0
     }
 };

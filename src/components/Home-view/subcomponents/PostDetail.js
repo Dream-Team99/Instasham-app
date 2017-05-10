@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
+import {Link} from  'react-router-native';
 import axios from 'axios';
 
 class PostDetail extends Component{
@@ -31,13 +32,22 @@ class PostDetail extends Component{
         })
     };
 
+
+
+
     render() {
         return (
             <PostCard>
                 <PostCardSection>
                     <View style={styles.thumbnail_container}>
-                        <Image style={styles.thumbnail_style} source={{uri: this.props.post.user_image}}/>
-                        <Text>{this.props.post.username}</Text>
+
+                        <View>
+                            <Link to={"/Profile/" + this.props.post.user_id}><Image style={styles.thumbnail_style}
+                                                                               source={{uri: this.props.post.user_image}}/></Link>
+                        </View>
+                        <View>
+                            <Link to={"/Profile/" + this.props.post.user_id}><Text>{this.props.post.username}</Text></Link>
+                        </View>
                     </View>
                 </PostCardSection>
                 <PostCardSection>
@@ -56,11 +66,14 @@ class PostDetail extends Component{
                         {/*{props.comments.map((val, i) => {*/}
                             {/*return <Text key={i}>{val}</Text>*/}
                         {/*})}*/}
+
                     </View>
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.poster}>
-                        <Text style={styles.postStyle}>{this.props.post.username} </Text>
+
+                        <Link to={"/Profile/" + this.props.post.user_id}><Text
+                            style={styles.postStyle}>{this.props.post.username} </Text></Link>
                         <Text> {this.props.post.post_text}</Text>
                     </View>
                     <View style={styles.timeStampView}>
@@ -117,8 +130,6 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height: 300,
-        flex: 1,
-        width: null
     }
 });
 
