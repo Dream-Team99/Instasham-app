@@ -9,26 +9,29 @@ class Post extends Component{
     constructor(){
         super();
         this.state = {
-            post:{
-            }
+            post: null
         }
     }
-    componentDidMount(){
+
+    componentWillMount(){
         axios.get('http://52.10.128.151:3005/api/getSinglePost/' + this.props.match.params.id).then(response =>{
             // console.log(response.data)
             this.setState({post:response.data[0]})
-        })
-        axios.get(`http://52.10.128.151:3005/api/getLikes/${this.props.match.params.id}`).then((res)=>{
-            this.setState({likes: res.data[0].likes})
         });
+    }
+    componentDidMount(){
+
     }
 
     render() {
+        // console.log(this.state.post)
         return (
             <Nav>
                 <View>
                     <View>
-                        <PostDetail  post={this.state.post}/>
+                        {this.state.post &&
+                            <PostDetail currentUser={this.props.currentProfile.profile} post={this.state.post}/>
+                        }
                     </View>
                 </View>
             </Nav>
@@ -36,6 +39,7 @@ class Post extends Component{
     }
 
 }
+
 const styles = StyleSheet.create({
 
 });
