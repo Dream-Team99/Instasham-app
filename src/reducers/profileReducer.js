@@ -76,7 +76,7 @@ export function checkToken() {
 					.then(response => {
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data,
+							profile: response.data
 						})
 					})
 				})
