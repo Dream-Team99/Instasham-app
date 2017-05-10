@@ -3,6 +3,8 @@ import {Text,TouchableHighlight,Image, StyleSheet,View,ScrollView, TextInput} fr
 import {connect} from 'react-redux';
 import {Link} from  'react-router-native';
 import axios from "axios"
+import moment from "moment";
+let now = moment().format("MMM Do");
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
 
@@ -11,15 +13,22 @@ import PostCardSection from './Home-view/subcomponents/PostCardSection'
 class Comment extends Component {
     constructor(){
         super();
-        this.state = {
+
+        this.state ={
             post: null,
-            comments: []
+            comments:[],
+            text: ''
         }
+    }
+
+    postComment(){
+        axios.post('http://52.10.128.151:3005/api/postComment', {userid: this.props.mainProfile.profile.id, comment: this.state.text, photoid: this.state.post.photo_id, timestamp: now}).then(response =>{
+            this.setState({comments:response.data})
+        })
     }
 
     componentDidMount() {
         axios.get('http://52.10.128.151:3005/api/getSinglePost/' + this.props.match.params.id).then(response =>{
-            // console.log(response.data)
             this.setState({post:response.data[0]})
         })
         axios.get(`http://52.10.128.151:3005/api/getComments/${this.props.match.params.id}`).then((res)=>{
@@ -67,17 +76,17 @@ class Comment extends Component {
                         })
                         }
                     </PostCardSection>
-                    <PostCardSection>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={(e) => (e)}
-                            value={this.state.comment}
-                        />
-                        <TouchableHighlight><Text>Comment</Text></TouchableHighlight>
-                    </PostCardSection>
-
                 </ScrollView>
                 }
+                <PostCardSection>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => this.setState({text})}
+                        value={this.state.text}
+                    />
+                    <TouchableHighlight
+                        onPress={this.postComment.bind(this)}><Text>Comment</Text></TouchableHighlight>
+                </PostCardSection>
             </Nav>
         )
     }
