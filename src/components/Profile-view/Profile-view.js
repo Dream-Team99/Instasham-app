@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text,TouchableHighlight, StyleSheet, AsyncStorage, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
-import {getProfile, setProfile} from '../../reducers/profileReducer';
+import {getProfile} from '../../reducers/profileReducer';
 import {followerCount} from "../../reducers/followingReducer";
 import User from './subcomponents/User-box';
 import  Photos from "./subcomponents/User-photos";
@@ -14,19 +14,20 @@ class Profile extends Component {
         this.props.followerCount(this.props.match.params.id);
 
 }
-    componentWillReceiveProps(newProps){
-        if(this.props.match.params.id !== newProps.match.params.id) {
+    componentWillReceiveProps(newProps) {
+        if (this.props.match.params.id !== newProps.match.params.id) {
             this.props.getProfile(newProps.match.params.id);
             this.props.followerCount(newProps.match.params.id);
         }
-
-    logout() {
-        AsyncStorage.removeItem('token').then(() => {
-            this.props.history.push('/')
-        })
     }
+    // logout() {
+    //     AsyncStorage.removeItem('token').then(() => {
+    //         this.props.history.push('/')
+    //     })
+    // }
 
     render() {
+        // console.log(this.props.following)
         return (
             <Nav>
                 {this.props.currentProfile.profile &&
@@ -36,7 +37,7 @@ class Profile extends Component {
                         <Photos photos={this.props.currentProfile.photos}/>
 
                     </ScrollView>
-                    <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>
+                    {/*<TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>*/}
 
                 </View>
                 }
@@ -60,6 +61,6 @@ export default connect( state=>({
     currentProfile: state.profileReducer.currentProfile,
     following: state.followingReducer.profileCount
 }), {
-	setProfile,getProfile,followerCount
+	getProfile,followerCount
 
 })(Profile)
