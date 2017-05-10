@@ -39,7 +39,6 @@ class PostDetail extends Component{
             <PostCard>
                 <PostCardSection>
                     <View style={styles.thumbnail_container}>
-
                         <View>
                             <Link to={"/Profile/" + this.props.post.user_id}><Image style={styles.thumbnail_style} source={{uri: this.props.post.user_image}}/></Link>
                         </View>
@@ -54,12 +53,14 @@ class PostDetail extends Component{
                     </View>
                 </PostCardSection>
                 <PostCardSection>
-                    <TouchableOpacity style={styles.heart} onPress={this.addLikes.bind(this)}>
-                        <Ionicons name='md-heart' size={32} color='#262626'/>
-                    </TouchableOpacity>
+                    <View style={styles.icons}>
+                        <TouchableOpacity  style={{marginRight: 10}} onPress={this.addLikes.bind(this)}>
+                            <Ionicons name='md-heart' size={32} color='#262626'/>
+                        </TouchableOpacity>
                         <Link to={"/Comment/" + this.props.post.photo_id}>
-                        <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
+                            <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
                         </Link>
+                    </View>
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.likes}>
@@ -106,8 +107,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10
     },
-    heart:{
-        marginLeft: 10
+    icons:{
+        flexDirection: 'row',
+        marginLeft: 10,
     },
     timeStampStyle:{
         fontSize: 12
