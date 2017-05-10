@@ -8,15 +8,16 @@ import {connect} from 'react-redux'
 
 
 class Home extends Component {
+
     componentWillMount(){
-            this.props.getList(this.props.mainProfile.profile.id)
+        this.props.getList(this.props.mainProfile.profile.id)
     }
 
     render() {
         return (
             <Nav>
                 <ScrollView>
-                    <MainFeed list={this.props.follow.followingList}/>
+                    <MainFeed currentUser={this.props.mainProfile.profile} list={this.props.follow.followingList}/>
                 </ScrollView>
             </Nav>
         );
@@ -24,7 +25,7 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-	
+
 });
 
 export default connect( state=>({ 

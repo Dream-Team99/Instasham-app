@@ -37,7 +37,7 @@ class Camera extends React.Component {
         return (
 
             <Nav>
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{flex: 1, alignItems:"center"}}>
                     <Button
                         onPress={this._pickImage}
                         title="Pick an image"
@@ -76,7 +76,7 @@ class Camera extends React.Component {
         }
         else if (upload){
             return(
-                <Text>Upload success!</Text>
+                <Text style={styles.upload}>Upload success!</Text>
             )
         }
 
@@ -94,6 +94,7 @@ class Camera extends React.Component {
                     <View>
 
                         <TextInput
+                            style={styles.input}
                             onChangeText={(post_text)=> this.setState({post_text})}
                             value={this.state.post_text}
                         />
@@ -198,6 +199,12 @@ async function uploadImageAsync(uri) {
     return fetch(apiUrl, options);
 }
 const styles = StyleSheet.create({
+    input:{
+    },
+    upload:{
+        fontSize:20,
+        marginTop:20
+    }
 
 });
 

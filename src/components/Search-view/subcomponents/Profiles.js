@@ -41,8 +41,9 @@ export default class Profiles extends Component{
 					<View style={styles.fullProfile} key={i}>
 							<View style={styles.profileImageAndName}>
 								<Link to={"/Profile/" + p.id}><Image style={styles.image} source={{uri: p.imageurl}} /></Link>
-								<Link to={"/Profile/" + p.id}><Text style={styles.name}>{p.username}</Text></Link>
 							</View>
+
+                    <Link to={"/Profile/" + p.id}><Text style={styles.name}>{p.username}</Text></Link>
 
 						{this.state.isFollowing.indexOf(p.id) === -1 &&
 						<View style={styles.follow}>

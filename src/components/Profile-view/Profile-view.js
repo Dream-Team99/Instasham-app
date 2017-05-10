@@ -9,11 +9,13 @@ import  Photos from "./subcomponents/User-photos";
 
 class Profile extends Component {
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.getProfile(this.props.match.params.id);
         this.props.followerCount(this.props.match.params.id);
 
-}
+    }
+
+
     componentWillReceiveProps(newProps) {
         if (this.props.match.params.id !== newProps.match.params.id) {
             this.props.getProfile(newProps.match.params.id);
@@ -26,25 +28,35 @@ class Profile extends Component {
     //     })
     // }
 
-    render() {
-        // console.log(this.props.following)
-        return (
-            <Nav>
-                {this.props.currentProfile.profile &&
-                <View style={styles.profile}>
-                    <ScrollView style={styles.photos}>
-                        <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
-                        <Photos photos={this.props.currentProfile.photos}/>
+        logout()
+        {
+            AsyncStorage.removeItem('token').then(() => {
+                this.props.history.push('/')
+            })
+        }
 
-                    </ScrollView>
-                    {/*<TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text style={{color:"white",textAlign: 'center',}}>Logout</Text></TouchableHighlight>*/}
+        render()
+        {
+            return (
+                <Nav>
+                    {this.props.currentProfile.profile &&
+                    <View style={styles.profile}>
+                        <ScrollView style={styles.photos}>
+                            <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
+                            <Photos photos={this.props.currentProfile.photos}/>
 
-                </View>
-                }
-            </Nav>
-        )
+
+                        </ScrollView>
+                        <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
+                            style={{color: "white", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
+
+                    </View>
+                    }
+                </Nav>
+            )
+        }
     }
-}
+
 const styles = StyleSheet.create({
     logout:{
         backgroundColor:"#3897f0",
