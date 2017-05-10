@@ -46,7 +46,6 @@ class Profile extends Component {
                             <Photos photos={this.props.currentProfile.photos}/>
                             <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
                                 style={{color: "white", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
-
                         </ScrollView>
 
 

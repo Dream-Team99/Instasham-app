@@ -14,12 +14,12 @@ class PostDetail extends Component{
             comments:[]
         }
     }
+
     addLikes(){
         axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id , photoid: this.props.post.photo_id}).then((res)=>{
             this.setState({likes: res.data[0].likes})
         })
     };
-
     componentDidMount(){
 
         axios.get('http://52.10.128.151:3005/api/getLikes/' + this.props.post.photo_id).then((res)=>{
@@ -33,7 +33,8 @@ class PostDetail extends Component{
 
 
     render() {
-        // console.log(this.props.match.params)
+
+
         return (
             <PostCard>
                 <PostCardSection>
@@ -56,6 +57,9 @@ class PostDetail extends Component{
                     <TouchableOpacity style={styles.heart} onPress={this.addLikes.bind(this)}>
                         <Ionicons name='md-heart' size={32} color='#262626'/>
                     </TouchableOpacity>
+                        <Link to={"/Comment/" + this.props.post.photo_id}>
+                        <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
+                        </Link>
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.likes}>
