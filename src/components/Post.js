@@ -28,7 +28,7 @@ class Post extends Component{
             <Nav>
                 <View>
                     <View>
-                        <PostDetail  likes={this.state.likes} post={this.state.post}/>
+                        <PostDetail  post={this.state.post}/>
                     </View>
                 </View>
             </Nav>
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({
+    currentProfile: state.profileReducer.currentProfile
 }), {
 
 })(Post)

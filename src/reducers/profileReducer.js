@@ -52,7 +52,7 @@ export function login() {
 					axios.post('http://52.10.128.151:3005/api/users', {profile: response.data}).then(response=>{
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data.profile
+							profile: response.data
 						})
 					})
 				})
@@ -76,7 +76,7 @@ export function checkToken() {
 					.then(response => {
 						dispatch({
 							type: SETPROFILE,
-							profile: response.data,
+							profile: response.data
 						})
 					})
 				})

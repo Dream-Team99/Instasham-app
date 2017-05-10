@@ -25,17 +25,21 @@ class PostDetail extends Component{
         });
     }
 
-
     addLikes(){
         axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id , photoid: this.props.post.photo_id}).then((res)=>{
             this.setState({likes: res.data[0].likes})
         })
     };
+    componentDidMount(){
+        this.getlikes()
+        this.getComments()
 
+    }
 
 
 
     render() {
+
         return (
             <PostCard>
                 <PostCardSection>
@@ -59,6 +63,11 @@ class PostDetail extends Component{
                     <TouchableHighlight onPress={this.addLikes.bind(this)}>
                         <Ionicons name='md-heart' size={32} color='#262626'/>
                     </TouchableHighlight>
+
+                        <Link to={"/Comment/" + this.props.post.photo_id}>
+                        <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
+                        </Link>
+
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.likes}>
