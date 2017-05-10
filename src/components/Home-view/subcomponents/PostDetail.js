@@ -64,11 +64,8 @@ class PostDetail extends Component{
                 <PostCardSection>
                     <View style={styles.likes}>
                         <Text>{this.state.likes} likes</Text>
-                        {/*{props.comments.map((val, i) => {*/}
-                            {/*return <Text key={i}>{val}</Text>*/}
-                        {/*})}*/}
-
                     </View>
+
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.poster}>
@@ -77,11 +74,23 @@ class PostDetail extends Component{
                             style={styles.postStyle}>{this.props.post.username} </Text></Link>
                         <Text> {this.props.post.post_text}</Text>
                     </View>
-                    <View style={styles.timeStampView}>
-                        <Text style={styles.timeStampStyle}>{this.props.post.timestamp}</Text>
-                    </View>
-                    {/*<Text>2nd comment</Text>*/}
+
                 </PostCardSection>
+                {this.state.comments[0] &&
+                <View>
+                    <Text>{this.state.comments[0].username}</Text>
+                    <Text>{this.state.comments[0].comment}</Text>
+                </View>
+                }
+                {this.state.comments[1] &&
+                <View>
+                    <Text>{this.state.comments[1].username}</Text>
+                    <Text>{this.state.comments[1].comment}</Text>
+                </View>
+                }
+                <View style={styles.timeStampView}>
+                    <Text style={styles.timeStampStyle}>{this.props.post.timestamp}</Text>
+                </View>
             </PostCard>
         )
     }
