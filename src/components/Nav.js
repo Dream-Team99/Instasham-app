@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
-import {View, Image} from 'react-native'
+import {View, Image, BackAndroid, Alert} from 'react-native'
 import {Link} from  'react-router-native'
 import { Ionicons } from '@expo/vector-icons'
 import {connect} from 'react-redux'
 
 class Nav extends Component{
+
+	componentDidMount(){
+		BackAndroid.addEventListener('hardwareBackPress', () => {
+			Alert.alert('Do you want to close Instasham?', null, [
+				{text: 'Yes', onPress: () => BackAndroid.exitApp()}, 
+				{text: 'No'}
+			])
+			return true
+		})
+	}
 
 	render(){
 		return(

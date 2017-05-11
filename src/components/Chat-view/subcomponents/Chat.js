@@ -11,7 +11,7 @@ import {
 import {connect} from 'react-redux'
 import {searchHandle} from '../../../reducers/chatReducer'
 
-class Search extends Component{
+class Chat extends Component{
 
 	render(){
 		return(
@@ -69,4 +69,4 @@ export default connect( state=>({
 	userid: state.profileReducer.profile.profile.id
 }), {
 	searchHandle
-})(Search)
+})(Chat)

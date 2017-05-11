@@ -2,13 +2,13 @@ import axios from 'axios'
 
 const SENT_MESSAGE = 'chat/SENT_MESSAGE'
 const MESSAGES_RECEIVED = 'chat/MESSAGES_RECEIVED'
-const CHATS_RECEIVED = 'chat/CHATS_RECEIVED'
-const SEARCH_HANDLER = 'chat/SEARCH_HANDLER'
+const LOADING_MESSAGES = 'chat/LOADING_MESSAGES'
+const SEARCH_TEXT_HANDLER = 'chat/SEARCH_TEXT_HANDLER'
 const LOADING_SEARCH = 'chat/LOADING_SEARCH'
 const SEARCH_RETURNED = 'chat/SEARCH_RETURNED'
 
 const initialState = {
-	chats: {},
+	messages: {},
 	search: '',
 	searchResults: [],
 	loading: false
@@ -16,7 +16,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type){
-		case SEARCH_HANDLER:
+		case SEARCH_TEXT_HANDLER:
 			return Object.assign({}, state, {search: action.search})
 		case LOADING_SEARCH:
 			return Object.assign({}, state, {
@@ -25,6 +25,8 @@ export default (state = initialState, action) => {
 			})
 		case SEARCH_RETURNED:
 			return Object.assign({}, state, {searchResults: action.results})
+		case MESSAGES_RECEIVED:
+			return Object.assign({}, state, {messages: action.messages})
 		default:
 			return state
 	}
@@ -33,7 +35,7 @@ export default (state = initialState, action) => {
 export function searchHandle(userid, search){
 	return dispatch => {
 		dispatch({
-			type: SEARCH_HANDLER,
+			type: SEARCH_TEXT_HANDLER,
 			search: search
 		})
 		if(search.length>2){
@@ -63,12 +65,13 @@ export function newMessage(sender, receiver, message){
 	}
 }
 
-export function getChats(userId){
+export function getMessages(userid){
 	return dispatch => {
-		axios.get(`/chat/chats/${userId}`).then(response => {
+		dispatch({type: LOADING_MESSAGES})
+		axios.get(`http://52.10.128.151:3005/api/chat/${userid}`).then(response => {
 			dispatch({
-				type: CHATS_RECEIVED,
-				chats: response.data
+				type: MESSAGES_RECEIVED,
+				messages: response.data
 			})
 		})
 	}
