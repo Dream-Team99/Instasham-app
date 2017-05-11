@@ -22,15 +22,13 @@ class Post extends Component{
     componentDidMount(){
 
     }
-
     render() {
-        // console.log(this.state.post)
         return (
             <Nav>
                 <View>
                     <View>
                         {this.state.post &&
-                            <PostDetail currentUser={this.props.currentProfile.profile} post={this.state.post}/>
+                            <PostDetail history={this.props.history} location={this.props.location.pathname}  currentUser={this.props.mainProfile} post={this.state.post}/>
                         }
                     </View>
                 </View>
@@ -45,7 +43,8 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({
-    currentProfile: state.profileReducer.currentProfile
+    currentProfile: state.profileReducer.currentProfile,
+    mainProfile: state.profileReducer.profile.profile
 }), {
 
 })(Post)
