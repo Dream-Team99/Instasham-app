@@ -18,16 +18,19 @@ export default class User extends Component{
     }
     checkFollower(id){
         axios.get(`http://52.10.128.151:3005/api/users/follower/${id}`).then((res)=>{
+
             this.setState({
-                isFollowing: res.data
+                isFollowing: res.data.filter((val)=>{
+                    return val.id !== this.props.mainProfile.id
+                })
             })
         })
     }
-    // deleteFollower(id, follower){
-    //    axios.post(`http://52.10.128.151:3005/api/users/follower/delete`, {userId: id, followerId: follower}).then((res)=>{
-    //        this.checkFollower.call(this, id)
-    //    })
-    // }
+    deleteFollower(id, follower){
+       axios.post(`http://52.10.128.151:3005/api/users/follower/delete`, {userId: id, followerId: follower}).then((res)=>{
+           this.checkFollower.call(this, id)
+       })
+    }
     componentDidMount(){
         this.checkFollower(this.props.mainProfile.id);
     }
@@ -37,22 +40,6 @@ export default class User extends Component{
                     <View style={styles.profileImageAndName}>
                         <Image style={styles.image} source={{uri: this.props.user.imageurl}} />
                         <Text style={styles.name}>{this.props.user.username}</Text>
-                        {this.state.isFollowing.indexOf(this.props.mainProfile.id) === -1 &&
-                        this.props.mainProfile.id !== this.props.user.id &&
-                        <View style={styles.follow}>
-                            <TouchableHighlight onPress={this.addFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
-                                <Text style={{color:"white",textAlign: 'center',}}>Follow</Text>
-                            </TouchableHighlight>
-                        </View>
-                        }
-                        {this.state.isFollowing.indexOf(this.props.mainProfile.id) !== -1 &&
-                        this.props.mainProfile.id !== this.props.user.id &&
-                        <View style={styles.unfollow}>
-                            <TouchableHighlight onPress={this.addFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
-                                <Text style={{color:"black",textAlign: 'center',}}>UnFollow</Text>
-                            </TouchableHighlight>
-                        </View>
-                        }
                     </View>
 
                     <View style={styles.linksView}>
@@ -69,6 +56,22 @@ export default class User extends Component{
                             <Link style={styles.posts}><Text>following</Text></Link>
                         </View>
                      </View>
+                    {this.state.isFollowing.indexOf(this.props.user.id) === -1 &&
+                    this.props.mainProfile.id !== this.props.user.id &&
+                    <View style={styles.follow}>
+                        <TouchableHighlight onPress={this.addFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
+                            <Text style={{color:"white",textAlign: 'center',}}>Follow</Text>
+                        </TouchableHighlight>
+                    </View>
+                    }
+                    {this.state.isFollowing.indexOf(this.props.user.id) !== -1 &&
+                    this.props.mainProfile.id !== this.props.user.id &&
+                    <View style={styles.unfollow}>
+                        <TouchableHighlight onPress={this.deleteFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
+                            <Text style={{color:"black",textAlign: 'center',}}>Unfollow</Text>
+                        </TouchableHighlight>
+                    </View>
+                    }
 
                  </View>
         )

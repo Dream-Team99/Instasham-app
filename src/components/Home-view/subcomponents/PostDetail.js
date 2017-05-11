@@ -50,7 +50,7 @@ class PostDetail extends Component{
                         </View>
                         {this.props.currentUser.id === this.props.post.user_id &&
                         this.props.location === `/Post/${this.props.post.photo_id}` &&
-                        <View>
+                        <View  style={styles.delete}>
                             <TouchableHighlight style={{marginLeft: 20, backgroundColor: "red"}} onPress={this.deletePost.bind(this)}>
                                 <Text>DELETE</Text>
                             </TouchableHighlight>
@@ -156,6 +156,16 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height: 300,
+    },
+    delete:{
+        backgroundColor:"#fe3b33",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:15,
+        paddingRight:15,
+        borderRadius: 5,
+        borderColor:"black",
+        borderWidth:2
     }
 });
 
