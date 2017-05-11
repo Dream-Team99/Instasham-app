@@ -42,7 +42,7 @@ class Profile extends Component {
                     {this.props.currentProfile.profile &&
                     <View style={styles.profile}>
                         <ScrollView style={styles.photos}>
-                            <User following_count={this.props.following} user={this.props.currentProfile.profile}/>
+                            <User following_count={this.props.following} mainProfile={this.props.mainProfile} user={this.props.currentProfile.profile}/>
                             <Photos photos={this.props.currentProfile.photos}/>
                             <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
                                 style={{color: "white", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({ 
-	mainProfile: state.profileReducer.profile,
+	mainProfile: state.profileReducer.profile.profile,
     currentProfile: state.profileReducer.currentProfile,
     following: state.followingReducer.profileCount
 }), {
