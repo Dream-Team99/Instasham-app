@@ -9,7 +9,7 @@ import {
 	Modal
 } from 'react-native'
 import {connect} from 'react-redux'
-import {searchHandle} from '../../../reducers/chatReducer'
+import BackNav from './backNav'
 
 class Chat extends Component{
 
@@ -20,10 +20,7 @@ class Chat extends Component{
 				animationType="slide"
 				style={styles.search}
 				onRequestClose={this.props.hide}>
-				<TextInput 
-					style={styles.input}
-					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}
-	        value={this.props.search} />
+				<BackNav hide={this.props.hide} />
 	      <ScrollView>
 		      {this.props.searchResults.map(user => {
 		      	return (
@@ -35,6 +32,10 @@ class Chat extends Component{
 		      	)
 		      })}
 	      </ScrollView>
+	      <TextInput 
+					style={styles.input}
+					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}
+	        value={this.props.search} />
 			</Modal>
 		)
 	}
@@ -64,9 +65,7 @@ const styles = {
 }
 
 export default connect( state=>({ 
-	search: state.chatReducer.search,
-	searchResults: state.chatReducer.searchResults,
-	userid: state.profileReducer.profile.profile.id
+	
 }), {
-	searchHandle
+	
 })(Chat)

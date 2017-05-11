@@ -10,8 +10,24 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {searchHandle} from '../../../reducers/chatReducer'
+import BackNav from './backNav'
 
 class Search extends Component{
+
+	mapResults(results){
+		if(results.length === 0){
+			return <Text style={styles.noResults}>Search for one of your friends to start chatting!</Text>
+		}
+		return results.map(user => {
+    	return (
+    		<View style={styles.user} key={user.id}>
+    			<Image style={styles.image} source={{uri: user.imageurl}} />
+    			<Text style={{fontSize: 16}}>{user.username}</Text>
+    			<Button title="Message" onPress={()=>{}} />
+    		</View>
+    	)
+    })
+	}
 
 	render(){
 		return(
@@ -20,20 +36,13 @@ class Search extends Component{
 				animationType="slide"
 				style={styles.search}
 				onRequestClose={this.props.hide}>
+				<BackNav hide={this.props.hide} />
 				<TextInput 
 					style={styles.input}
 					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}
 	        value={this.props.search} />
 	      <ScrollView>
-		      {this.props.searchResults.map(user => {
-		      	return (
-		      		<View style={styles.user} key={user.id}>
-		      			<Image style={styles.image} source={{uri: user.imageurl}} />
-		      			<Text style={{fontSize: 16}}>{user.username}</Text>
-		      			<Button title="Message" onPress={()=>{}} />
-		      		</View>
-		      	)
-		      })}
+		      {this.mapResults(this.props.searchResults)}
 	      </ScrollView>
 			</Modal>
 		)
@@ -59,6 +68,12 @@ const styles = {
 	},
 	input: {
 		padding: 10,
+		fontSize: 16
+	},
+	noResults: {
+		color: '#999',
+		textAlign: 'center',
+		padding: 20,
 		fontSize: 16
 	}
 }

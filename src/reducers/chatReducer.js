@@ -38,7 +38,7 @@ export function searchHandle(userid, search){
 			type: SEARCH_TEXT_HANDLER,
 			search: search
 		})
-		if(search.length>2){
+		if(search.length>1){
 			dispatch({type: LOADING_SEARCH})
 			axios.get(`http://52.10.128.151:3005/api/chat/search/${userid}/${search}`).then(results => {
 				dispatch({

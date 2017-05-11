@@ -5,7 +5,7 @@ import {Alert, AsyncStorage} from 'react-native'
 const SETPROFILE = 'login/SETPROFILE'
 const SETCURRENTPROFILE = 'SETCURRENTPROFILE'
 const LOADING = 'login/LOADING'
-const DONE_LOADING = 'login/DONE_LOADING'
+const INVAILD_TOKEN = 'login/INVAILD_TOKEN'
 
 const initialState = {
 	currentProfile: {
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 			return Object.assign({}, state, {loading: true})
 		case SETCURRENTPROFILE:
             return Object.assign({}, state, {currentProfile: action.profile, loading: false})
-        case DONE_LOADING:
+        case INVAILD_TOKEN:
 			return Object.assign({}, state, {loading: false})
 		default:
 			return state
@@ -59,7 +59,7 @@ export function login() {
 			} else {
 				Alert.alert('Login unsuccessful!')
 			}
-		}).catch(e => console.log(e))
+		}).catch(() => dispatch({type: INVAILD_TOKEN}))
 	}
 }
 
@@ -78,10 +78,10 @@ export function checkToken() {
 							type: SETPROFILE,
 							profile: response.data
 						})
-					})
-				})
+					}).catch(() => dispatch({type: INVAILD_TOKEN}))
+				}).catch(() => dispatch({type: INVAILD_TOKEN}))
 			}	else {
-				dispatch({type: DONE_LOADING})
+				dispatch({type: INVAILD_TOKEN})
 			}
 		})
 	}
