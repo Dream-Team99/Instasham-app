@@ -18,6 +18,8 @@ class Chat extends Component{
 			showChat: false,
 			chatid: null
 		}
+
+		this.openChat = this.openChat.bind(this)
 	}
 
 	componentDidMount(){
@@ -38,15 +40,23 @@ class Chat extends Component{
 		this.socket.disconnect()
 	}
 
-	renderChatPreviews(messages){
+	renderChatPreviews(messages, openChatFn){
 		let ChatPreviews = []
 		for(var prop in messages){
-			return <ChatPreview key={prop} messages={messages[prop]} id={prop} />
+			return <ChatPreview key={prop} openChat={openChatFn} messages={messages[prop]} id={prop} />
 		}
 		if(ChatPreviews.length === 0){
 			return <Text style={styles.noMessages}>No messages to show. Tap 'New Message' to start chatting with a friend.</Text>
 		}
 		return ChatPreviews
+	}
+
+	openChat(id){
+		this.setState({
+			chatid: id,
+			showChat: true,
+			showSearch: false
+		})
 	}
 
 	render(){
@@ -57,6 +67,7 @@ class Chat extends Component{
 					hide={()=>this.setState({showChat: false})} 
 					visible={this.state.showChat} />
 				<Search 
+					openChat={this.openChat}
 					hide={()=>this.setState({showSearch: false})} 
 					visible={this.state.showSearch} />
 
@@ -64,7 +75,7 @@ class Chat extends Component{
 					title="new message" 
 					onPress={()=>this.setState({showSearch: true})} />
 				<ScrollView style={styles.messages}>
-					{this.renderChatPreviews(this.props.messages)}
+					{this.renderChatPreviews(this.props.messages, this.openChat)}
 				</ScrollView>
 			</Nav>
 		)

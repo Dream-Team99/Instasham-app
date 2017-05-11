@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Image, Text} from 'react-native'
+import {View, Image, Text, TouchableHighlight} from 'react-native'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import moment from 'moment'
@@ -17,6 +17,12 @@ class ChatPreview extends Component{
 		axios.get('http://52.10.128.151:3005/api/chat/findUser/' + this.props.id).then(response => {
 			this.setState({user: response.data})
 		})
+		// This is just to show the updated time since messages where sent
+		this.autoUpdate = setInterval(()=>this.forceUpdate(), 60000)
+	}
+
+	componentWillUnmount(){
+		clearInterval(this.autoUpdate)
 	}
 
 	mostRecent(messages){
@@ -33,14 +39,18 @@ class ChatPreview extends Component{
 
 	render(){
 		return(
-			<View style={styles.container}>
-				<Image source={{uri: this.state.user.imageurl}} style={styles.image} />
-				<View style={styles.info}>
-					<Text style={styles.name}>{this.state.user.username}</Text>
-					<Text>{this.mostRecent(this.props.messages).message}</Text>
-					<Text style={styles.timestamp}>{this.mostRecent(this.props.messages).timestamp}</Text>
+			<TouchableHighlight 
+				underlayColor="#f2f2f2" 
+				onPress={()=>this.props.openChat(this.props.id)}>
+				<View style={styles.container}>
+					<Image source={{uri: this.state.user.imageurl}} style={styles.image} />
+					<View style={styles.info}>
+						<Text style={styles.name}>{this.state.user.username}</Text>
+						<Text>{this.mostRecent(this.props.messages).message}</Text>
+						<Text style={styles.timestamp}>{this.mostRecent(this.props.messages).timestamp}</Text>
+					</View>
 				</View>
-			</View>
+			</TouchableHighlight>
 		)
 	}
 }

@@ -23,10 +23,18 @@ class Search extends Component{
     		<View style={styles.user} key={user.id}>
     			<Image style={styles.image} source={{uri: user.imageurl}} />
     			<Text style={{fontSize: 16}}>{user.username}</Text>
-    			<Button title="Message" onPress={()=>{}} />
+    			<Button title="Message" onPress={() => {
+    				this.props.openChat(user.id)
+    				this.props.searchHandle(null, '')
+    			}} />
     		</View>
     	)
     })
+	}
+
+	hide(){
+		this.props.hide()
+		this.props.searchHandle(null, '')
 	}
 
 	render(){
@@ -35,8 +43,8 @@ class Search extends Component{
 				visible={this.props.visible}
 				animationType="slide"
 				style={styles.search}
-				onRequestClose={this.props.hide}>
-				<BackNav hide={this.props.hide} />
+				onRequestClose={this.hide.bind(this)}>
+				<BackNav hide={this.hide.bind(this)} />
 				<TextInput 
 					style={styles.input}
 					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}

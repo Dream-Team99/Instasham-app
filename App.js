@@ -21,11 +21,11 @@ export default class App extends Component {
 				<NativeRouter>
 					<View style={styles.container}>
 						<Route path='/' exact component={Login}/>
-						<Route path='/Chat' component={Home}/>
+						<Route path='/Home' component={Home}/>
 						<Route path='/Profile/:id' exact component={Profile}/>
 						<Route path='/Camera' component={Camera}/>
 						<Route path='/Search' component={Search}/>
-						<Route path='/Home' component={Chat}/>
+						<Route path='/Chat' component={Chat}/>
 						<Route path='/Post/:id' component={Post} />
 						<Route path="/Comment/:id" component={Comment}/>
 					</View>
