@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from  'react-router-native';
 import axios from "axios"
 import moment from "moment";
-let now = moment().format("MMM Do");
+let now = moment();
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
 
@@ -32,7 +32,6 @@ class Comment extends Component {
             this.setState({post:response.data[0]})
         })
         axios.get(`http://52.10.128.151:3005/api/getComments/${this.props.match.params.id}`).then((res)=>{
-            console.log(res.data)
             this.setState({comments: res.data})
         });
 
@@ -55,7 +54,7 @@ class Comment extends Component {
                                 <Link to={"/Profile/" + this.state.post.user_id}><Text
                                     style={styles.postStyle}>{this.state.post.username}</Text></Link>
                                 <Text  style={styles.commentText}> {this.state.post.post_text}</Text>
-                                <Text style={styles.timeStampStyle}>{this.state.post.timestamp}</Text>
+                                <Text style={styles.timeStampStyle}>{moment(this.state.post.timestamp).fromNow()}</Text>
                             </View>
                         </View>
                     </PostCardSection>
@@ -71,7 +70,7 @@ class Comment extends Component {
                                         <View style={styles.postView}>
                                             <Link to={"/Profile/" + val.userid}><Text style={styles.postStyle}>{val.username}</Text></Link>
                                             <Text style={styles.commentText}>{val.comment}</Text>
-                                            <Text style={styles.timeStampStyle} >{val.timestamp}</Text>
+                                            <Text style={styles.timeStampStyle} >{moment(val.timestamp).fromNow()}</Text>
                                         </View>
                                     </View>
 

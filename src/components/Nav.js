@@ -19,17 +19,17 @@ class Nav extends Component{
 
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
-					<Link to='/Search'><Ionicons name='md-search' size={32} color='#262626'/></Link>
-					<Link to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
-					<Link to='/Chat'><Ionicons name='md-chatbubbles' size={32} color='#262626'/></Link>
+					<Link underlayColor="transparent" to='/Search'><Ionicons underlayColor="transparent" name='md-search' size={32} color='#262626'/></Link>
+					<Link underlayColor="transparent" to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
+					<Link underlayColor="transparent" to='/Chat'><Ionicons underlayColor="transparent" name='md-chatbubbles' size={32} color='#262626'/></Link>
 				</View>
 				<View style={styles.container}>
 					{this.props.children}
 				</View>
 				<View style={styles.navBar}>
-          <Link to='/Home'><Ionicons name='md-home' size={32} color='#262626' /></Link>
-          <Link to='/Camera'><Ionicons name='md-camera' size={32} color='#262626' /></Link>
-          <Link to={'/Profile/' + this.props.mainProfile.id}><Ionicons name='md-person' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to='/Home'><Ionicons underlayColor="transparent" name='md-home' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to='/Camera'><Ionicons underlayColor="transparent" name='md-camera' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to={'/Profile/' + this.props.mainProfile.id}><Ionicons underlayColor="grey" name='md-person' size={32} color='#262626' /></Link>
 	      </View>
 			</View>
 		)
