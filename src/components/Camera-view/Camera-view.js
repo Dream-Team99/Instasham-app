@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons'
 import moment from "moment";
 import axios from "axios";
 let now = moment();
+let now1 = moment().format("MMM Do");
+import passHistory from '../../reducers/followingReducer';
 import {
     ActivityIndicator,
     Button,
@@ -15,13 +17,10 @@ import {
     StyleSheet,
     TextInput,
     Text,
-    TouchableOpacity,
     View,
 } from 'react-native';
 import Expo, {
-    Constants,
     ImagePicker,
-    registerRootComponent,
 } from 'expo';
 
 class Camera extends React.Component {
@@ -133,12 +132,12 @@ class Camera extends React.Component {
             title: 'Check out this photo',
             url: this.state.image,
         });
-    }
+    };
 
     _copyToClipboard = () => {
         Clipboard.setString(this.state.image);
         alert('Copied image URL to clipboard');
-    }
+    };
 
 
     _takePhoto = async () => {
@@ -286,7 +285,8 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({
-    redux: state
+    redux: state,
+    follow: state.followingReducer
 }), {
-    // Imported Actions
+    passHistory
 })(Camera)

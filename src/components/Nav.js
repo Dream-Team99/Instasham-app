@@ -1,25 +1,35 @@
 import React, { Component } from 'react'
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Image, StyleSheet, TouchableOpacity, Button} from 'react-native'
 import {Link} from  'react-router-native'
 import { Ionicons } from '@expo/vector-icons'
 import {connect} from 'react-redux'
 
 
 class Nav extends Component{
-	// constructor(){
-	// 	super()
-	// 	this.state = {
-	// 		btnSelected: 1
-	// 	}
-	// }
 
 	render(){
-		// console.log( 'lolo',this.props)
+        // console.log(this.props.follow.entries[this.props.follow.entries.length -2])
+        console.log(this.props.id)
 		return(
-
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
-					<Link underlayColor="transparent" to='/Search'><Ionicons underlayColor="transparent" name='md-search' size={32} color='#262626'/></Link>
+                        {this.props.follow.location.pathname === '/Post/' + this.props.id  &&
+                            <Link to={this.props.follow.entries[this.props.follow.entries.length -2]}><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                        }
+                    {this.props.follow.location.pathname === '/Home' &&
+					            <Link underlayColor="transparent" to='/Search'><Ionicons underlayColor="transparent" name='md-search' size={32} color='#262626'/></Link>
+                    }
+                    {this.props.follow.location.pathname === '/Search' &&
+                         <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                    }
+                    {this.props.follow.location.pathname === '/Profile/' + this.props.mainProfile.id &&
+                        <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                        || this.props.follow.location.pathname === '/Profile/' + this.props.currentProfile.id &&
+                            <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                    }
+                    {/*{this.props.follow.location.pathname === '/Comment/' + this.props.id  &&*/}
+                        {/*<Link to={this.props.follow.entries[this.props.follow.entries.length -2]}><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>*/}
+                    {/*}*/}
 					<Link underlayColor="transparent" to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
 					<Link underlayColor="transparent" to='/Chat'><Ionicons underlayColor="transparent" name='md-chatbubbles' size={32} color='#262626'/></Link>
 				</View>
@@ -64,9 +74,10 @@ const styles = StyleSheet.create({
 
 export default connect( state=>({
     mainProfile: state.profileReducer.profile.profile,
+    currentProfile: state.profileReducer.currentProfile.profile,
     search: state.searchReducer,
-    follow: state.followingReducer
-
+    follow: state.followingReducer.passedHistory,
+    id: state.followingReducer.id
 }), {
 
 })(Nav)

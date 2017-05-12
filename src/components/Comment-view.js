@@ -7,6 +7,7 @@ import moment from "moment";
 let now = moment();
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
+import {passHistory} from '../reducers/followingReducer';
 
 
 
@@ -34,6 +35,7 @@ class Comment extends Component {
         axios.get(`http://52.10.128.151:3005/api/getComments/${this.props.match.params.id}`).then((res)=>{
             this.setState({comments: res.data})
         });
+        this.props.passHistory(this.props.history, this.props.match.params.id)
 
     }
 
@@ -142,5 +144,7 @@ const styles = StyleSheet.create({
 });
 export default connect( state=>({
     mainProfile: state.profileReducer.profile,
+    follow: state.followingReducer
 }), {
+    passHistory
 })(Comment)

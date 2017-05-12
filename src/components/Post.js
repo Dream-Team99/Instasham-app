@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import PostDetail from './Home-view/subcomponents/PostDetail';
 import {connect} from 'react-redux';
 import Nav from '../components/Nav'
+import {passHistory} from '../reducers/followingReducer';
 
 class Post extends Component{
     constructor(){
@@ -20,11 +21,14 @@ class Post extends Component{
         });
     }
     componentDidMount(){
-
+        // console.log(this.props.history)
+        // console.log(this.props.match.params.id)
+        this.props.passHistory(this.props.history, this.props.match.params.id)
     }
     render() {
         return (
             <Nav>
+
                 <View>
                     <View>
                         {this.state.post &&
@@ -43,8 +47,9 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({
+
     currentProfile: state.profileReducer.currentProfile,
     mainProfile: state.profileReducer.profile.profile
 }), {
-
+    passHistory
 })(Post)

@@ -5,7 +5,7 @@ import Nav from '../Nav';
 import Link from "react-router-native/Link";
 import { Ionicons } from '@expo/vector-icons'
 import {getProfile} from '../../reducers/profileReducer';
-import {followerCount} from "../../reducers/followingReducer";
+import {followerCount, passHistory} from "../../reducers/followingReducer";
 import User from './subcomponents/User-box';
 import  Photos from "./subcomponents/User-photos";
 
@@ -14,8 +14,8 @@ class Profile extends Component {
     componentDidMount() {
         this.props.getProfile(this.props.match.params.id);
         this.props.followerCount(this.props.match.params.id);
+        this.props.passHistory(this.props.history, 1)
     }
-
 
     componentWillReceiveProps(newProps) {
         if (this.props.match.params.id !== newProps.match.params.id) {
@@ -40,7 +40,7 @@ class Profile extends Component {
                     {this.props.currentProfile.profile &&
                     <View style={styles.profile}>
                         <ScrollView style={styles.photos}>
-                            <User following_count={this.props.following} mainProfile={this.props.mainProfile} user={this.props.currentProfile.profile}/>
+                            <User following_count={this.props.following.profileCount} mainProfile={this.props.mainProfile}  user={this.props.currentProfile.profile}/>
                             {this.props.currentProfile.photos.length > 0 &&
                             <Photos photos={this.props.currentProfile.photos}/>
                             }
@@ -103,8 +103,8 @@ const styles = StyleSheet.create({
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile.profile,
     currentProfile: state.profileReducer.currentProfile,
-    following: state.followingReducer.profileCount
+    following: state.followingReducer
 }), {
-	getProfile,followerCount
+	getProfile,followerCount, passHistory
 
 })(Profile)
