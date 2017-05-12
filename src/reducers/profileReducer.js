@@ -23,7 +23,6 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type){
 		case SETPROFILE:
-			// console.log(action.profile)
 			return Object.assign({}, state, {profile: action.profile, loading: false});
 		case LOADING:
 			return Object.assign({}, state, {loading: true});

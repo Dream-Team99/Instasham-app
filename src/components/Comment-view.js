@@ -7,6 +7,7 @@ import moment from "moment";
 let now = moment().format("MMM Do");
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
+import {passHistory} from '../reducers/followingReducer';
 
 
 
@@ -35,6 +36,7 @@ class Comment extends Component {
             console.log(res.data)
             this.setState({comments: res.data})
         });
+        this.props.passHistory(this.props.history, this.props.match.params.id)
 
     }
 
@@ -143,5 +145,7 @@ const styles = StyleSheet.create({
 });
 export default connect( state=>({
     mainProfile: state.profileReducer.profile,
+    follow: state.followingReducer
 }), {
+    passHistory
 })(Comment)
