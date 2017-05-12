@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {
 	View, 
-	Text, 
-	Image,
-	Dimensions
+	Text
 } from 'react-native'
 import moment from 'moment'
 
@@ -77,7 +75,7 @@ const styles = {
 		margin: 10
 	},
 	blueBackground: {
-		backgroundColor: '#098ff6'
+		backgroundColor: '#3aa6f8'
 	},
 	rightAlign: {
 		textAlign: 'right'

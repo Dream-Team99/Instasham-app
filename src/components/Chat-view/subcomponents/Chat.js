@@ -4,7 +4,8 @@ import {
 	TextInput, 
 	TouchableHighlight, 
 	ScrollView,
-	Modal
+	Modal,
+	Text
 } from 'react-native'
 import {connect} from 'react-redux'
 import BackNav from './BackNav'
@@ -44,6 +45,9 @@ class Chat extends Component{
 	      	onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}>
 	      {thisChat && this.state.user.id &&
 		      <Messages chat={thisChat} user={this.state.user} />
+	      }
+	      {(!thisChat || !this.state.user.id) &&
+	      	<Text style={styles.noMessages}>Send a message to start chatting with {this.state.user.username}!</Text>
 	      }
 	      </ScrollView>
 	      <View style={styles.textBox}>
@@ -86,6 +90,12 @@ const styles = {
 		flexDirection: 'row',
 		padding: 5,
 		elevation: 2
+	},
+	noMessages: {
+		color: '#999',
+		textAlign: 'center',
+		padding: 20,
+		fontSize: 16
 	}
 }
 
