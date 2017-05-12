@@ -32,13 +32,23 @@ class Chat extends Component{
 
 	renderChatPreviews(messages){
 		let ChatPreviews = []
+		// Put objects into an array
 		for(var prop in messages){
-			return <ChatPreview key={prop} messages={messages[prop]} id={prop} />
+			ChatPreviews.push({
+				key: prop,
+				mostRecent: messages[prop][0]
+			})
 		}
+		// No messages, message
 		if(ChatPreviews.length === 0){
 			return <Text style={styles.noMessages}>No messages to show. Tap 'New Message' to start chatting with a friend.</Text>
 		}
-		return ChatPreviews
+		// Sort array by most timestamp of most recent message and map out elements
+		return ChatPreviews.sort((a, b) => {
+			return new Date(a.mostRecent.timestamp) > new Date(b.mostRecent.timestamp) ? -1 : 1
+		}).map((chat) => {
+			return <ChatPreview key={chat.key} mostRecent={chat.mostRecent} id={chat.key} />
+		})
 	}
 
 	render(){

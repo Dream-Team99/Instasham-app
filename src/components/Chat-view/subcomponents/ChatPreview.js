@@ -26,13 +26,13 @@ class ChatPreview extends Component{
 		clearInterval(this.autoUpdate)
 	}
 
-	mostRecent(messages){
-		let mostRecent = {...messages[0]}
-		mostRecent.timestamp = moment(mostRecent.timestamp).fromNow()
-		if(mostRecent.message.length > 50){
-			mostRecent.message = mostRecent.message.slice(0, 50) + '.....'
+	mostRecent(mostRecent){
+		let dup = {...mostRecent}
+		dup.timestamp = moment(dup.timestamp).fromNow()
+		if(dup.message.length > 50){
+			dup.message = dup.message.slice(0, 50) + '.....'
 		}
-		return mostRecent
+		return dup
 	}
 
 	render(){
@@ -44,8 +44,12 @@ class ChatPreview extends Component{
 					<Image source={{uri: this.state.user.imageurl}} style={styles.image} />
 					<View style={styles.info}>
 						<Text style={styles.name}>{this.state.user.username}</Text>
-						<Text>{this.mostRecent(this.props.messages).message}</Text>
-						<Text style={styles.timestamp}>{this.mostRecent(this.props.messages).timestamp}</Text>
+						<Text>
+							{this.mostRecent(this.props.mostRecent).message}
+						</Text>
+						<Text style={styles.timestamp}>
+							{this.mostRecent(this.props.mostRecent).timestamp}
+						</Text>
 					</View>
 				</View>
 			</TouchableHighlight>
@@ -61,9 +65,9 @@ export default connect( state=>({
 
 const styles = {
 	image: {
-		width: 60,
-		height: 60,
-		borderRadius: 30,
+		width: 65,
+		height: 65,
+		borderRadius: 65/2,
 		marginRight: 10
 	},
 	container: {

@@ -39,7 +39,9 @@ class Chat extends Component{
 				style={styles.search}
 				onRequestClose={this.props.hideChat}>
 				<BackNav text={'Chat with ' + this.state.user.username} hide={this.props.hideChat} />
-	      <ScrollView>
+	      <ScrollView 
+	      	ref="scrollView"
+	      	onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}>
 	      {thisChat &&
 		      <Messages chat={thisChat} user={this.state.user} />
 	      }
@@ -82,7 +84,8 @@ const styles = {
 	textBox: {
 		backgroundColor: '#f2f2f2',
 		flexDirection: 'row',
-		padding: 5
+		padding: 5,
+		elevation: 2
 	}
 }
 
