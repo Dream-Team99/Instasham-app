@@ -4,19 +4,22 @@ import { Ionicons } from '@expo/vector-icons'
 import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
 import {Link} from  'react-router-native';
+import moment from "moment"
 import axios from 'axios';
+import {connect} from 'react-redux'
+
 
 class PostDetail extends Component{
     constructor(){
         super();
         this.state ={
-            likes:0,
-            comments:[]
+            likes:null,
+            comments:null
         }
     }
 
     addLikes(){
-        axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id, photoid: this.props.post.photo_id}).then((res)=>{
+        axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.mainProfile.profile.id , photoid: this.props.post.photo_id}).then((res)=>{
             this.setState({likes: res.data[0].likes})
         })
     };
@@ -26,7 +29,6 @@ class PostDetail extends Component{
         })
     }
     componentDidMount(){
-
         axios.get('http://52.10.128.151:3005/api/getLikes/' + this.props.post.photo_id).then((res)=>{
                 this.setState({likes: res.data[0].likes})
         });
@@ -38,6 +40,11 @@ class PostDetail extends Component{
 
 
     render() {
+
+        if(this.state.likes === null || this.state.comments === null){
+            return null
+        }
+
         return (
             <PostCard>
                 <PostCardSection>
@@ -48,14 +55,6 @@ class PostDetail extends Component{
                         <View>
                             <Link to={"/Profile/" + this.props.post.user_id}><Text>{this.props.post.username}</Text></Link>
                         </View>
-                        {this.props.currentUser.id === this.props.post.user_id &&
-                        this.props.location === `/Post/${this.props.post.photo_id}` &&
-                        <View  style={styles.delete}>
-                            <TouchableHighlight style={{marginLeft: 20, backgroundColor: "red"}} onPress={this.deletePost.bind(this)}>
-                                <Text>DELETE</Text>
-                            </TouchableHighlight>
-                        </View>
-                        }
                     </View>
                 </PostCardSection>
                 <PostCardSection>
@@ -65,12 +64,22 @@ class PostDetail extends Component{
                 </PostCardSection>
                 <PostCardSection>
                     <View style={styles.icons}>
-                        <TouchableOpacity  style={{marginRight: 10}} onPress={this.addLikes.bind(this)}>
-                            <Ionicons name='md-heart' size={32} color='#262626'/>
-                        </TouchableOpacity>
-                        <Link to={"/Comment/" + this.props.post.photo_id}>
-                            <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
-                        </Link>
+                        <View style={{flexDirection:"row"}}>
+                            <TouchableOpacity  style={{marginRight: 10}} onPress={this.addLikes.bind(this)}>
+                                <Ionicons name='md-heart' size={32} color='#262626'/>
+                            </TouchableOpacity>
+                            <Link underlayColor="transparent" to={"/Comment/" + this.props.post.photo_id}>
+                                <Ionicons name='ios-chatbubbles' size={32} color='#262626'/>
+                            </Link>
+                        </View>
+                        {this.props.currentUser.id === this.props.post.user_id &&
+                        this.props.location === `/Post/${this.props.post.photo_id}` &&
+                        <View  style={styles.delete}>
+                            <TouchableHighlight underlayColor="transparent" style={{backgroundColor: "red"}} onPress={this.deletePost.bind(this)}>
+                                <Text style={{color:"white",textAlign: 'center',}}>DELETE</Text>
+                            </TouchableHighlight>
+                        </View>
+                        }
                     </View>
                 </PostCardSection>
                 <PostCardSection>
@@ -88,21 +97,25 @@ class PostDetail extends Component{
                     </View>
 
                 </PostCardSection>
-                {this.state.comments[0] &&
-                <View>
-                    <Text>{this.state.comments[0].username}</Text>
-                    <Text>{this.state.comments[0].comment}</Text>
-                </View>
-                }
-                {this.state.comments[1] &&
-                <View>
-                    <Text>{this.state.comments[1].username}</Text>
-                    <Text>{this.state.comments[1].comment}</Text>
-                </View>
-                }
-                <View style={styles.timeStampView}>
-                    <Text style={styles.timeStampStyle}>{this.props.post.timestamp}</Text>
-                </View>
+                <PostCardSection>
+                    <View style={styles.comments}>
+                        {this.state.comments[0] &&
+                            <View>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].comment}</Text></Link>
+                            </View>
+                        }
+                        {this.state.comments[1] &&
+                            <View>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].comment}</Text></Link>
+                            </View>
+                        }
+                    </View>
+                    <View style={styles.timeStampView}>
+                        <Text style={styles.timeStampStyle}>{moment(this.props.post.timestamp).fromNow()}</Text>
+                    </View>
+                </PostCardSection>
             </PostCard>
         )
     }
@@ -115,12 +128,14 @@ const styles = StyleSheet.create({
         width: null
     },
     timeStampView:{
+        marginTop: 10,
         marginBottom: 10,
         marginLeft: 10
     },
     icons:{
         flexDirection: 'row',
         marginLeft: 10,
+        justifyContent:"space-between"
     },
     timeStampStyle:{
         fontSize: 12
@@ -157,16 +172,27 @@ const styles = StyleSheet.create({
     image_style:{
         height: 300,
     },
+    comments:{
+      marginTop: 15,
+      marginLeft: 10
+    },
     delete:{
+        marginTop:5,
+        marginRight: 10,
         backgroundColor:"#fe3b33",
         paddingTop:10,
         paddingBottom:10,
         paddingLeft:15,
         paddingRight:15,
         borderRadius: 5,
-        borderColor:"black",
-        borderWidth:2
     }
 });
 
-export default PostDetail
+export default connect( state=>({
+    mainProfile: state.profileReducer.profile,
+    search: state.searchReducer,
+    follow: state.followingReducer
+
+}), {
+
+})(PostDetail)

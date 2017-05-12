@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import {View, StyleSheet} from 'react-native'
-import {NativeRouter, Route} from  'react-router-native'
+import {NativeRouter, Route, history} from  'react-router-native'
 import {Provider} from 'react-redux'
 import createStore from './src/store'
-
 import Home from './src/components/Home-view/Home-view'
 import Login from './src/components/Login-view/Login-view'
 import Profile from './src/components/Profile-view/Profile-view'
@@ -39,4 +38,4 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
-})
+});
