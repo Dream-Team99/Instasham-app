@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
+import { Ionicons } from '@expo/vector-icons'
 import moment from "moment";
 import axios from "axios";
-let now = moment().format("MMM Do");
+let now = moment();
+let now1 = moment().format("MMM Do");
 import passHistory from '../../reducers/followingReducer';
 import {
     ActivityIndicator,
@@ -24,26 +26,43 @@ import Expo, {
 class Camera extends React.Component {
     state = {
         image: {cancelled: true},
+        upload: true,
+        uploading: false,
+        post_text: ``,
+        takenPhoto: false
+    };
+    cancelPhoto(){
+        this.setState({
+        image: {cancelled: true},
         upload: false,
         uploading: false,
-        post_text: ``
-    };
+        post_text: ``,
+        takenPhoto: false
+        })
+    }
 
     render() {
         let { image } = this.state;
-
         return (
 
             <Nav>
-                <View style={{flex: 1, alignItems:"center"}}>
-                    <Button
-                        onPress={this._pickImage}
-                        title="Pick an image"
-                    />
-                    <Button
-                        onPress={this._takePhoto}
-                        title="Take a photo"
-                    />
+                <View style={{flex: 1}}>
+                    {this.state.takenPhoto ===false &&
+                        <View style={styles.outerNoFollowers}>
+                            <TouchableOpacity style={styles.noFollowersView} onPress={this._pickImage}>
+                                <Ionicons underlayColor="grey" name='ios-add-circle-outline' size={52} color='#262626'/>
+                                <Text style={styles.noFollowerstext}>Pick a Photo</Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
+                    {this.state.takenPhoto === false &&
+                        <View style={styles.outerNoFollowers}>
+                            <TouchableOpacity style={styles.noFollowersView} onPress={this._takePhoto}>
+                                <Ionicons underlayColor="grey" name='ios-camera' size={52} color='#262626'/>
+                                <Text style={styles.noFollowerstext}>Take a Photo</Text>
+                            </TouchableOpacity>
+                        </View>
+                    }
                     { this._maybeRenderImage() }
                     { this._maybeRenderUploadingOverlay() }
                     <StatusBar barStyle="default" />
@@ -73,39 +92,38 @@ class Camera extends React.Component {
             return;
         }
         else if (upload){
+            this.state.takenPhoto = false;
             return(
-                <Text style={styles.upload}>Upload success!</Text>
+
+                    <View style={styles.uploadViewS}>
+                        <Text style={styles.uploadS}>Upload success!</Text>
+                    </View>
+
             )
         }
 
-        else return (
-                <View style={{
-                    marginTop: 30,
-                    width: 250,
-                    borderRadius: 3,
-                    elevation: 2,
-                    shadowColor: 'rgba(0,0,0,1)',
-                    shadowOpacity: 0.2,
-                    shadowOffset: {width: 4, height: 4},
-                    shadowRadius: 5,
-                }}>
-                    <View>
-
+        else {
+            this.state.takenPhoto = true;
+            return (
+                <View>
                         <TextInput
                             style={styles.input}
                             onChangeText={(post_text)=> this.setState({post_text})}
                             value={this.state.post_text}
                         />
-                        <Button title="Upload" onPress={this._handleImagePicked.bind(null, this.state.image)}/>
-                    </View>
-                    <View style={{borderTopRightRadius: 3, borderTopLeftRadius: 3, overflow: 'hidden'}}>
+                    <TouchableOpacity style={styles.upload} onPress={this._handleImagePicked.bind(null, this.state.image)}>
+                        <Text style={{color: "grey", textAlign: 'center',}}>Upload</Text>
+                    </TouchableOpacity>
                         <Image
                             source={{uri: image.uri}}
-                            style={{width: 250, height: 250}}
+                            style={{width: 450, height: 450}}
                         />
-                    </View>
+                    <TouchableOpacity style={styles.upload} onPress={this.cancelPhoto.bind(this)}>
+                        <Text style={{color: "grey", textAlign: 'center',}}>Cancel</Text>
+                    </TouchableOpacity>
                 </View>
             );
+        }
     };
 
     _share = () => {
@@ -120,6 +138,7 @@ class Camera extends React.Component {
         Clipboard.setString(this.state.image);
         alert('Copied image URL to clipboard');
     };
+
 
     _takePhoto = async () => {
         let pickerResult = await ImagePicker.launchCameraAsync({
@@ -198,10 +217,69 @@ async function uploadImageAsync(uri) {
 }
 const styles = StyleSheet.create({
     input:{
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1
     },
     upload:{
+            backgroundColor:"#ffffff",
+            paddingTop:10,
+            paddingBottom:10,
+            paddingLeft:17,
+            paddingRight:17,
+            borderRadius: 5,
+            borderWidth:2,
+            borderColor:"black",
+    },
+    uploadView:{
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius: 70,
+        borderWidth:1,
+        borderColor:"black",
+        backgroundColor:"white",
+        height:100,
+        width:200
+    },
+    uploadS:{
+        backgroundColor:"#ffffff",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:17,
+        paddingRight:17,
+        borderRadius: 5,
+        borderWidth:2,
+        borderColor:"black",
+    },
+    uploadViewS:{
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius: 70,
+        borderWidth:1,
+        borderColor:"black",
+        backgroundColor:"white",
+        height:100,
+        width:200
+    },
+    outerNoFollowers:{
+        alignSelf:"center",
+    },
+    noFollowersView:{
+        marginTop:20,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius: 70,
+        borderWidth:2,
+        borderColor:"black",
+        backgroundColor:"white",
+        height:200,
+        width:200
+    },
+    noFollowerstext:{
+        color:"grey",
+        marginTop:5,
+        padding:10,
         fontSize:20,
-        marginTop:20
     }
 
 });

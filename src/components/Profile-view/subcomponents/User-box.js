@@ -59,7 +59,7 @@ export default class User extends Component{
                     {this.state.isFollowing.indexOf(this.props.user.id) === -1 &&
                     this.props.mainProfile.id !== this.props.user.id &&
                     <View style={styles.follow}>
-                        <TouchableHighlight onPress={this.addFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
+                        <TouchableHighlight underlayColor="transparent" onPress={this.addFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
                             <Text style={{color:"white",textAlign: 'center',}}>Follow</Text>
                         </TouchableHighlight>
                     </View>
@@ -67,7 +67,7 @@ export default class User extends Component{
                     {this.state.isFollowing.indexOf(this.props.user.id) !== -1 &&
                     this.props.mainProfile.id !== this.props.user.id &&
                     <View style={styles.unfollow}>
-                        <TouchableHighlight onPress={this.deleteFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
+                        <TouchableHighlight underlayColor="transparent" onPress={this.deleteFollower.bind(this, this.props.mainProfile.id, this.props.user.id)}>
                             <Text style={{color:"black",textAlign: 'center',}}>Unfollow</Text>
                         </TouchableHighlight>
                     </View>

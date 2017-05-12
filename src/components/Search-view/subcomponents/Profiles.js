@@ -45,12 +45,12 @@ export default class Profiles extends Component{
 
 						{this.state.isFollowing.indexOf(p.id) === -1 &&
 						<View style={styles.follow}>
-							<TouchableHighlight onPress={this.addFollower.bind(this, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>
+							<TouchableHighlight underlayColor="transparent" onPress={this.addFollower.bind(this, this.props.currentUser.id, p.id)}><Text style={{color:"white",textAlign: 'center',}}>Follow</Text></TouchableHighlight>
 						</View>
 						}
                         {this.state.isFollowing.indexOf(p.id) !== -1 &&
 						<View style={styles.unfollow}>
-						<TouchableHighlight onPress={this.deleteFollower.bind(this, this.props.currentUser.id, p.id)}>
+						<TouchableHighlight underlayColor="transparent" onPress={this.deleteFollower.bind(this, this.props.currentUser.id, p.id)}>
 							<Text style={{color:"black",textAlign: 'center',}}>Unfollow</Text>
 						</TouchableHighlight>
 						</View>

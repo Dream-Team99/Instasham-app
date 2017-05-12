@@ -17,7 +17,7 @@ class Nav extends Component{
                             <Link to={this.props.follow.entries[this.props.follow.entries.length -2]}><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
                         }
                     {this.props.follow.location.pathname === '/Home' &&
-                         < Link to='/Search'><Ionicons name='md-search' size={32} color='#262626'/></Link>
+					            <Link underlayColor="transparent" to='/Search'><Ionicons underlayColor="transparent" name='md-search' size={32} color='#262626'/></Link>
                     }
                     {this.props.follow.location.pathname === '/Search' &&
                          <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
@@ -30,16 +30,16 @@ class Nav extends Component{
                     {/*{this.props.follow.location.pathname === '/Comment/' + this.props.id  &&*/}
                         {/*<Link to={this.props.follow.entries[this.props.follow.entries.length -2]}><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>*/}
                     {/*}*/}
-					<Link to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
-					<Link to='/Chat'><Ionicons name='md-send' size={32} color='#262626'/></Link>
+					<Link underlayColor="transparent" to='/Home'><Image source={require('../images/logo_360.png')} /></Link>
+					<Link underlayColor="transparent" to='/Chat'><Ionicons underlayColor="transparent" name='md-chatbubbles' size={32} color='#262626'/></Link>
 				</View>
 				<View style={styles.container}>
 					{this.props.children}
 				</View>
 				<View style={styles.navBar}>
-          <Link to='/Home'><Ionicons name='md-home' size={32} color='#262626' /></Link>
-          <Link to='/Camera'><Ionicons name='md-camera' size={32} color='#262626' /></Link>
-          <Link to={'/Profile/' + this.props.mainProfile.id}><Ionicons name='md-person' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to='/Home'><Ionicons underlayColor="transparent" name='md-home' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to='/Camera'><Ionicons underlayColor="transparent" name='md-camera' size={32} color='#262626' /></Link>
+          <Link underlayColor="transparent" to={'/Profile/' + this.props.mainProfile.id}><Ionicons underlayColor="grey" name='md-person' size={32} color='#262626' /></Link>
 	      </View>
 			</View>
 		)
