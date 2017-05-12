@@ -42,7 +42,7 @@ class Chat extends Component{
 	      <ScrollView 
 	      	ref="scrollView"
 	      	onContentSizeChange={() => this.refs.scrollView.scrollToEnd()}>
-	      {thisChat &&
+	      {thisChat && this.state.user.id &&
 		      <Messages chat={thisChat} user={this.state.user} />
 	      }
 	      </ScrollView>
@@ -75,7 +75,7 @@ const styles = {
 		padding: 5
 	},
 	icon: {
-		color: '#0066ff',
+		color: '#098ff6',
 		fontSize: 32,
 		padding: 10,
 		paddingBottom: 0,

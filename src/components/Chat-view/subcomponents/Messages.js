@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {
 	View, 
 	Text, 
-	Image
+	Image,
+	Dimensions
 } from 'react-native'
 import moment from 'moment'
 
@@ -18,26 +19,35 @@ export default class Messages extends Component{
 	}
 
 	render(){
+		// Clone chat array so that 'reverse' won't change the original array
 		let chat = [...this.props.chat]
 		return(
 			<View>
 				{chat.reverse().map(message => {
 					if(message.senderid === this.props.user.id){
 						return (
-							<View style={styles.from} key={message.timestamp}>
-								<View>
-									<Text>{message.message}</Text>
-									<Text>{moment(message.timestamp).fromNow()}</Text>
+							<View style={styles.outer} key={message.timestamp}>
+								<View style={styles.from}>
+									<View style={styles.inner}>
+										<Text style={styles.rightAlign}>{message.message}</Text>
+									</View>
 								</View>
+								<Text style={styles.timestamp}>
+									{moment(message.timestamp).fromNow()}
+								</Text>
 							</View>
 						)
 					} else {
 						return (
-							<View style={styles.to} key={message.timestamp}>
-								<View>
-									<Text style={styles.toText}>{message.message}</Text>
-									<Text style={styles.toText}>{moment(message.timestamp).fromNow()}</Text>
+							<View style={styles.outer} key={message.timestamp}>
+								<View style={styles.to}>
+									<View style={[styles.inner, styles.blueBackground]}>
+										<Text style={styles.rightAlign}>{message.message}</Text>
+									</View>
 								</View>
+								<Text style={[styles.timestamp, styles.rightAlign]}>
+									{moment(message.timestamp).fromNow()}
+								</Text>
 							</View>
 						)
 					}
@@ -50,12 +60,36 @@ export default class Messages extends Component{
 const styles = {
 	to: {
 		flexDirection: 'row',
-		justifyContent: 'flex-end'
+		justifyContent: 'flex-end',
+		flex: 1	,
+		marginLeft: 75	
 	},
-	toText: {
+	inner: {
+		backgroundColor: '#f2f2f2',
+		flexDirection: 'column',
+		elevation: 0.5,
+		borderRadius: 5,
+		padding: 10,
+		paddingRight: 15,
+		paddingLeft: 15,
+	},
+	outer: {
+		margin: 10
+	},
+	blueBackground: {
+		backgroundColor: '#098ff6'
+	},
+	rightAlign: {
 		textAlign: 'right'
 	},
+	timestamp: {
+		color: '#999',
+		fontSize: 12
+	},
 	from: {
-
+		marginRight: 75,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		flex: 1	
 	}
 }
