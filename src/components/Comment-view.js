@@ -125,7 +125,9 @@ const styles = StyleSheet.create({
     input:{
         height: 40,
         borderColor: 'gray',
-        borderWidth: 1
+        borderWidth: 1,
+        paddingLeft:5,
+        paddingRight:5,
     },
     postView:{
         marginLeft: 10

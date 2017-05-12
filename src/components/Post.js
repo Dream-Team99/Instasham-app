@@ -28,14 +28,11 @@ class Post extends Component{
     render() {
         return (
             <Nav>
-
-                <View>
-                    <View>
+                    <ScrollView>
                         {this.state.post &&
                             <PostDetail history={this.props.history} location={this.props.location.pathname}  currentUser={this.props.mainProfile} post={this.state.post}/>
                         }
-                    </View>
-                </View>
+                    </ScrollView>
             </Nav>
         );
     }

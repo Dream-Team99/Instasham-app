@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 
 class Nav extends Component{
 
-	render(){
+    render(){
         // console.log(this.props.follow.entries[this.props.follow.entries.length -2])
         // console.log(this.props.id)
 		return(
@@ -20,12 +20,12 @@ class Nav extends Component{
 					            <Link underlayColor="transparent" to='/Search'><Ionicons underlayColor="transparent" name='md-search' size={32} color='#262626'/></Link>
                     }
                     {this.props.follow.location.pathname === '/Search' &&
-                         <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                         <Link underlayColor="transparent" to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
                     }
                     {this.props.follow.location.pathname === '/Profile/' + this.props.mainProfile.id &&
-                        <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                        <Link underlayColor="transparent" to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
                         || this.props.follow.location.pathname === '/Profile/' + this.props.currentProfile.id &&
-                            <Link to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
+                            <Link underlayColor="transparent" to='/Home'><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>
                     }
                     {/*{this.props.follow.location.pathname === '/Comment/' + this.props.id  &&*/}
                         {/*<Link to={this.props.follow.entries[this.props.follow.entries.length -2]}><Ionicons name='ios-arrow-back' size={32} color='#262626'/></Link>*/}
