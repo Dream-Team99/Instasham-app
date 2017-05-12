@@ -97,21 +97,25 @@ class PostDetail extends Component{
                     </View>
 
                 </PostCardSection>
-                {this.state.comments[0] &&
-                <View>
-                    <Text>{this.state.comments[0].username}</Text>
-                    <Text>{this.state.comments[0].comment}</Text>
-                </View>
-                }
-                {this.state.comments[1] &&
-                <View>
-                    <Text>{this.state.comments[1].username}</Text>
-                    <Text>{this.state.comments[1].comment}</Text>
-                </View>
-                }
-                <View style={styles.timeStampView}>
-                    <Text style={styles.timeStampStyle}>{moment(this.props.post.timestamp).fromNow()}</Text>
-                </View>
+                <PostCardSection>
+                    <View style={styles.comments}>
+                        {this.state.comments[0] &&
+                            <View>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].comment}</Text></Link>
+                            </View>
+                        }
+                        {this.state.comments[1] &&
+                            <View>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].comment}</Text></Link>
+                            </View>
+                        }
+                    </View>
+                    <View style={styles.timeStampView}>
+                        <Text style={styles.timeStampStyle}>{moment(this.props.post.timestamp).fromNow()}</Text>
+                    </View>
+                </PostCardSection>
             </PostCard>
         )
     }
@@ -124,6 +128,7 @@ const styles = StyleSheet.create({
         width: null
     },
     timeStampView:{
+        marginTop: 10,
         marginBottom: 10,
         marginLeft: 10
     },
@@ -166,6 +171,10 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height: 300,
+    },
+    comments:{
+      marginTop: 15,
+      marginLeft: 10
     },
     delete:{
         marginTop:5,

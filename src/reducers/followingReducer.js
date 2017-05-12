@@ -3,6 +3,8 @@ import axios from 'axios'
 const GETFOLLOWING = 'GETFOLLOWING';
 const GET_PROFILE_COUNT = `GET_PROFILE_COUNT`;
 const GETHISTORY = 'GETHISTORY';
+const NEXTROUTE = 'NEXTROUTE';
+const PREVROUTE = 'PREVROUTE';
 
 const initialState = {
     followingList: [],
@@ -17,7 +19,8 @@ const initialState = {
             pathname: '/Home',
         },
     },
-    id: 0
+    id: 0,
+    route: []
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +31,8 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {passedHistory: action.payload, id: action.id});
         case GET_PROFILE_COUNT:
             return Object.assign({}, state, {profileCount: action.payload});
+        case NEXTROUTE:
+            return Object.assign({}, state, {route: action.next});
         default:
             return state
     }
@@ -59,4 +64,9 @@ export function passHistory(path,id){
             payload: path,
             id: id
         }
+}
+export function nextRoute(path){
+    return {
+        type
+    }
 }

@@ -9,7 +9,7 @@ class Nav extends Component{
 
 	render(){
         // console.log(this.props.follow.entries[this.props.follow.entries.length -2])
-        console.log(this.props.id)
+        // console.log(this.props.id)
 		return(
 			<View style={styles.container}>
 				<View style={[styles.navBar, styles.top]}>
