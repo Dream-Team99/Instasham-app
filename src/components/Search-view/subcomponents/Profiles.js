@@ -23,13 +23,11 @@ export default class Profiles extends Component{
 			})
 		})
 	}
-	// deleteFollower(id, follower){
-     //    axios.post(`http://52.10.128.151:3005/api/users/follower/delete`, {userId: id, followerId: follower}).then((res)=>{
-     //        this.setState({
-     //            isFollowing: res.data
-     //        })
-     //    })
-	// }
+	deleteFollower(id, follower){
+        axios.post(`http://52.10.128.151:3005/api/users/follower/delete`, {userId: id, followerId: follower}).then((res)=>{
+            this.checkFollower.call(this, id)
+        })
+	}
 	componentDidMount(){
         this.checkFollower(this.props.currentUser.id);
 	}
@@ -51,9 +49,10 @@ export default class Profiles extends Component{
 						</View>
 						}
                         {this.state.isFollowing.indexOf(p.id) !== -1 &&
-
 						<View style={styles.unfollow}>
-							<TouchableHighlight ><Text style={{color:"black",textAlign: 'center',}}>Following</Text></TouchableHighlight>
+						<TouchableHighlight onPress={this.deleteFollower.bind(this, this.props.currentUser.id, p.id)}>
+							<Text style={{color:"black",textAlign: 'center',}}>Unfollow</Text>
+						</TouchableHighlight>
 						</View>
                         }
 

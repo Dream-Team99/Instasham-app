@@ -25,16 +25,17 @@ class Post extends Component{
         // console.log(this.props.match.params.id)
         this.props.passHistory(this.props.history, this.props.match.params.id)
     }
-
     render() {
-        // console.log(this.state.post)
         return (
             <Nav>
-                <ScrollView>
-                    {this.state.post &&
-                    <PostDetail currentUser={this.props.mainProfile.profile} post={this.state.post}/>
-                    }
-                </ScrollView>
+
+                <View>
+                    <View>
+                        {this.state.post &&
+                            <PostDetail history={this.props.history} location={this.props.location.pathname}  currentUser={this.props.mainProfile} post={this.state.post}/>
+                        }
+                    </View>
+                </View>
             </Nav>
         );
     }
@@ -46,8 +47,9 @@ const styles = StyleSheet.create({
 });
 
 export default connect( state=>({
-    mainProfile: state.profileReducer.profile,
-    follow: state.followingReducer
+
+    currentProfile: state.profileReducer.currentProfile,
+    mainProfile: state.profileReducer.profile.profile
 }), {
     passHistory
 })(Post)

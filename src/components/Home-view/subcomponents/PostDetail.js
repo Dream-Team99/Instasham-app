@@ -22,6 +22,11 @@ class PostDetail extends Component{
             this.setState({likes: res.data[0].likes})
         })
     };
+    deletePost(){
+        axios.post(`http://52.10.128.151:3005/api/post/delete`, {photoid: this.props.post.photo_id, name:this.props.post.url}).then((res)=>{
+            this.props.history.push(`/Profile/${this.props.currentUser.id}`)
+        })
+    }
     componentDidMount(){
         axios.get('http://52.10.128.151:3005/api/getLikes/' + this.props.post.photo_id).then((res)=>{
                 this.setState({likes: res.data[0].likes})
@@ -38,6 +43,7 @@ class PostDetail extends Component{
         if(this.state.likes === null || this.state.comments === null){
             return null
         }
+
         return (
             <PostCard>
                 <PostCardSection>
@@ -48,6 +54,14 @@ class PostDetail extends Component{
                         <View>
                             <Link to={"/Profile/" + this.props.post.user_id}><Text>{this.props.post.username}</Text></Link>
                         </View>
+                        {this.props.currentUser.id === this.props.post.user_id &&
+                        this.props.location === `/Post/${this.props.post.photo_id}` &&
+                        <View  style={styles.delete}>
+                            <TouchableHighlight style={{marginLeft: 20, backgroundColor: "red"}} onPress={this.deletePost.bind(this)}>
+                                <Text>DELETE</Text>
+                            </TouchableHighlight>
+                        </View>
+                        }
                     </View>
                 </PostCardSection>
                 <PostCardSection>
@@ -148,6 +162,16 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height: 300,
+    },
+    delete:{
+        backgroundColor:"#fe3b33",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:15,
+        paddingRight:15,
+        borderRadius: 5,
+        borderColor:"black",
+        borderWidth:2
     }
 });
 
