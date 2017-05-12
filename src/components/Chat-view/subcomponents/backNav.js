@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, TouchableHighlight } from 'react-native'
+import { View, TouchableHighlight, Text } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 export default class BackNav extends Component{
@@ -9,6 +9,7 @@ export default class BackNav extends Component{
 				<TouchableHighlight onPress={this.props.hide}>
 					<Ionicons name='ios-arrow-back' style={styles.icon} />
 				</TouchableHighlight>
+				<Text style={styles.text}>{this.props.text}</Text>
 			</View>
 		)
 	}
@@ -26,7 +27,12 @@ const styles = {
 		fontSize: 32,
 		paddingTop: 10,
 		paddingBottom: 10,
-		paddingRight: 15,
+		paddingRight: 25,
 		paddingLeft: 15
+	},
+	text: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: '#262626'
 	}
 }

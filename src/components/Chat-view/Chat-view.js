@@ -7,21 +7,11 @@ import Search from './subcomponents/Search'
 import {getMessages} from '../../reducers/chatReducer'
 import ChatPreview from './subcomponents/ChatPreview'
 import ChatWith from './subcomponents/Chat'
+import {showSearch} from '../../reducers/modalDuck'
 
 console.ignoredYellowBox = ['Setting a timer for a long period of time']
 
 class Chat extends Component{
-	constructor(){
-		super()
-		this.state = {
-			showSearch: false,
-			showChat: false,
-			chatid: null
-		}
-
-		this.openChat = this.openChat.bind(this)
-	}
-
 	componentDidMount(){
 		// Connect to socket.io
 		this.socket = io('http://52.10.128.151:3005', {
@@ -40,10 +30,10 @@ class Chat extends Component{
 		this.socket.disconnect()
 	}
 
-	renderChatPreviews(messages, openChatFn){
+	renderChatPreviews(messages){
 		let ChatPreviews = []
 		for(var prop in messages){
-			return <ChatPreview key={prop} openChat={openChatFn} messages={messages[prop]} id={prop} />
+			return <ChatPreview key={prop} messages={messages[prop]} id={prop} />
 		}
 		if(ChatPreviews.length === 0){
 			return <Text style={styles.noMessages}>No messages to show. Tap 'New Message' to start chatting with a friend.</Text>
@@ -51,31 +41,18 @@ class Chat extends Component{
 		return ChatPreviews
 	}
 
-	openChat(id){
-		this.setState({
-			chatid: id,
-			showChat: true,
-			showSearch: false
-		})
-	}
-
 	render(){
 		return(
 			<Nav>
-				<ChatWith 
-					id={this.state.chatid}
-					hide={()=>this.setState({showChat: false})} 
-					visible={this.state.showChat} />
-				<Search 
-					openChat={this.openChat}
-					hide={()=>this.setState({showSearch: false})} 
-					visible={this.state.showSearch} />
+				<ChatWith />
+				<Search />
 
 				<Button 
 					title="new message" 
-					onPress={()=>this.setState({showSearch: true})} />
+					onPress={this.props.showSearch} />
+
 				<ScrollView style={styles.messages}>
-					{this.renderChatPreviews(this.props.messages, this.openChat)}
+					{this.renderChatPreviews(this.props.messages)}
 				</ScrollView>
 			</Nav>
 		)
@@ -96,7 +73,8 @@ const styles = {
 
 export default connect( state=>({ 
 	profile: state.profileReducer.profile.profile,
-	messages: state.chatReducer.messages
+	messages: state.chatReducer.messages,
+	chatid: state.modalDuck.chatid
 }), {
-	getMessages
+	getMessages, showSearch
 })(Chat)

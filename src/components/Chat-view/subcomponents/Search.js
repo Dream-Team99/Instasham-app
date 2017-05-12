@@ -10,7 +10,8 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {searchHandle} from '../../../reducers/chatReducer'
-import BackNav from './backNav'
+import BackNav from './BackNav'
+import {hideSearch, showChat} from '../../../reducers/modalDuck'
 
 class Search extends Component{
 
@@ -24,27 +25,24 @@ class Search extends Component{
     			<Image style={styles.image} source={{uri: user.imageurl}} />
     			<Text style={{fontSize: 16}}>{user.username}</Text>
     			<Button title="Message" onPress={() => {
-    				this.props.openChat(user.id)
+    				this.props.showChat(user.id)
     				this.props.searchHandle(null, '')
     			}} />
     		</View>
     	)
     })
 	}
-
-	hide(){
-		this.props.hide()
-		this.props.searchHandle(null, '')
-	}
+	
+	// this.props.searchHandle(null, '')
 
 	render(){
 		return(
 			<Modal 
-				visible={this.props.visible}
+				visible={this.props.showSearch}
 				animationType="slide"
 				style={styles.search}
-				onRequestClose={this.hide.bind(this)}>
-				<BackNav hide={this.hide.bind(this)} />
+				onRequestClose={this.props.hideSearch}>
+				<BackNav text="Send a new message..." hide={this.props.hideSearch} />
 				<TextInput 
 					style={styles.input}
 					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}
@@ -89,7 +87,10 @@ const styles = {
 export default connect( state=>({ 
 	search: state.chatReducer.search,
 	searchResults: state.chatReducer.searchResults,
-	userid: state.profileReducer.profile.profile.id
+	userid: state.profileReducer.profile.profile.id,
+	showSearch: state.modalDuck.showSearch
 }), {
-	searchHandle
+	searchHandle,
+	hideSearch,
+	showChat
 })(Search)

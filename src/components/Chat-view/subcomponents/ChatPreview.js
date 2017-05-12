@@ -3,6 +3,7 @@ import {View, Image, Text, TouchableHighlight} from 'react-native'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import moment from 'moment'
+import {showChat} from '../../../reducers/modalDuck'
 
 class ChatPreview extends Component{
 	constructor(){
@@ -26,10 +27,7 @@ class ChatPreview extends Component{
 	}
 
 	mostRecent(messages){
-		let mostRecent = messages.sort((a, b) => {
-			return new Date(a.timestamp) > new Date(b.timestamp) ? -1 : 1
-		})[0]
-		mostRecent = {...mostRecent}
+		let mostRecent = {...messages[0]}
 		mostRecent.timestamp = moment(mostRecent.timestamp).fromNow()
 		if(mostRecent.message.length > 50){
 			mostRecent.message = mostRecent.message.slice(0, 50) + '.....'
@@ -41,7 +39,7 @@ class ChatPreview extends Component{
 		return(
 			<TouchableHighlight 
 				underlayColor="#f2f2f2" 
-				onPress={()=>this.props.openChat(this.props.id)}>
+				onPress={()=>this.props.showChat(this.props.id)}>
 				<View style={styles.container}>
 					<Image source={{uri: this.state.user.imageurl}} style={styles.image} />
 					<View style={styles.info}>
@@ -54,6 +52,12 @@ class ChatPreview extends Component{
 		)
 	}
 }
+
+export default connect( state=>({ 
+	
+}), {
+	showChat
+})(ChatPreview)
 
 const styles = {
 	image: {
@@ -80,9 +84,3 @@ const styles = {
 		fontWeight: 'bold'
 	}
 }
-
-export default connect( state=>({ 
-	
-}), {
-	
-})(ChatPreview)
