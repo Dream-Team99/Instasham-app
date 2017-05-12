@@ -4,12 +4,11 @@ import Nav from '../Nav';
 import { Ionicons } from '@expo/vector-icons'
 import moment from "moment";
 import axios from "axios";
-let now = moment();
-let now1 = moment().format("MMM Do");
+let now = moment().format();
 import passHistory from '../../reducers/followingReducer';
 import {
+    TouchableOpacity,
     ActivityIndicator,
-    Button,
     Clipboard,
     Image,
     Share,
@@ -18,6 +17,7 @@ import {
     TextInput,
     Text,
     View,
+    Alert
 } from 'react-native';
 import Expo, {
     ImagePicker,
@@ -107,6 +107,7 @@ class Camera extends React.Component {
             return (
                 <View>
                         <TextInput
+                            placeholder='Add a comment'
                             style={styles.input}
                             onChangeText={(post_text)=> this.setState({post_text})}
                             value={this.state.post_text}
@@ -161,6 +162,10 @@ class Camera extends React.Component {
     };
 
     _handleImagePicked = async (pickerResult) => {
+        if(this.state.post_text.length < 3){
+            alert('You need to add a comment');
+            return
+        }
         let uploadResponse, uploadResult;
 
         try {
@@ -272,14 +277,14 @@ const styles = StyleSheet.create({
         borderWidth:2,
         borderColor:"black",
         backgroundColor:"white",
-        height:200,
+        height:150,
         width:200
     },
     noFollowerstext:{
         color:"grey",
         marginTop:5,
         padding:10,
-        fontSize:20,
+        fontSize:15,
     }
 
 });

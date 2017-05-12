@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Text,TouchableHighlight,Image, StyleSheet,View,ScrollView, TextInput, KeyboardAvoidingView} from 'react-native';
+import {Text,TouchableHighlight,Image, StyleSheet,View,ScrollView, TextInput, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {Link} from  'react-router-native';
 import axios from "axios"
 import moment from "moment";
-let now = moment();
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
 import {passHistory} from '../reducers/followingReducer';
+let now = moment().format();
 
 
 
@@ -23,8 +23,13 @@ class Comment extends Component {
     }
 
     postComment(){
-        axios.post('http://52.10.128.151:3005/api/postComment', {userid: this.props.mainProfile.profile.id, comment: this.state.text, photoid: this.state.post.photo_id, timestamp: now}).then(response =>{
-            this.setState({comments:response.data})
+        axios.post('http://52.10.128.151:3005/api/postComment', {
+            userid: this.props.mainProfile.profile.id,
+            comment: this.state.text,
+            photoid: this.state.post.photo_id,
+            timestamp: now
+        }).then(response => {
+            this.setState({comments: response.data})
         })
     }
 
@@ -55,7 +60,7 @@ class Comment extends Component {
                             <View style={styles.postView}>
                                 <Link to={"/Profile/" + this.state.post.user_id}><Text
                                     style={styles.postStyle}>{this.state.post.username}</Text></Link>
-                                <Text  style={styles.commentText}> {this.state.post.post_text}</Text>
+                                <Text  style={styles.commentText}>{this.state.post.post_text}</Text>
                                 <Text style={styles.timeStampStyle}>{moment(this.state.post.timestamp).fromNow()}</Text>
                             </View>
                         </View>
@@ -83,17 +88,16 @@ class Comment extends Component {
                     </PostCardSection>
                 </ScrollView>
                 }
-                <KeyboardAvoidingView keyboardVerticalOffset={5}>
-
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={(text) => this.setState({text})}
-                            value={this.state.text}
-                        />
-                        <TouchableHighlight
-                            onPress={this.postComment.bind(this)}><Text>Comment</Text></TouchableHighlight>
-
-                </KeyboardAvoidingView>
+                <View>
+                    <TextInput
+                        placeholder='Leave a comment'
+                        style={styles.input}
+                        onChangeText={(text) => this.setState({text})}
+                        value={this.state.text}
+                    />
+                    <TouchableHighlight style={styles.commentButton}
+                        onPress={this.postComment.bind(this)}><Text style={styles.commentButtonText}>Comment</Text></TouchableHighlight>
+                </View>
 
             </Nav>
         )
@@ -103,10 +107,25 @@ class Comment extends Component {
 const styles = StyleSheet.create({
     commentText:{
         textAlign:"justify",
-    }
-    ,
+    },
+    commentButtonText:{
+      textAlign: 'center',
+        color: 'black'
+    },
+    commentButton:{
+        backgroundColor:"#ffffff",
+        paddingTop:10,
+        paddingBottom:10,
+        paddingLeft:17,
+        paddingRight:17,
+        borderRadius: 5,
+        borderWidth:2,
+        borderColor:"black",
+    },
     input:{
-
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1
     },
     postView:{
         marginLeft: 10
