@@ -3,14 +3,14 @@ import React, {Component} from 'react'
 import {StyleSheet, ScrollView, TextInput} from 'react-native'
 import Profiles from './subcomponents/Profiles'
 import {searchForUsers} from '../../reducers/searchReducer'
-import followerCount from '../../reducers/followingReducer';
+import {followerCount, passHistory} from '../../reducers/followingReducer';
 import {connect} from 'react-redux'
 import Nav from '../Nav'
 
 class Search extends Component{
     componentDidMount(){
         this.props.searchForUsers(``)
-
+		this.props.passHistory(this.props.history, 0)
     }
 	render(){
         // console.log(this.props.redux.profileReducer.profile)
@@ -46,6 +46,6 @@ export default connect( state=>({
 	follow: state.followingReducer
 
 }), {
-  searchForUsers, followerCount
+  searchForUsers, followerCount, passHistory
 	// Imported Actions
 })(Search)

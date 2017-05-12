@@ -5,23 +5,24 @@ import PostCard from './PostCard';
 import PostCardSection from './PostCardSection'
 import {Link} from  'react-router-native';
 import axios from 'axios';
+import {connect} from 'react-redux'
+
 
 class PostDetail extends Component{
     constructor(){
         super();
         this.state ={
-            likes:0,
-            comments:[]
+            likes:null,
+            comments:null
         }
     }
 
     addLikes(){
-        axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.currentUser.id , photoid: this.props.post.photo_id}).then((res)=>{
+        axios.post(`http://52.10.128.151:3005/api/postLikes`, {userid: this.props.mainProfile.profile.id , photoid: this.props.post.photo_id}).then((res)=>{
             this.setState({likes: res.data[0].likes})
         })
     };
     componentDidMount(){
-
         axios.get('http://52.10.128.151:3005/api/getLikes/' + this.props.post.photo_id).then((res)=>{
                 this.setState({likes: res.data[0].likes})
         });
@@ -34,7 +35,9 @@ class PostDetail extends Component{
 
     render() {
 
-
+        if(this.state.likes === null || this.state.comments === null){
+            return null
+        }
         return (
             <PostCard>
                 <PostCardSection>
@@ -148,4 +151,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export default PostDetail
+export default connect( state=>({
+    mainProfile: state.profileReducer.profile,
+    search: state.searchReducer,
+    follow: state.followingReducer
+
+}), {
+
+})(PostDetail)
