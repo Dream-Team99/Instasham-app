@@ -27,9 +27,10 @@ class Profile extends Component {
         })
     }
     render() {
+            if(this.props.currentProfile.profile === null) return null
         return (
             <Nav>
-                {this.props.currentProfile.profile &&
+
                     <View style={styles.profile}>
                         <ScrollView style={styles.photos}>
                             <User following_count={this.props.following.profileCount} mainProfile={this.props.mainProfile}  user={this.props.currentProfile.profile}/>
@@ -57,7 +58,7 @@ class Profile extends Component {
                             }
                         </ScrollView>
                     </View>
-                }
+
             </Nav>
         )
     }

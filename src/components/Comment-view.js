@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text,TouchableHighlight,Image, StyleSheet,View,ScrollView, TextInput} from 'react-native';
+import {Text,TouchableHighlight,Image, StyleSheet,View,ScrollView, TextInput,KeyboardAvoidingView, Modal} from 'react-native';
 import {connect} from 'react-redux';
 import {Link} from  'react-router-native';
 import axios from "axios"
@@ -7,6 +7,7 @@ import moment from "moment";
 import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
 import {passHistory} from '../reducers/followingReducer';
+import { Ionicons } from '@expo/vector-icons'
 let now = moment().format();
 
 class Comment extends Component {
@@ -15,7 +16,9 @@ class Comment extends Component {
         this.state ={
             post: null,
             comments:[],
-            text: ''
+            text: '',
+            behavior: 'padding',
+            modal:true
         }
     };
     postComment(){
@@ -37,84 +40,108 @@ class Comment extends Component {
         });
         this.props.passHistory(this.props.history, this.props.match.params.id)
     };
-
+    backArrow(){
+        this.setState({
+            modal:false
+        })
+        this.props.history.push(`/Home`)
+    }
     render() {
         return (
             <Nav>
                 {this.state.post &&
-                <ScrollView>
-                    <PostCardSection>
-                        <View style={styles.thumbnail_container}>
-                            <View>
-                                <Link to={"/Profile/" + this.state.post.user_id}>
-                                    <Image style={styles.thumbnail_style} source={{uri: this.state.post.user_image}}/>
-                                </Link>
-                            </View>
-                            <View style={styles.postView}>
-                                <Link to={"/Profile/" + this.state.post.user_id}>
-                                    <Text style={styles.postStyle}>
-                                        {this.state.post.username}
-                                    </Text>
-                                </Link>
-                                <Text style={styles.commentText}>
-                                    {this.state.post.post_text}
-                                </Text>
-                                <Text style={styles.timeStampStyle}>
-                                    {moment(this.state.post.timestamp).fromNow()}
-                                </Text>
-                            </View>
+                    <Modal
+                        visible={this.state.modal}
+                        animationType="slide"
+                        onRequestClose={this.backArrow.bind(this)}
+                    >
+                        <View style={styles.backNav}>
+                            <TouchableHighlight underlayColor="transparent" onPress={this.backArrow.bind(this)}>
+                                <Ionicons name='ios-arrow-back' style={styles.icon} />
+                            </TouchableHighlight>
+                            <Text style={styles.text}>
+                                {this.state.post.username}
+                            </Text>
                         </View>
-                    </PostCardSection>
-                    <PostCardSection>
-                        {this.state.comments.map((val, i) => {
-                            return (
-                                <View key={i}>
-                                    <View style={styles.thumbnail_container}>
-                                        <View>
-                                            <Link to={"/Profile/" + val.userid}>
-                                                <Image style={styles.thumbnail_style} source={{uri: val.imageurl}}/>
-                                            </Link>
-                                        </View>
-                                        <View style={styles.postView}>
-                                            <Link to={"/Profile/" + val.userid}>
-                                                <Text style={styles.postStyle}>
-                                                    {val.username}
-                                                </Text>
-                                            </Link>
-                                            <Text style={styles.commentText}>
-                                                {val.comment}
+                        <ScrollView>
+                            <PostCardSection>
+                                <View style={styles.thumbnail_container}>
+                                    <View>
+                                        <Link underlayColor="transparent" to={"/Profile/" + this.state.post.user_id}>
+                                            <Image style={styles.thumbnail_style} source={{uri: this.state.post.user_image}}/>
+                                        </Link>
+                                    </View>
+                                    <View style={styles.postView}>
+                                        <Link underlayColor="transparent" to={"/Profile/" + this.state.post.user_id}>
+                                            <Text style={styles.postStyle}>
+                                                {this.state.post.username}
                                             </Text>
-                                            <Text style={styles.timeStampStyle}>
-                                                {moment(val.timestamp).fromNow()}
-                                            </Text>
-                                        </View>
+                                        </Link>
+                                        <Text style={styles.commentText}>
+                                            {this.state.post.post_text}
+                                        </Text>
+                                        <Text style={styles.timeStampStyle}>
+                                            {moment(this.state.post.timestamp).fromNow()}
+                                        </Text>
                                     </View>
                                 </View>
-                            )
-                        })
-                        }
-                    </PostCardSection>
-                </ScrollView>
-                }
+                            </PostCardSection>
+                            <PostCardSection>
+                                {this.state.comments.map((val, i) => {
+                                    return (
+                                        <View key={i}>
+                                            <View style={styles.thumbnail_container}>
+                                                <View>
+                                                    <Link underlayColor="transparent" to={"/Profile/" + val.userid}>
+                                                        <Image style={styles.thumbnail_style} source={{uri: val.imageurl}}/>
+                                                    </Link>
+                                                </View>
+                                                <View style={styles.postView}>
+                                                    <Link underlayColor="transparent" to={"/Profile/" + val.userid}>
+                                                        <Text style={styles.postStyle}>
+                                                            {val.username}
+                                                        </Text>
+                                                    </Link>
+                                                    <Text style={styles.commentText}>
+                                                        {val.comment}
+                                                    </Text>
+                                                    <Text style={styles.timeStampStyle}>
+                                                        {moment(val.timestamp).fromNow()}
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    )
+                                })
+                                }
+                            </PostCardSection>
+                        </ScrollView>
+
                 <View>
-                    <TextInput
-                        placeholder='Leave a comment'
-                        style={styles.input}
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                    />
-                    <TouchableHighlight style={styles.commentButton}
-                        onPress={this.postComment.bind(this)}>
-                        <Text style={styles.commentButtonText}>
-                            Comment
-                        </Text>
-                    </TouchableHighlight>
+                    <KeyboardAvoidingView behavior={this.state.behavior} style={styles.container}>
+
+                        <TextInput
+                            placeholder='Leave a comment'
+                            style={styles.input}
+                            onChangeText={(text) => this.setState({text})}
+                            value={this.state.text}
+                        />
+                        <TouchableHighlight style={styles.commentButton}
+                                            onPress={this.postComment.bind(this)}><Text style={styles.commentButtonText}>Comment</Text></TouchableHighlight>
+                    </KeyboardAvoidingView>
                 </View>
+                    </Modal>
+                }
             </Nav>
         )
     }
 }
 const styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+
+    },
     commentText:{
         textAlign:"justify",
     },
@@ -171,6 +198,25 @@ const styles = StyleSheet.create({
     },
     image_style:{
         height: 300,
+    },
+    backNav: {
+        alignItems: 'center',
+        elevation: 2,
+        backgroundColor: '#f2f2f2',
+        flexDirection: 'row'
+    },
+    icon: {
+        color: '#262626',
+        fontSize: 32,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 25,
+        paddingLeft: 15
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#262626'
     }
 });
 export default connect( state=>({

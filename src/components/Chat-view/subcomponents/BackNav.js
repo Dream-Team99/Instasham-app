@@ -6,7 +6,7 @@ export default class BackNav extends Component{
 	render(){
 		return(
 			<View style={styles.backNav}>
-				<TouchableHighlight onPress={this.props.hide}>
+				<TouchableHighlight underlayColor="transparent" onPress={this.props.hide}>
 					<Ionicons name='ios-arrow-back' style={styles.icon} />
 				</TouchableHighlight>
 				<Text style={styles.text}>

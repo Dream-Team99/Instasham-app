@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Image, BackAndroid, Alert} from 'react-native';
+import {View, Image, BackAndroid, Alert, Text} from 'react-native';
 import {Link} from  'react-router-native';
 import {Ionicons} from '@expo/vector-icons';
 import {connect} from 'react-redux';
+import WelcomeText from "react-native/local-cli/templates/HelloNavigation/views/welcome/WelcomeText.ios";
 
 class Nav extends Component{
 	componentDidMount(){
@@ -32,8 +33,10 @@ class Nav extends Component{
 						</Link>
 					}
                     <Link underlayColor="transparent" to='/Home'>
-                        <Image source={require('../images/logo_360.png')} />
-                    </Link>
+						<Text style={styles.logo}>
+							On-The-Line
+						</Text>
+					</Link>
                     <Link underlayColor="#cccccc" to='/Chat'>
                         <Ionicons name='md-send' style={styles.icon} />
                     </Link>
@@ -57,6 +60,10 @@ class Nav extends Component{
 	}
 }
 const styles = {
+	logo:{
+		fontFamily:'serif',
+		fontSize:35
+	},
 	navBar:{
 		alignItems: 'center',
 		elevation: 2,

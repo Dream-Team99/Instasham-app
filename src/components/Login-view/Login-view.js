@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+	Text,
 	View, 
 	Image, 
 	StyleSheet, 
@@ -21,8 +22,8 @@ class Login extends Component {
     render() {
         return (
 			<View style={styles.container}>
-				<View style={styles.header}><Image
-					source={require('../../images/logo_medium.png')}/>
+				<View style={styles.header}>
+					<Text style={styles.logo}>On-The-Line</Text>
 				</View>
 				{!this.props.loading &&
 					<Button onPress={this.props.login} title="Login with Facebook"/>
@@ -39,7 +40,11 @@ const styles = StyleSheet.create({
 	header: {
 		marginBottom: 45,
 		alignItems: 'center'
-	}
+	},
+    logo:{
+        fontFamily:'serif',
+        fontSize:60
+    },
 });
 export default connect(state => ({ 
 	profile: state.profileReducer.profile,
