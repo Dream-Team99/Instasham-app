@@ -180,7 +180,7 @@ class Camera extends React.Component {
                     imageUrl:uploadResult.location,
                     post_text: this.state.post_text
                 }).then((res)=>{
-                    console.log(res.data)
+                    // console.log(res.data)
                 });
                 this.setState({upload: true});
             }
