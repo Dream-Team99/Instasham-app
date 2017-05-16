@@ -185,7 +185,7 @@ class Camera extends React.Component {
                     imageUrl:uploadResult.location,
                     post_text: this.state.post_text
                 }).then((res)=>{
-                    this.setState({photoid: res.data[0].id})
+                    // this.setState({photoid: res.data[0].id})
                 });
                 this.setState({upload: true});
             }
