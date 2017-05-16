@@ -13,7 +13,6 @@ import Post from './src/components/Post'
 import Comment from './src/components/Comment-view'
 
 export default class App extends Component {
-
 	render() {
 		return (
 			<Provider store={createStore}>
@@ -33,7 +32,6 @@ export default class App extends Component {
 		)
 	}
 }
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1

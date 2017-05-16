@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View} from 'react-native';
 
 const PostCardSection = (props) =>{
     return(
@@ -8,5 +8,4 @@ const PostCardSection = (props) =>{
         </View>
     )
 };
-
 export default PostCardSection

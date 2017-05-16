@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
-import { Ionicons } from '@expo/vector-icons'
-import {Link} from  'react-router-native'
+import { Ionicons } from '@expo/vector-icons';
+import {Link} from  'react-router-native';
 import moment from "moment";
 import axios from "axios";
-let now = moment().format();
 import passHistory from '../../reducers/followingReducer';
 import {
     TouchableOpacity,
@@ -17,12 +16,12 @@ import {
     StyleSheet,
     TextInput,
     Text,
-    View,
-    Alert
+    View
 } from 'react-native';
 import Expo, {
     ImagePicker,
 } from 'expo';
+let now = moment().format();
 
 class Camera extends React.Component {
     state = {
@@ -42,19 +41,20 @@ class Camera extends React.Component {
         takenPhoto: false,
             photoid:0
         })
-    }
+    };
 
     render() {
         let { image } = this.state;
         return (
-
             <Nav>
                 <View style={{flex: 1}}>
                     {this.state.takenPhoto === false &&
                         <View style={styles.outerNoFollowers}>
                             <TouchableOpacity style={styles.noFollowersView} onPress={this._pickImage}>
                                 <Ionicons underlayColor="grey" name='ios-add-circle-outline' size={52} color='#262626'/>
-                                <Text style={styles.noFollowerstext}>Pick a Photo</Text>
+                                <Text style={styles.noFollowerstext}>
+                                    Pick a Photo
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     }
@@ -62,7 +62,9 @@ class Camera extends React.Component {
                         <View style={styles.outerNoFollowers}>
                             <TouchableOpacity style={styles.noFollowersView} onPress={this._takePhoto}>
                                 <Ionicons underlayColor="grey" name='ios-camera' size={52} color='#262626'/>
-                                <Text style={styles.noFollowerstext}>Take a Photo</Text>
+                                <Text style={styles.noFollowerstext}>
+                                    Take a Photo
+                                </Text>
                             </TouchableOpacity>
                         </View>
                     }
@@ -71,7 +73,6 @@ class Camera extends React.Component {
                     <StatusBar barStyle="default" />
                 </View>
             </Nav>
-
         );
     }
 
@@ -87,7 +88,7 @@ class Camera extends React.Component {
                 </View>
             );
         }
-    }
+    };
 
     _maybeRenderImage = () => {
         let { image, upload } = this.state;
@@ -100,7 +101,9 @@ class Camera extends React.Component {
                 <View style={styles.outerNoFollowers}>
                     <View style={styles.uploadViewS}>
                         <Link to={`/Post/${this.state.photoid}`}>
-                            <Text style={styles.uploadS}>Upload success!</Text>
+                            <Text style={styles.uploadS}>
+                                Upload success!
+                            </Text>
                         </Link>
                     </View>
                 </View>
@@ -118,14 +121,18 @@ class Camera extends React.Component {
                             value={this.state.post_text}
                         />
                     <TouchableOpacity style={styles.upload} onPress={this._handleImagePicked.bind(null, this.state.image)}>
-                        <Text style={{color: "grey", textAlign: 'center',}}>Upload</Text>
+                        <Text style={{color: "grey", textAlign: 'center',}}>
+                            Upload
+                        </Text>
                     </TouchableOpacity>
                         <Image
                             source={{uri: image.uri}}
                             style={{height: 300}}
                         />
                     <TouchableOpacity style={styles.upload} onPress={this.cancelPhoto.bind(this)}>
-                        <Text style={{color: "grey", textAlign: 'center',}}>Cancel</Text>
+                        <Text style={{color: "grey", textAlign: 'center',}}>
+                            Cancel
+                        </Text>
                     </TouchableOpacity>
                 </View>
             );
@@ -202,11 +209,8 @@ class Camera extends React.Component {
 
 async function uploadImageAsync(uri) {
     let apiUrl = 'http://52.10.128.151:3005/upload';
-
-
     let uriParts = uri.split('.');
     let fileType = uri[uri.length - 1];
-
     let formData = new FormData();
     formData.append('photo', {
         uri,
@@ -222,7 +226,6 @@ async function uploadImageAsync(uri) {
             'Content-Type': 'multipart/form-data',
         },
     };
-
     return fetch(apiUrl, options);
 }
 const styles = StyleSheet.create({
@@ -291,9 +294,7 @@ const styles = StyleSheet.create({
         padding:10,
         fontSize:15,
     }
-
 });
-
 export default connect( state=>({
     redux: state,
     follow: state.followingReducer

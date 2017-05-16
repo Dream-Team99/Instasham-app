@@ -1,24 +1,21 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
 	View, 
 	Text
-} from 'react-native'
-import moment from 'moment'
+} from 'react-native';
+import moment from 'moment';
 
 export default class Messages extends Component{
-
-	compenentDidMount(){
+	componentDidMount(){
 		// This is just to show the updated time since messages where sent
 		this.autoUpdate = setInterval(()=>this.forceUpdate(), 60000)
-	}
-
+	};
 	componentWillUnmount(){
 		clearInterval(this.autoUpdate)
-	}
-
+	};
 	render(){
 		// Clone chat array so that 'reverse' won't change the original array
-		let chat = [...this.props.chat]
+		let chat = [...this.props.chat];
 		return(
 			<View>
 				{chat.reverse().map(message => {
@@ -27,7 +24,9 @@ export default class Messages extends Component{
 							<View style={styles.outer} key={message.timestamp}>
 								<View style={styles.from}>
 									<View style={styles.inner}>
-										<Text style={styles.rightAlign}>{message.message}</Text>
+										<Text style={styles.rightAlign}>
+											{message.message}
+										</Text>
 									</View>
 								</View>
 								<Text style={styles.timestamp}>
@@ -40,7 +39,9 @@ export default class Messages extends Component{
 							<View style={styles.outer} key={message.timestamp}>
 								<View style={styles.to}>
 									<View style={[styles.inner, styles.blueBackground]}>
-										<Text style={styles.rightAlign}>{message.message}</Text>
+										<Text style={styles.rightAlign}>
+                                            {message.message}
+                                        </Text>
 									</View>
 								</View>
 								<Text style={[styles.timestamp, styles.rightAlign]}>
@@ -90,4 +91,4 @@ const styles = {
 		justifyContent: 'flex-start',
 		flex: 1	
 	}
-}
+};
