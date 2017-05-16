@@ -96,22 +96,24 @@ class PostDetail extends Component{
                         <Text> {this.props.post.post_text}</Text>
                     </View>
 
-                </PostCardSection>
-                <PostCardSection>
-                    <View style={styles.comments}>
+
                         {this.state.comments[0] &&
-                            <View>
-                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].username}</Text></Link>
-                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[0].comment}</Text></Link>
+                        <View style={styles.comments}>
+                            <View  style={{flexDirection:'row'}}>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text style={styles.postStyle}>{this.state.comments[0].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text> {this.state.comments[0].comment}</Text></Link>
                             </View>
+                        </View>
                         }
                         {this.state.comments[1] &&
-                            <View>
-                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].username}</Text></Link>
-                                <Link to={"/Comment/" + this.props.post.photo_id}><Text>{this.state.comments[1].comment}</Text></Link>
+                        <View style={styles.comments}>
+                            <View style={styles.poster}>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text style={styles.postStyle}>{this.state.comments[1].username}</Text></Link>
+                                <Link to={"/Comment/" + this.props.post.photo_id}><Text> {this.state.comments[1].comment}</Text></Link>
                             </View>
+                        </View>
                         }
-                    </View>
+
                     <View style={styles.timeStampView}>
                         <Text style={styles.timeStampStyle}>{moment(this.props.post.timestamp).fromNow()}</Text>
                     </View>
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
         height: 300,
     },
     comments:{
-      marginTop: 15,
+      marginTop: 10,
       marginLeft: 10
     },
     delete:{

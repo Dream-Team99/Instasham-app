@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 
 const PostCard = (props) =>{
     return(
-        <View>
+        <View style={{elevation:1}}>
             {props.children}
         </View>
     )

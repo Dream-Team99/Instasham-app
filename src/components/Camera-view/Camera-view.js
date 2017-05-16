@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Nav from '../Nav';
 import { Ionicons } from '@expo/vector-icons'
+import {Link} from  'react-router-native'
 import moment from "moment";
 import axios from "axios";
 let now = moment().format();
@@ -29,7 +30,8 @@ class Camera extends React.Component {
         upload: true,
         uploading: false,
         post_text: ``,
-        takenPhoto: false
+        takenPhoto: false,
+        photoid:0
     };
     cancelPhoto(){
         this.setState({
@@ -37,7 +39,8 @@ class Camera extends React.Component {
         upload: false,
         uploading: false,
         post_text: ``,
-        takenPhoto: false
+        takenPhoto: false,
+            photoid:0
         })
     }
 
@@ -47,7 +50,7 @@ class Camera extends React.Component {
 
             <Nav>
                 <View style={{flex: 1}}>
-                    {this.state.takenPhoto ===false &&
+                    {this.state.takenPhoto === false &&
                         <View style={styles.outerNoFollowers}>
                             <TouchableOpacity style={styles.noFollowersView} onPress={this._pickImage}>
                                 <Ionicons underlayColor="grey" name='ios-add-circle-outline' size={52} color='#262626'/>
@@ -94,11 +97,13 @@ class Camera extends React.Component {
         else if (upload){
             this.state.takenPhoto = false;
             return(
-
+                <View style={styles.outerNoFollowers}>
                     <View style={styles.uploadViewS}>
-                        <Text style={styles.uploadS}>Upload success!</Text>
+                        <Link to={`/Post/${this.state.photoid}`}>
+                            <Text style={styles.uploadS}>Upload success!</Text>
+                        </Link>
                     </View>
-
+                </View>
             )
         }
 
@@ -117,7 +122,7 @@ class Camera extends React.Component {
                     </TouchableOpacity>
                         <Image
                             source={{uri: image.uri}}
-                            style={{width: 450, height: 450}}
+                            style={{height: 300}}
                         />
                     <TouchableOpacity style={styles.upload} onPress={this.cancelPhoto.bind(this)}>
                         <Text style={{color: "grey", textAlign: 'center',}}>Cancel</Text>
@@ -180,7 +185,7 @@ class Camera extends React.Component {
                     imageUrl:uploadResult.location,
                     post_text: this.state.post_text
                 }).then((res)=>{
-                    // console.log(res.data)
+                    // this.setState({photoid: res.data[0].id})
                 });
                 this.setState({upload: true});
             }
@@ -223,6 +228,8 @@ async function uploadImageAsync(uri) {
 const styles = StyleSheet.create({
     input:{
         height: 40,
+        paddingLeft:5,
+        paddingRight:5,
         borderColor: 'gray',
         borderWidth: 1
     },
@@ -252,11 +259,9 @@ const styles = StyleSheet.create({
         paddingBottom:10,
         paddingLeft:17,
         paddingRight:17,
-        borderRadius: 5,
-        borderWidth:2,
-        borderColor:"black",
     },
     uploadViewS:{
+        marginTop:10,
         alignItems:"center",
         justifyContent:"center",
         borderRadius: 70,
@@ -270,7 +275,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
     },
     noFollowersView:{
-        marginTop:20,
+        marginTop:10,
         alignItems:"center",
         justifyContent:"center",
         borderRadius: 70,

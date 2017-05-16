@@ -10,7 +10,7 @@ export default class MainFeed extends Component {
 
     renderList() {
      return this.props.list.map((post, i) => {
-         return <PostDetail currentUser={this.props.currentUser} key={i} post={post}/>
+         return <PostDetail  style={{borderWidth:5, borderColor:"black", borderBottom:1, elevation:1}} currentUser={this.props.currentUser} key={i} post={post}/>
      })
 
     }

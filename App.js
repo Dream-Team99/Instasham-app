@@ -10,9 +10,10 @@ import Search from './src/components/Search-view/Search-view'
 import Chat from './src/components/Chat-view/Chat-view'
 import Camera from './src/components/Camera-view/Camera-view'
 import Post from './src/components/Post'
-import Comment from "./src/components/Comment-view"
+import Comment from './src/components/Comment-view'
 
 export default class App extends Component {
+
 	render() {
 		return (
 			<Provider store={createStore}>
