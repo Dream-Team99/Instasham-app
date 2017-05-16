@@ -9,12 +9,13 @@ export default class BackNav extends Component{
 				<TouchableHighlight onPress={this.props.hide}>
 					<Ionicons name='ios-arrow-back' style={styles.icon} />
 				</TouchableHighlight>
-				<Text style={styles.text}>{this.props.text}</Text>
+				<Text style={styles.text}>
+					{this.props.text}
+				</Text>
 			</View>
 		)
 	}
 }
-
 const styles = {
 	backNav: {
 		alignItems: 'center',
@@ -35,4 +36,4 @@ const styles = {
 		fontWeight: 'bold',
 		color: '#262626'
 	}
-}
+};

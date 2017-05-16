@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
 	View, 
 	TextInput, 
@@ -7,14 +7,13 @@ import {
 	Button, 
 	ScrollView,
 	Modal
-} from 'react-native'
-import {connect} from 'react-redux'
-import {searchHandle} from '../../../reducers/chatReducer'
-import BackNav from './BackNav'
-import {hideSearch, showChat} from '../../../reducers/modalDuck'
+} from 'react-native';
+import {connect} from 'react-redux';
+import {searchHandle} from '../../../reducers/chatReducer';
+import BackNav from './BackNav';
+import {hideSearch, showChat} from '../../../reducers/modalDuck';
 
 class Search extends Component{
-
 	mapResults(results){
 		if(results.length === 0){
 			return <Text style={styles.noResults}>Search for one of your friends to start chatting!</Text>
@@ -23,7 +22,9 @@ class Search extends Component{
     	return (
     		<View style={styles.user} key={user.id}>
     			<Image style={styles.image} source={{uri: user.imageurl}} />
-    			<Text style={{fontSize: 16}}>{user.username}</Text>
+    			<Text style={{fontSize: 16}}>
+					{user.username}
+				</Text>
     			<Button title="Message" onPress={() => {
     				this.props.showChat(user.id)
     				this.props.searchHandle(null, '')
@@ -31,10 +32,7 @@ class Search extends Component{
     		</View>
     	)
     })
-	}
-	
-	// this.props.searchHandle(null, '')
-
+	};
 	render(){
 		return(
 			<Modal 
@@ -46,15 +44,14 @@ class Search extends Component{
 				<TextInput 
 					style={styles.input}
 					onChangeText={(text) => this.props.searchHandle(this.props.userid, text)}
-	        value={this.props.search} />
-	      <ScrollView>
-		      {this.mapResults(this.props.searchResults)}
-	      </ScrollView>
+	        		value={this.props.search} />
+				<ScrollView>
+		      		{this.mapResults(this.props.searchResults)}
+	      		</ScrollView>
 			</Modal>
 		)
 	}
 }
-
 const styles = {
 	search: {
 		flex: 1
@@ -82,8 +79,7 @@ const styles = {
 		padding: 20,
 		fontSize: 16
 	}
-}
-
+};
 export default connect( state=>({ 
 	search: state.chatReducer.search,
 	searchResults: state.chatReducer.searchResults,
@@ -93,4 +89,4 @@ export default connect( state=>({
 	searchHandle,
 	hideSearch,
 	showChat
-})(Search)
+})(Search);

@@ -1,36 +1,41 @@
 import React, {Component} from "react";
-import {View, Text, StyleSheet, TouchableHighlight} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import PostDetail from './PostDetail'
 import Link from "react-router-native/Link";
 
 export default class MainFeed extends Component {
-
-
-
     renderList() {
-     return this.props.list.map((post, i) => {
-         return <PostDetail  style={{borderWidth:5, borderColor:"black", borderBottom:1, elevation:1}} currentUser={this.props.currentUser} key={i} post={post}/>
-     })
-
+        return this.props.list.map((post, i) => {
+            return <PostDetail style={{borderWidth:5, borderColor:"black", borderBottom:1, elevation:1}} currentUser={this.props.currentUser} key={i} post={post}/>
+        })
     }
 
     render() {
-
         return (
             <View>
                 {this.props.list.length > 0 &&
-                <View>{this.renderList()}</View>
+                    <View>
+                        {this.renderList()}
+                    </View>
                 }
                 {this.props.list.length < 1 &&
                     <View style={styles.outerNoFollowers}>
                         <View style={styles.noFollowersView}>
                             <Ionicons underlayColor="grey" name='ios-home-outline' size={52} color='black'/>
                             <View>
-                                <Text style={{textAlign:"center"}}>Welcome to Instasham</Text>
-                                <Text style={styles.noFollowerstext}>When you add followers you will see posts from them here.</Text>
+                                <Text style={{textAlign:"center"}}>
+                                    Welcome to Instasham
+                                </Text>
+                                <Text style={styles.noFollowerstext}>
+                                    When you add followers you will see posts from them here.
+                                </Text>
                             </View>
-                            <Link style={styles.findButton} to="/Search" underlayColor="transparent" ><Text style={styles.findButtonText}>Find your Friends Here</Text></Link>
+                            <Link style={styles.findButton} to="/Search" underlayColor="transparent" >
+                                <Text style={styles.findButtonText}>
+                                    Find your Friends Here
+                                </Text>
+                            </Link>
                         </View>
                     </View>
                 }
@@ -72,4 +77,3 @@ const styles = StyleSheet.create({
         textAlign:"center"
     },
 });
-

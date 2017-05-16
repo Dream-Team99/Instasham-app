@@ -1,11 +1,11 @@
-import axios from 'axios'
-import {Facebook} from 'expo'
-import {Alert, AsyncStorage} from 'react-native'
+import axios from 'axios';
+import {Facebook} from 'expo';
+import {Alert, AsyncStorage} from 'react-native';
 
-const SETPROFILE = 'login/SETPROFILE'
-const SETCURRENTPROFILE = 'SETCURRENTPROFILE'
-const LOADING = 'login/LOADING'
-const INVAILD_TOKEN = 'login/INVAILD_TOKEN'
+const SETPROFILE = 'login/SETPROFILE';
+const SETCURRENTPROFILE = 'SETCURRENTPROFILE';
+const LOADING = 'login/LOADING';
+const INVAILD_TOKEN = 'login/INVAILD_TOKEN';
 
 const initialState = {
 	currentProfile: {
@@ -18,22 +18,22 @@ const initialState = {
 	},
 	profile: '',
 	loading: false,
-}
+};
 
 export default (state = initialState, action) => {
 	switch (action.type){
 		case SETPROFILE:
-			return Object.assign({}, state, {profile: action.profile, loading: false})
+			return Object.assign({}, state, {profile: action.profile, loading: false});
 		case LOADING:
-			return Object.assign({}, state, {loading: true})
+			return Object.assign({}, state, {loading: true});
 		case SETCURRENTPROFILE:
-            return Object.assign({}, state, {currentProfile: action.profile, loading: false})
+            return Object.assign({}, state, {currentProfile: action.profile, loading: false});
         case INVAILD_TOKEN:
-			return Object.assign({}, state, {loading: false})
+			return Object.assign({}, state, {loading: false});
 		default:
 			return state
 	}
-}
+};
 
 export function login() {
 	return dispatch => {
@@ -44,7 +44,7 @@ export function login() {
 		).then(response => {
 			if(response.type==='success'){
 				// Save token and use it to get facebook profile
-				AsyncStorage.setItem('token', response.token)
+				AsyncStorage.setItem('token', response.token);
 				axios.get(`https://graph.facebook.com/me?fields=id,name,picture.height(720)&access_token=${response.token}`)
 				.then(response => {
 					// Find or create user in our DB
@@ -64,7 +64,7 @@ export function login() {
 
 export function checkToken() {
 	return dispatch => {
-		dispatch({type: LOADING})
+		dispatch({type: LOADING});
 		AsyncStorage.getItem('token').then(token => {
 			if(token){
 				// Use token to get facebook profile
@@ -96,5 +96,3 @@ export function getProfile(id) {
 		})
     }
 }
-
-

@@ -10,62 +10,58 @@ import User from './subcomponents/User-box';
 import  Photos from "./subcomponents/User-photos";
 
 class Profile extends Component {
-
     componentDidMount() {
         this.props.getProfile(this.props.match.params.id);
         this.props.followerCount(this.props.match.params.id);
-        this.props.passHistory(this.props.history, 1)
+        this.props.passHistory(this.props.history)
     }
-
     componentWillReceiveProps(newProps) {
         if (this.props.match.params.id !== newProps.match.params.id) {
             this.props.getProfile(newProps.match.params.id);
             this.props.followerCount(newProps.match.params.id);
-
         }
     }
-
-        logout()
-        {
-            AsyncStorage.removeItem('token').then(() => {
-                this.props.history.push('/')
-            })
-        }
-
-        render()
-
-        {
-            return (
-                <Nav>
-                    {this.props.currentProfile.profile &&
+    logout(){
+        AsyncStorage.removeItem('token').then(() => {
+            this.props.history.push('/')
+        })
+    }
+    render() {
+        return (
+            <Nav>
+                {this.props.currentProfile.profile &&
                     <View style={styles.profile}>
                         <ScrollView style={styles.photos}>
                             <User following_count={this.props.following.profileCount} mainProfile={this.props.mainProfile}  user={this.props.currentProfile.profile}/>
                             {this.props.currentProfile.photos.length > 0 &&
-                            <Photos photos={this.props.currentProfile.photos}/>
+                                <Photos photos={this.props.currentProfile.photos}/>
                             }
                             {this.props.currentProfile.photos.length < 1 &&
-                            <View style={styles.outerNoFollowers}>
-                                <View style={styles.noFollowersView}>
-                                    <Link to="/Camera" underlayColor="transparent" ><Ionicons underlayColor="grey" name='ios-add-circle-outline' size={52} color='black'/></Link>
-                                    <Text style={styles.noFollowerstext}>When you share photos and videos, they'll appear on your profile.</Text>
+                                <View style={styles.outerNoFollowers}>
+                                    <View style={styles.noFollowersView}>
+                                        <Link to="/Camera" underlayColor="transparent" >
+                                            <Ionicons underlayColor="grey" name='ios-add-circle-outline' size={52} color='black'/>
+                                        </Link>
+                                        <Text style={styles.noFollowerstext}>
+                                            When you share photos and videos, they'll appear on your profile.
+                                        </Text>
+                                    </View>
                                 </View>
-                            </View>
                             }
                             {this.props.mainProfile.id === this.props.currentProfile.profile.id &&
-                            <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}><Text
-                                style={{color: "grey", textAlign: 'center',}}>Logout</Text></TouchableHighlight>
+                                <TouchableHighlight style={styles.logout} onPress={this.logout.bind(this)}>
+                                    <Text style={{color: "grey", textAlign: 'center',}}>
+                                        Logout
+                                    </Text>
+                                </TouchableHighlight>
                             }
                         </ScrollView>
-
-
                     </View>
-                    }
-                </Nav>
-            )
-        }
+                }
+            </Nav>
+        )
     }
-
+}
 const styles = StyleSheet.create({
     logout:{
         marginTop:20,
@@ -99,12 +95,10 @@ const styles = StyleSheet.create({
         fontSize:20,
     }
 });
-
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile.profile,
     currentProfile: state.profileReducer.currentProfile,
     following: state.followingReducer
 }), {
 	getProfile,followerCount, passHistory
-
 })(Profile)

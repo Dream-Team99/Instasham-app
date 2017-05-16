@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react'
 import {StyleSheet, ScrollView, TextInput} from 'react-native'
 import Profiles from './subcomponents/Profiles'
@@ -9,14 +8,11 @@ import Nav from '../Nav'
 
 class Search extends Component{
     componentDidMount(){
-        this.props.searchForUsers(``)
-		this.props.passHistory(this.props.history, 0)
-    }
+        this.props.searchForUsers(``);
+		this.props.passHistory(this.props.history);
+    };
 	render(){
-        // console.log(this.props.redux.profileReducer.profile)
-
         return(
-
 			<Nav>
 				<TextInput
 					style={styles.input}
@@ -25,13 +21,11 @@ class Search extends Component{
 				/>
 				<ScrollView>
 					<Profiles currentUser={this.props.mainProfile.profile} users={this.props.search.Profiles}/>
-
 				</ScrollView>
 			</Nav>
 		)
 	}
 }
-
 const styles = StyleSheet.create({
 	input:{
 		height: 40,
@@ -41,13 +35,10 @@ const styles = StyleSheet.create({
 		borderWidth: 1
 	}
 });
-
 export default connect( state=>({ 
 	mainProfile: state.profileReducer.profile,
 	search: state.searchReducer,
 	follow: state.followingReducer
-
 }), {
   searchForUsers, followerCount, passHistory
-	// Imported Actions
 })(Search)

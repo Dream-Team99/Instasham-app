@@ -14,6 +14,4 @@ export default createStore(combineReducers({
 	modalDuck
 }), applyMiddleware(
 	thunk
-
-))
-
+));
