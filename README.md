@@ -1,12 +1,18 @@
-On-The-Line
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/ontheline.PNG)
+
+
 
 This is a group project devloped by:
 
+
 Alex Mortonsen - Front-End and Socket.io,
+
 
 Matthew Langford - Front-End and AWS S3
 
+
 Andrew Langford Back-End, Database, Front-End
+
 
 
 This is a clone of Instagram the front-end was developed with React-Native, Redux Axios, Expo and Facebook sdk for login.
