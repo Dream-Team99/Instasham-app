@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	},
     logo:{
         fontFamily:'serif',
-        fontSize:60
+        fontSize:50
     },
 });
 export default connect(state => ({ 
