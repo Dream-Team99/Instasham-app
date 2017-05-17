@@ -36,5 +36,5 @@ A user can also login with facebook, chat with other users, search for and follo
 
 
 The Back-End was built in NodeJS with express, AWS-sdk, axios, massive, socket.io, and postgreSQL for the database.
-Here is the [Back-End repo link](https://github.com/Dream-Team99/Instasham-server).
+Here is the [Back-End repo link](https://github.com/Dream-Team99/Instasham-server/tree/master/server).
 
