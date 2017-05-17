@@ -62,7 +62,7 @@ class Nav extends Component{
 const styles = {
 	logo:{
 		fontFamily:'serif',
-		fontSize:35
+		fontSize: 28
 	},
 	navBar:{
 		alignItems: 'center',
