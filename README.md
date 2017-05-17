@@ -9,15 +9,23 @@ Matthew Langford - Front-End and AWS S3
 Andrew Langford Back-End, Database, Front-End
 
 
-
 This is a clone of Instagram the front-end was developed with React-Native, Redux Axios, Expo and Facebook sdk for login.
+
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/login.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/home_screen.PNG)
 
 
 
 With this app a user can take a photo and put it on the line.
 
-A user can also follow another user and see their posts, comment on them, like them and direct message them with our chat component.
+A user can also login with facebook, chat with other users, search for and follow other users, like and comment on other users posts.
 
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/camera_screen.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/profile_screen.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/search_screen.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/chat_screen.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/messaging_screen.PNG)
+![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/post_screen.PNG)
 
 
 
