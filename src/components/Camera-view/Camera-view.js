@@ -21,7 +21,7 @@ import {
 import Expo, {
     ImagePicker,
 } from 'expo';
-let now = moment().format();
+
 
 class Camera extends React.Component {
     state = {
@@ -188,11 +188,11 @@ class Camera extends React.Component {
                 uploadResult = await uploadResponse.json();
                 axios.post(`http://52.10.128.151:3005/api/users/post`, {
                     id: this.props.redux.profileReducer.profile.profile.id,
-                    timestamp:now,
+                    timestamp: moment().format(),
                     imageUrl:uploadResult.location,
                     post_text: this.state.post_text
                 }).then((res)=>{
-                    // this.setState({photoid: res.data[0].id})
+                    this.setState({photoid: res.data[0].id})
                 });
                 this.setState({upload: true});
             }
