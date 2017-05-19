@@ -25,7 +25,7 @@ export default class MainFeed extends Component {
                             <Ionicons underlayColor="grey" name='ios-home-outline' size={52} color='black'/>
                             <View>
                                 <Text style={{textAlign:"center"}}>
-                                    Welcome to Instasham
+                                    Welcome to On-The-Line
                                 </Text>
                                 <Text style={styles.noFollowerstext}>
                                     When you add followers you will see posts from them here.

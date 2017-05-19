@@ -8,7 +8,6 @@ import Nav from './Nav'
 import PostCardSection from './Home-view/subcomponents/PostCardSection'
 import {passHistory} from '../reducers/followingReducer';
 import { Ionicons } from '@expo/vector-icons'
-let now = moment().format();
 
 class Comment extends Component {
     constructor(){
@@ -26,7 +25,7 @@ class Comment extends Component {
             userid: this.props.mainProfile.profile.id,
             comment: this.state.text,
             photoid: this.state.post.photo_id,
-            timestamp: now
+            timestamp: moment().format()
         }).then(response => {
             this.setState({comments: response.data})
         })
