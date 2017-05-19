@@ -1,6 +1,6 @@
 ![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/ontheline.PNG)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yt1izJV-Dyw" frameborder="0" allowfullscreen></iframe>
+https://youtu.be/yt1izJV-Dyw
 
 This is a group project devloped by:
 
