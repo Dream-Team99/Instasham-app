@@ -1,5 +1,6 @@
 ![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/ontheline.PNG)
 
+View it in action here
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yt1izJV-Dyw/0.jpg)](https://www.youtube.com/watch?v=yt1izJV-Dyw)
 
 This is a group project devloped by:
