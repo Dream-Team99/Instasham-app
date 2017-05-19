@@ -6,7 +6,7 @@ View it in action here
 This is a group project devloped by:
 
 
-Alex Mortonsen - Front-End and Socket.io,
+Alex Mortensen - Front-End and Socket.io,
 
 
 Matthew Langford - Front-End and AWS S3
