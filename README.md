@@ -1,6 +1,6 @@
 ![alt text](https://github.com/Dream-Team99/Instasham-app/blob/master/screenshots/ontheline.PNG)
 
-https://youtu.be/yt1izJV-Dyw
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=yt1izJV-Dyw)
 
 This is a group project devloped by:
 
