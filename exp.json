@@ -1,0 +1,10 @@
+{
+	"name": "On-The-Line",
+  "icon": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png",
+  "version": "1.0.0",
+  "slug": "ontheline",
+  "android": {
+    "package": "com.alex.ontheline",
+  },
+	"sdkVersion": "16.0.0"
+}
